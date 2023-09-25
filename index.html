@@ -16,41 +16,46 @@
         <link rel="stylesheet" href="css/normalize.css">
         <!-- <link rel="stylesheet" href="css/index.css"> -->
         <link rel="stylesheet" href="/css/message.css">
+		<style>
+			.container {
+				margin: 0 auto;
+				width: 100%;
+			} 
+		</style>
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
+		<div class="container">
+			<!--[if lt IE 7]>
+				<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+			<![endif]-->
 
-        <div id="noCognitoMessage" class="configMessage" style="display: none;">
-            <div class="backdrop"></div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">No Cognito User Pool Configured</h3>
-                </div>
-                <div class="panel-body">
-                    <p>There is no user pool configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 2 of the workshop.</p>
-                </div>
-            </div>
-        </div>
+			<div id="noCognitoMessage" class="configMessage" style="display: none;">
+				<div class="backdrop"></div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">No Cognito User Pool Configured</h3>
+					</div>
+					<div class="panel-body">
+						<p>There is no user pool configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 2 of the workshop.</p>
+					</div>
+				</div>
+			</div>
 
-        <header>
-          <img src="images/logo.png">
-        </header>
+			<header>
+			  <img src="images/logo.png">
+			</header>
 
+			<section class="form-wrap">
+				<form id="signinForm">
+				  <input type="email" id="emailInputSignin" placeholder="Email" required>
+				  <input type="password" id="passwordInputSignin" placeholder="Password" pattern=".*" required>
 
-        <section class="form-wrap">
-            <h1>Sign In</h1>
-            <form id="signinForm">
-              <input type="email" id="emailInputSignin" placeholder="Email" required>
-              <input type="password" id="passwordInputSignin" placeholder="Password" pattern=".*" required>
-
-              <input type="submit" value="Sign in">
-            </form>
-        </section>
-		<p></p>
-		<h5>Don't have a account yet? <a href="register.html">Register</a> Now.</h5>
-
+				  <input type="submit" value="Sign in">
+				</form>
+			</section>
+			<p></p>
+			<h5>Don't have a account yet? <a href="register.html">Register</a> Now.</h5>
+		</div>
         <script src="js/vendor/jquery-3.1.0.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/vendor/aws-cognito-sdk.min.js"></script>
