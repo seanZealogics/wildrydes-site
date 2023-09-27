@@ -110,7 +110,7 @@ var WildRydes = window.WildRydes || {};
 
     $(function onDocReady() {
 
-		var cognitoUser = userPool.getCachedUser();
+		var cognitoUser = userPool.getCurrentUser();
 
         if (cognitoUser) {
 			 console.log("使用者尚未登出");
