@@ -5,6 +5,16 @@ WildRydes.map = WildRydes.map || {};
 
 (function rideScopeWrapper($) {
     var authToken;
+    var poolData = {
+        UserPoolId: _config.cognito.userPoolId,
+        ClientId: _config.cognito.userPoolClientId
+    };
+	const currentUser = new AmazonCognitoIdentity.CognitoUserPool(poolData);	
+	// Add an event listener to the Logout button
+	document.getElementById('logout-button').addEventListener('click', async () => {
+	  // Sign out the user
+	  await currentUser.signOut();	 
+	});
     WildRydes.authToken.then(function setAuthToken(token) {
         if (token) {
             authToken = token;
