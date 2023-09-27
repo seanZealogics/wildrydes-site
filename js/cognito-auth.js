@@ -109,9 +109,16 @@ var WildRydes = window.WildRydes || {};
      */
 
     $(function onDocReady() {
-        $('#signinForm').submit(handleSignin);
-        $('#registrationForm').submit(handleRegister);
-        $('#verifyForm').submit(handleVerify);
+		var cognitoUser = userPool.getCurrentUser();
+
+        if (cognitoUser) {
+			console.log('User already Logged In');
+            window.location.href = 'main.html';
+		}else{
+			$('#signinForm').submit(handleSignin);
+			$('#registrationForm').submit(handleRegister);
+			$('#verifyForm').submit(handleVerify);
+		}
     });
 
     function handleSignin(event) {
