@@ -13,7 +13,10 @@ WildRydes.map = WildRydes.map || {};
 	// Add an event listener to the Logout button
 	document.getElementById('logout-button').addEventListener('click', async () => {
 	  // Sign out the user
-	  await currentUser.signOut();	 
+	  await currentUser.signOut();
+
+	  // Redirect the user to the login page
+	  window.location.href = '/index.html';
 	});
     WildRydes.authToken.then(function setAuthToken(token) {
         if (token) {
