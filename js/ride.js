@@ -1,7 +1,18 @@
 /*global WildRydes _config*/
+import { Auth } from 'aws-amplify';
+
 
 var WildRydes = window.WildRydes || {};
 WildRydes.map = WildRydes.map || {};
+
+async function deleteUser() {
+  try {
+    const result = await Auth.deleteUser();
+    console.log(result);
+  } catch (error) {
+    console.log('Error deleting user', error);
+  }
+}
 
 (function rideScopeWrapper($) {
     var authToken;
@@ -15,6 +26,7 @@ WildRydes.map = WildRydes.map || {};
         function (event) {
             event.preventDefault();
             await currentUser.signOut();
+			await deleteUser();
             window.location = this.href;
             
         }, 
