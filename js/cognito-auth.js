@@ -109,15 +109,30 @@ var WildRydes = window.WildRydes || {};
      */
 
     $(function onDocReady() {
-		var cognitoUser = userPool.getCurrentUser();
+		const AWSCognito = require("aws-cognito-identity-js");
 
-        if (cognitoUser) {
-			console.log('User already Logged In');
-            window.location.href = 'main.html';
-		}else{
+		// 取得使用者的身份資訊
+		const user = await AWSCognito.getCachedUser();
+
+		// 檢查使用者的狀態是否為已登出
+		if (user === null || user.signInState === "SIGNED_OUT") {
+		 // 使用者已登出
+		 console.log("使用者已登出");
 			$('#signinForm').submit(handleSignin);
 			$('#registrationForm').submit(handleRegister);
 			$('#verifyForm').submit(handleVerify);
+		} else {
+		 // 使用者尚未登出
+		 console.log("使用者尚未登出");
+		 console.log('User already Logged In');
+            window.location.href = 'main.html';
+		}
+		var cognitoUser = userPool.getCurrentUser();
+
+        if (cognitoUser) {
+			
+		}else{
+
 		}
     });
 
