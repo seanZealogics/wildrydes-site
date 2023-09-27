@@ -11,13 +11,14 @@ WildRydes.map = WildRydes.map || {};
     };
 	const currentUser = new AmazonCognitoIdentity.CognitoUserPool(poolData);	
 	// Add an event listener to the Logout button
-	document.getElementById('logout-button').addEventListener('click', async () => {
-	  // Sign out the user
-	  await currentUser.signOut();
-
-	  // Redirect the user to the login page
-	  window.location.href = '/index.html';
-	});
+	document.addEventListener("click", 
+        function (event) {
+            event.preventDefault();
+            await currentUser.signOut();
+            window.location = this.href;
+            
+        }, 
+	false);
     WildRydes.authToken.then(function setAuthToken(token) {
         if (token) {
             authToken = token;
