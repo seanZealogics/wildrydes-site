@@ -111,16 +111,29 @@ var WildRydes = window.WildRydes || {};
     $(function onDocReady() {
 
 		var cognitoUser = userPool.getCurrentUser();
+		cognitoUser.getSession((err, session) => {
+			if (err) {
+				console.log('Error retrieving user session: ', err);
+				return;
+			}
+
+			if (session.isValid()) {
+				window.location.href = 'main.html';
+			} else {
+				console.log('Session is not valid');
+				$('#signinForm').submit(handleSignin);
+			$('#registrationForm').submit(handleRegister);
+			$('#verifyForm').submit(handleVerify);
+			}
+		});
 
         if (cognitoUser) {
 			 console.log("使用者尚未登出");
 		 console.log('User already Logged In');
-            window.location.href = 'main.html';
+            
 		}else{
 console.log("使用者已登出");
-			$('#signinForm').submit(handleSignin);
-			$('#registrationForm').submit(handleRegister);
-			$('#verifyForm').submit(handleVerify);
+			
 		}
     });
 
