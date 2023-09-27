@@ -1,5 +1,5 @@
 /*global WildRydes _config AmazonCognitoIdentity AWSCognito*/
-import { Auth } from 'aws-amplify';
+
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
@@ -109,8 +109,9 @@ var WildRydes = window.WildRydes || {};
      */
 
     $(function onDocReady() {
-		final CognitoAuthSession res = await Amplify.Auth.fetchAuthSession();
-		if (res.isSignedIn) {
+		var cognitoUser = userPool.getCurrentUser();
+
+        if (cognitoUser) {
 			console.log('User already Logged In');
             window.location.href = 'main.html';
 		}else{
