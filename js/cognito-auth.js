@@ -112,7 +112,13 @@ var WildRydes = window.WildRydes || {};
         $('#signinForm').submit(handleSignin);
         $('#registrationForm').submit(handleRegister);
         $('#verifyForm').submit(handleVerify);
+		$('#signOut').click(handleSignOutClick);
     });
+	
+		
+	function handleSignOutClick(event) {
+		userPool.getCurrentUser().signOut();
+	}
 
     function handleSignin(event) {
         var email = $('#emailInputSignin').val();
