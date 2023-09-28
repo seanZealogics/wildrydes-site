@@ -113,7 +113,7 @@ var WildRydes = window.WildRydes || {};
 
         if (cognitoUser) {
 			console.log('User already Logged In');
-            
+            window.location.href = 'main.html';
 		}else{
 			$('#signinForm').submit(handleSignin);
 			$('#registrationForm').submit(handleRegister);

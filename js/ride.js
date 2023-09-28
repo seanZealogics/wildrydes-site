@@ -1,36 +1,10 @@
 /*global WildRydes _config*/
-import { Auth } from 'aws-amplify';
-
 
 var WildRydes = window.WildRydes || {};
 WildRydes.map = WildRydes.map || {};
 
-async function deleteUser() {
-  try {
-    const result = await Auth.deleteUser();
-    console.log(result);
-  } catch (error) {
-    console.log('Error deleting user', error);
-  }
-}
-
 (function rideScopeWrapper($) {
     var authToken;
-    var poolData = {
-        UserPoolId: _config.cognito.userPoolId,
-        ClientId: _config.cognito.userPoolClientId
-    };
-	const currentUser = new AmazonCognitoIdentity.CognitoUserPool(poolData);	
-	// Add an event listener to the Logout button
-	document.addEventListener("click", 
-        function (event) {
-            event.preventDefault();
-            await currentUser.signOut();
-			await deleteUser();
-            window.location = this.href;
-            
-        }, 
-	false);
     WildRydes.authToken.then(function setAuthToken(token) {
         if (token) {
             authToken = token;
