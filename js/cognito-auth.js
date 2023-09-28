@@ -109,16 +109,9 @@ var WildRydes = window.WildRydes || {};
      */
 
     $(function onDocReady() {
-		var cognitoUser = userPool.getCurrentUser();
-
-        if (cognitoUser) {
-			console.log('User already Logged In');
-            
-		}else{
-			$('#signinForm').submit(handleSignin);
-			$('#registrationForm').submit(handleRegister);
-			$('#verifyForm').submit(handleVerify);
-		}
+        $('#signinForm').submit(handleSignin);
+        $('#registrationForm').submit(handleRegister);
+        $('#verifyForm').submit(handleVerify);
     });
 
     function handleSignin(event) {
