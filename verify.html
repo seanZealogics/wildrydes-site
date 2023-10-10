@@ -14,8 +14,22 @@
 
         <link rel="stylesheet" href="css/font.css">
         <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/index.css">
+        <!-- <link rel="stylesheet" href="css/index.css"> -->
         <link rel="stylesheet" href="/css/message.css">
+		<style>
+			.container {
+			  display: flex;
+			  justify-content: center;			  
+			  align-items: center;
+			  text-align: center
+			}
+			.text {
+			  white-space: pre-wrap;
+			}
+			body {
+				margin-top: 15vh;
+			}
+		</style>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -33,21 +47,18 @@
                 </div>
             </div>
         </div>
-
-        <header>
-          <img src="images/logo.png">
-        </header>
-
-
-        <section class="form-wrap">
-            <h1>Verify Email</h1>
-            <form id="verifyForm">
-              <input type="email" id="emailInputVerify" placeholder="Email" required>
-              <input type="text" id="codeInputVerify" placeholder="Verification Code" pattern=".*" required>
-
-              <input type="submit" value="Verify">
-            </form>
-        </section>
+		
+		<div class="container">
+			<section class="form-wrap">
+				<img src="images/logo.png">	
+				<h1>Verify Email</h1>
+				<form id="verifyForm">
+				  <input type="email" id="emailInputVerify" placeholder="Email" required>
+				  <p><input type="text" id="codeInputVerify" placeholder="Verification Code" pattern=".*" required></p>
+				  <input type="submit" value="Verify">
+				</form>
+			</section>
+		</div>
 
         <script src="js/vendor/jquery-3.1.0.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
