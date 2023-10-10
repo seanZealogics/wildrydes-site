@@ -14,22 +14,8 @@
 
         <link rel="stylesheet" href="css/font.css">
         <link rel="stylesheet" href="css/normalize.css">
-        <!-- <link rel="stylesheet" href="css/index.css"> -->
+        <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="/css/message.css">
-		<style>
-			.container {
-			  display: flex;
-			  justify-content: center;			  
-			  align-items: center;
-			  text-align: center
-			}
-			.text {
-			  white-space: pre-wrap;
-			}
-			body {
-				margin-top: 15vh;
-			}
-		</style>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -48,20 +34,20 @@
             </div>
         </div>
 
-        <div class="container">
+        <header>
+          <img src="images/logo.png">
+        </header>
 
-			<section class="form-wrap">
-				<img src="images/logo.png">				
-				<form id="registrationForm">
-				  <h1>Register</h1>
-				  <input type="email" id="emailInputRegister" placeholder="Email" pattern=".*" required>
-				  <p><input type="password" id="passwordInputRegister" placeholder="Password" pattern=".*" required></p>
-				  <p><input type="password" id="password2InputRegister" placeholder="Confirm Password" pattern=".*" required></p>
+        <section class="form-wrap">
+            <h1>Register</h1>
+            <form id="registrationForm">
+              <input type="email" id="emailInputRegister" placeholder="Email" pattern=".*" required>
+              <input type="password" id="passwordInputRegister" placeholder="Password" pattern=".*" required>
+              <input type="password" id="password2InputRegister" placeholder="Confirm Password" pattern=".*" required>
 
-				  <input type="submit" value="Send">
-				</form>
-			</section>
-		</div>
+              <input type="submit" value="Let's Ryde">
+            </form>
+        </section>
 
         <script src="js/vendor/jquery-3.1.0.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
