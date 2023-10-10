@@ -112,13 +112,7 @@ var WildRydes = window.WildRydes || {};
         $('#signinForm').submit(handleSignin);
         $('#registrationForm').submit(handleRegister);
         $('#verifyForm').submit(handleVerify);
-		$('#signOut').click(handleSignOutClick);
     });
-	
-		
-	function handleSignOutClick(event) {
-		userPool.getCurrentUser().signOut();
-	}
 
     function handleSignin(event) {
         var email = $('#emailInputSignin').val();
@@ -127,7 +121,7 @@ var WildRydes = window.WildRydes || {};
         signin(email, password,
             function signinSuccess() {
                 console.log('Successfully Logged In');
-                window.location.href = 'main.html';
+                window.location.href = 'ride.html';
             },
             function signinError(err) {
                 alert(err);
@@ -169,7 +163,6 @@ var WildRydes = window.WildRydes || {};
                 console.log('call result: ' + result);
                 console.log('Successfully verified');
                 alert('Verification successful. You will now be redirected to the login page.');
-				signinUrl = '/index.html';
                 window.location.href = signinUrl;
             },
             function verifyError(err) {
