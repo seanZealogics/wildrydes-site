@@ -52,6 +52,32 @@ WildRydes.map = WildRydes.map || {};
             $('#request').text('Set Pickup');
         });
     }
+	
+	   function requestUnicornTest(pickupLocation) {
+        $.ajax({
+            method: 'POST',
+            url: _config.api.invokeUrl + '/ride',
+            headers: {
+                Authorization: authToken
+            },
+            data: JSON.stringify({
+                PickupLocation: {
+                    Latitude: pickupLocation.latitude,
+                    Longitude: pickupLocation.longitude
+                }
+            }),
+            contentType: 'application/json',
+            success: completeRequest,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+            }
+        });
+		displayUpdate(An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+		alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+    }
+
 
     // Register click handler for #request button
     $(function onDocReady() {
@@ -64,6 +90,8 @@ WildRydes.map = WildRydes.map || {};
                 $('.authToken').text(token);
             }
         });
+		var pickupLocation1 = WildRydes.map.selectedPoint;
+		requestUnicornTest(pickupLocation1);
 
         if (!_config.api.invokeUrl) {
             $('#noApiMessage').show();
