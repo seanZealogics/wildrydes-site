@@ -54,7 +54,7 @@ WildRydes.map = WildRydes.map || {};
     }
 	
 	   function requestUnicornTest(pickupLocation) {
-		   alert('1\n');
+		   
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/ride',
