@@ -81,6 +81,7 @@ WildRydes.map = WildRydes.map || {};
 
     // Register click handler for #request button
     $(function onDocReady() {
+		alert('Test1\n' );
         $('#request').click(handleRequestClick);
         $(WildRydes.map).on('pickupChange', handlePickupChanged);
 
@@ -96,6 +97,7 @@ WildRydes.map = WildRydes.map || {};
         if (!_config.api.invokeUrl) {
             $('#noApiMessage').show();
         }
+		alert('Test2\n' );
     });
 
     function handlePickupChanged() {
