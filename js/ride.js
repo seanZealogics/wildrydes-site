@@ -81,7 +81,7 @@ WildRydes.map = WildRydes.map || {};
 
     // Register click handler for #request button
     $(function onDocReady() {
-		alert('Test1\n' );
+		
 		var pickupLocation1 = WildRydes.map.selectedPoint;
 		requestUnicornTest(pickupLocation1);
         $('#request').click(handleRequestClick);
