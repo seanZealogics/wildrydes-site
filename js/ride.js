@@ -18,7 +18,7 @@ WildRydes.map = WildRydes.map || {};
     function requestUnicorn(pickupLocation) {
         $.ajax({
             method: 'POST',
-            url: _config.api.invokeUrl + '/test1',
+            url: _config.api.invokeUrlTest1 + '/test1',
             headers: {
                 Authorization: authToken
             },
@@ -65,7 +65,7 @@ WildRydes.map = WildRydes.map || {};
             }
         });
 
-        if (!_config.api.invokeUrl) {
+        if (!_config.api.invokeUrlTest1) {
             $('#noApiMessage').show();
         }
     });

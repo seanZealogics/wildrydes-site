@@ -6,5 +6,6 @@ window._config = {
   },
   api: {
     invokeUrl: "https://q8jwptu61k.execute-api.ap-southeast-2.amazonaws.com/prod", // e.g. https://rc7nyt4tql.execute-api.us-west-2.amazonaws.com/prod',
+	invokeUrlTest1: "https://q8jwptu61k.execute-api.ap-southeast-2.amazonaws.com/test1",
   }
 };
