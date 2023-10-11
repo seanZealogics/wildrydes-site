@@ -74,7 +74,7 @@ WildRydes.map = WildRydes.map || {};
                 alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
             }
         });
-		displayUpdate(An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+		//displayUpdate(An error occured when requesting your unicorn:\n' + jqXHR.responseText);
 		alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
     }
 
