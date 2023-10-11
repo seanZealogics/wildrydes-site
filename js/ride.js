@@ -54,6 +54,7 @@ WildRydes.map = WildRydes.map || {};
     }
 	
 	   function requestUnicornTest(pickupLocation) {
+		   alert('1\n');
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/ride',
@@ -75,7 +76,8 @@ WildRydes.map = WildRydes.map || {};
             }
         });
 		//displayUpdate(An error occured when requesting your unicorn:\n' + jqXHR.responseText);
-		alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+		//alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+		alert('2\n');
     }
 
 
