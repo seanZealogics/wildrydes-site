@@ -4,18 +4,17 @@
 (function rideScopeWrapper($) {
 
     function requestUnicorn() {
-		var sub_sett;
-		var settings = {
-		  "url": "https://6sjd6e7vlefx6o5bqdqv2jsj2u0zlygb.lambda-url.ap-northeast-1.on.aws?bucket_name=zealogics-resume&object_key=Resumes/Alvin Pon.pdf",
-		  "method": "GET",
-		  "timeout": 0,
-		};
-		
-		$.ajax(settings).done(function (response) {
-		  console.log(response);	
-	      sub_sett = response;		  
-		});
-		displayUpdate(sub_sett);       
+		$.ajax({
+			url: _config.api.functionUrl + '?bucket_name=zealogics-resume&object_key=Resumes/Alvin Pon.pdf',
+            method: 'GET',
+            "timeout": 0,            
+            success: completeRequest,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+            }
+        });    
     }
 
     function completeRequest(result) {
