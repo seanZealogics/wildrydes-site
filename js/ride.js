@@ -19,10 +19,7 @@ WildRydes.map = WildRydes.map || {};
         $.ajax({			
             method: 'GET',
             url: _config.api.functionUrl,
-            headers: {
-                Authorization: authToken
-            },
-            data: JSON.stringify({
+            headers: JSON.stringify({
                 queryStringParameters: {
                     bucket_name: 'zealogics-resume',
                     object_key: 'Resumes/Alvin Pon.pdf'
@@ -57,7 +54,7 @@ WildRydes.map = WildRydes.map || {};
 
     function handleRequestClick(event) {		
 		event.preventDefault();
-		displayUpdate('Request Resume!\n');
+		displayUpdate(_config.api.functionUrl);
         requestUnicorn();
     }
 
