@@ -58,6 +58,7 @@ WildRydes.map = WildRydes.map || {};
     }
 
     function handleRequestClick(event) {
+		alert('Request Resume!\n');
         requestUnicorn();
     }
 
