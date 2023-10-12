@@ -19,7 +19,7 @@
 
     function completeRequest(result) {
         console.log('Response received from API: ', result);
-        displayUpdate(result);
+        displayUpdate(JSON.stringify(result));
     }
 
     // Register click handler for #request button
@@ -30,7 +30,6 @@
 
     function handleRequestClick(event) {		
 		event.preventDefault();
-		displayUpdate(_config.api.functionUrl);
         requestUnicorn();
     }
 
