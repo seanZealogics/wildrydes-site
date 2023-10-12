@@ -1,7 +1,5 @@
 /*global WildRydes _config*/
 
-var WildRydes = window.WildRydes || {};
-WildRydes.map = WildRydes.map || {};
 
 (function rideScopeWrapper($) {
     var authToken;
@@ -43,35 +41,10 @@ WildRydes.map = WildRydes.map || {};
         
     });
 
-    function handlePickupChanged() {
-        var requestButton = $('#request');
-        requestButton.text('Request Unicorn');
-        requestButton.prop('disabled', false);
-    }
-
     function handleRequestClick(event) {		
 		event.preventDefault();
 		displayUpdate(_config.api.functionUrl);
         requestUnicorn();
-    }
-
-    function animateArrival(callback) {
-        var dest = WildRydes.map.selectedPoint;
-        var origin = {};
-
-        if (dest.latitude > WildRydes.map.center.latitude) {
-            origin.latitude = WildRydes.map.extent.minLat;
-        } else {
-            origin.latitude = WildRydes.map.extent.maxLat;
-        }
-
-        if (dest.longitude > WildRydes.map.center.longitude) {
-            origin.longitude = WildRydes.map.extent.minLng;
-        } else {
-            origin.longitude = WildRydes.map.extent.maxLng;
-        }
-
-        WildRydes.map.animate(origin, dest, callback);
     }
 
     function displayUpdate(text) {
