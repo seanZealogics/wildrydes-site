@@ -16,23 +16,20 @@ WildRydes.map = WildRydes.map || {};
         window.location.href = '/index.html';
     });
     function requestUnicorn() {
-        $.ajax({			
-            method: 'GET',
-            url: _config.api.functionUrl,
-            headers: JSON.stringify({
-                queryStringParameters: {
-                    bucket_name: 'zealogics-resume',
-                    object_key: 'Resumes/Alvin Pon.pdf'
-                }
-            }),
-            contentType: 'application/json',
-            success: completeRequest,
-            error: function ajaxError(jqXHR, textStatus, errorThrown) {
-                console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
-                console.error('Response: ', jqXHR.responseText);
-                alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
-            }
-        });
+		var settings = {
+		  "url": "https://6sjd6e7vlefx6o5bqdqv2jsj2u0zlygb.lambda-url.ap-northeast-1.on.aws",
+		  "method": "GET",
+		  "timeout": 0,
+		  "headers": {
+			"bucket_name": "zealogics-resume",
+			"object_key": "Resumes/Alvin Pon.pdf"
+		  },
+		};
+		$.ajax(settings).done(function (response) {
+		  console.log(response);
+		  displayUpdate(response);
+		});
+       
     }
 
     function completeRequest(result) {
