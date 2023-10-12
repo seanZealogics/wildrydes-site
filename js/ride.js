@@ -4,6 +4,7 @@
 (function rideScopeWrapper($) {
 
     function requestUnicorn() {
+		var sub_sett;
 		var settings = {
 		  "url": "https://6sjd6e7vlefx6o5bqdqv2jsj2u0zlygb.lambda-url.ap-northeast-1.on.aws?bucket_name=zealogics-resume&object_key=Resumes/Alvin Pon.pdf",
 		  "method": "GET",
@@ -11,9 +12,10 @@
 		};
 		
 		$.ajax(settings).done(function (response) {
-		  console.log(response);		  
+		  console.log(response);	
+	      sub_sett = response;		  
 		});
-		displayUpdate(response);       
+		displayUpdate(sub_sett);       
     }
 
     function completeRequest(result) {
