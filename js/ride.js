@@ -11,10 +11,9 @@
 		};
 		
 		$.ajax(settings).done(function (response) {
-		  console.log(response);
-		  displayUpdate(response);
+		  console.log(response);		  
 		});
-       
+		displayUpdate(response);       
     }
 
     function completeRequest(result) {
