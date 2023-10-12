@@ -1,20 +1,8 @@
 /*global WildRydes _config*/
-var WildRydes = window.WildRydes || {};
-WildRydes.map = WildRydes.map || {};
 
 
 (function rideScopeWrapper($) {
-    var authToken;
-    WildRydes.authToken.then(function setAuthToken(token) {
-        if (token) {
-            authToken = token;
-        } else {
-            window.location.href = '/index.html';
-        }
-    }).catch(function handleTokenError(error) {
-        alert(error);
-        window.location.href = '/index.html';
-    });
+
     function requestUnicorn() {
 		var settings = {
 		  "url": "https://6sjd6e7vlefx6o5bqdqv2jsj2u0zlygb.lambda-url.ap-northeast-1.on.aws",
