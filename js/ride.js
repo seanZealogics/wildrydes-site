@@ -57,8 +57,9 @@ WildRydes.map = WildRydes.map || {};
         requestButton.prop('disabled', false);
     }
 
-    function handleRequestClick(event) {
-		alert('Request Resume!\n');
+    function handleRequestClick(event) {		
+		event.preventDefault();
+		displayUpdate('Request Resume!\n');
         requestUnicorn();
     }
 
