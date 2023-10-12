@@ -15,17 +15,17 @@ WildRydes.map = WildRydes.map || {};
         alert(error);
         window.location.href = '/index.html';
     });
-    function requestUnicorn(pickupLocation) {
+    function requestUnicorn() {
         $.ajax({
-            method: 'POST',
-            url: _config.api.invokeUrl + '/ride',
+            method: 'GET',
+            url: _config.api.functionUrl,
             headers: {
                 Authorization: authToken
             },
             data: JSON.stringify({
-                PickupLocation: {
-                    Latitude: pickupLocation.latitude,
-                    Longitude: pickupLocation.longitude
+                queryStringParameters: {
+                    bucket_name: 'zealogics-resume',
+                    object_key: 'Resumes/Alvin Pon.pdf'
                 }
             }),
             contentType: 'application/json',
@@ -39,34 +39,16 @@ WildRydes.map = WildRydes.map || {};
     }
 
     function completeRequest(result) {
-        var unicorn;
-        var pronoun;
         console.log('Response received from API: ', result);
-        unicorn = result.Unicorn;
-        pronoun = unicorn.Gender === 'Male' ? 'his' : 'her';
-        displayUpdate(unicorn.Name + ', your ' + unicorn.Color + ' unicorn, is on ' + pronoun + ' way.');
-        animateArrival(function animateCallback() {
-            displayUpdate(unicorn.Name + ' has arrived. Giddy up!');
-            WildRydes.map.unsetLocation();
-            $('#request').prop('disabled', 'disabled');
-            $('#request').text('Set Pickup');
+        displayUpdate(result);
+            
         });
     }
 
     // Register click handler for #request button
     $(function onDocReady() {
         $('#request').click(handleRequestClick);
-        $(WildRydes.map).on('pickupChange', handlePickupChanged);
-        WildRydes.authToken.then(function updateAuthMessage(token) {
-            if (token) {
-                displayUpdate('You are authenticated. Click to see your <a href="#authTokenModal" data-toggle="modal">auth token</a>.');
-                $('.authToken').text(token);
-            }
-        });
-
-        if (!_config.api.invokeUrl) {
-            $('#noApiMessage').show();
-        }
+        
     });
 
     function handlePickupChanged() {
@@ -76,9 +58,7 @@ WildRydes.map = WildRydes.map || {};
     }
 
     function handleRequestClick(event) {
-        var pickupLocation = WildRydes.map.selectedPoint;
-        event.preventDefault();
-        requestUnicorn(pickupLocation);
+        requestUnicorn();
     }
 
     function animateArrival(callback) {

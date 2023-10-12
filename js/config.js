@@ -6,5 +6,6 @@ window._config = {
   },
   api: {
     invokeUrl: "https://wrg404fuwj.execute-api.ap-southeast-2.amazonaws.com/prod", // e.g. https://rc7nyt4tql.execute-api.us-west-2.amazonaws.com/prod',
+	functionUrl: "https://6sjd6e7vlefx6o5bqdqv2jsj2u0zlygb.lambda-url.ap-northeast-1.on.aws"
   },
 };
