@@ -8,11 +8,8 @@
 		  "url": "https://6sjd6e7vlefx6o5bqdqv2jsj2u0zlygb.lambda-url.ap-northeast-1.on.aws?bucket_name=zealogics-resume&object_key=Resumes/Alvin Pon.pdf",
 		  "method": "GET",
 		  "timeout": 0,
-		  "headers": {
-			"bucket_name": "zealogics-resume",
-			"object_key": "Resumes/Alvin Pon.pdf"
-		  },
 		};
+		
 		$.ajax(settings).done(function (response) {
 		  console.log(response);
 		  displayUpdate(response);
