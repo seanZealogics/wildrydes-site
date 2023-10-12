@@ -17,6 +17,7 @@ WildRydes.map = WildRydes.map || {};
     });
     function requestUnicorn() {
         $.ajax({
+			alert('An error occured when requesting your unicorn:\n');
             method: 'GET',
             url: _config.api.functionUrl,
             headers: {
