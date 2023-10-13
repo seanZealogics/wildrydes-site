@@ -3,6 +3,15 @@
 
 (function rideScopeWrapper($) {
 	var currentTime;
+	var loading = document.getElementById('loading');
+	
+	function showLoading() {
+	  loading.style.display = 'block';
+	}
+
+	function hideLoading() {
+	  loading.style.display = 'none';
+	}
 
     function requestUnicorn() {
 		$.ajax({
@@ -16,15 +25,19 @@
 				console.log('Took Time: ', now - currentTime , "ms");
                 console.error('Response: ', jqXHR.responseText);
                 alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+				hideLoading();
             }
         });    
     }
+
 
     function completeRequest(result) {
 		var now = new Date();
 		console.log('Current Time: ', now - currentTime);
         console.log('Response received from API: ', result);
+		hideLoading();
         displayUpdate(JSON.stringify(result));
+
     }
 
     // Register click handler for #request button
@@ -35,6 +48,7 @@
 
     function handleRequestClick(event) {		
 		event.preventDefault();
+		showLoading();
 		currentTime = new Date();
 		console.log('start Time: ', currentTime);
         requestUnicorn();
