@@ -2,6 +2,7 @@
 
 
 (function rideScopeWrapper($) {
+	var currentTime;
 
     function requestUnicorn() {
 		$.ajax({
@@ -18,6 +19,8 @@
     }
 
     function completeRequest(result) {
+		var now = new Date();
+		console.log('Current Time: ', now - currentTime);
         console.log('Response received from API: ', result);
         displayUpdate(JSON.stringify(result));
     }
@@ -30,6 +33,8 @@
 
     function handleRequestClick(event) {		
 		event.preventDefault();
+		currentTime = new Date();
+		console.log('start Time: ', currentTime);
         requestUnicorn();
     }
 
