@@ -11,7 +11,9 @@
             "timeout": 0,            
             success: completeRequest,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
-                console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
+                console.error('Error requesting resume: ', textStatus, ', Details: ', errorThrown);
+				var now = new Date();
+				console.log('Took Time: ', now - currentTime , "ms");
                 console.error('Response: ', jqXHR.responseText);
                 alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
             }
