@@ -42,6 +42,7 @@
 
     // Register click handler for #request button
     $(function onDocReady() {
+		hideLoading();
         $('#request').click(handleRequestClick);
         
     });
