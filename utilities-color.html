@@ -1,0 +1,52 @@
+<html> 
+    <head>
+       <title>Main Page</title>
+	   <style>
+		html, body{
+			height: 100%;
+			margin: 0;
+		}
+		
+		img {
+			width: 100%;
+			height: 100%;
+			object-fix: cover;			
+		}
+		
+		#loading {
+		  position: absolute;
+		  top: 50%;
+		  left: 50%;
+		  transform: translate(-50%, -50%);
+		  display: none;
+		}
+		
+		#loading img {
+		  width: 100px;
+		  height: 100px;
+		}
+	   </style>
+    </head>
+    <body>
+		<!-- <a id="signOut" href="#">Sign out</a>  -->
+		<a id="request" href="#">Request Resume</a>
+		<div class="panel-body">
+            <ol id="updates">
+                <li>Hello Zealogics!</li>
+				<li>
+					<div id="loading">
+						<img src="images/loading.gif" alt="Loading...">
+					</div>
+				</li>
+            </ol>
+        </div>
+		
+	   
+		<script src="js/vendor/jquery-3.1.0.js"></script>
+		<script src="js/vendor/bootstrap.min.js"></script>
+		<script src="js/vendor/aws-cognito-sdk.min.js"></script>
+		<script src="js/vendor/amazon-cognito-identity.min.js"></script>
+		<script src="js/config.js"></script>		
+		<script src="js/ride.js"></script>
+    </body>
+</html>
