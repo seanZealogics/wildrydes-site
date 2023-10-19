@@ -18,20 +18,16 @@
 
 const xhr = new XMLHttpRequest();
 
-xhr.open("GET", "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema");
-xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-xhr.addEventListener("load", function() {
-  if (xhr.status === 200) {
-    // 處理回應
-    const schema = xhr.responseText;
-    console.log(schema);
-  } else {
-    // 處理錯誤
-    console.error(xhr.statusText);
-  }
-});
-xhr.send();
+var settings = {
+  "url": "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema",
+  "method": "GET",
+  "timeout": 0,
+  "dataType": "text",
+};
 
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
 
     }
 
