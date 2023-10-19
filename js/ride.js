@@ -14,18 +14,19 @@
 	}
 
     function requestUnicorn() {
-
-var xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema', true);
-xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-        var response = JSON.parse(xhr.responseText);
-        console.log(response);
+		 // 發出 HTTP GET 請求
+  $.ajax({
+    url: "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema",
+    method: "GET",
+    headers: {
+      "Host": "w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com",
+      "User-Agent": "curl/8.0.1",
+      "Accept": "*"
     }
-};
-xhr.send();
-
-
+  }).done(function(response) {
+    // 處理回應
+    console.log(response);
+  });
 
     }
 
