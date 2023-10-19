@@ -15,7 +15,7 @@
 
     function requestUnicorn() {
 		$.ajax({
-			url: _config.api.functionUrl + '?bucket_name=zealogics-resume&object_key=Resumes/Alvin Pon.pdf',
+			url: _config.api.functionUrl,
             method: 'GET',
             "timeout": 0,            
             success: completeRequest,
