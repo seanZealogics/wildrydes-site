@@ -15,19 +15,17 @@
 
     function requestUnicorn() {
 
-
-const xhr = new XMLHttpRequest();
-
-var settings = {
-  "url": "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema",
-  "method": "GET",
-  "timeout": 0,
-  "dataType": "text",
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'http://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema', true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        var response = JSON.parse(xhr.responseText);
+        console.log(response);
+    }
 };
+xhr.send();
 
-$.ajax(settings).done(function (response) {
-  console.log(response);
-});
+
 
     }
 
