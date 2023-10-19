@@ -16,7 +16,7 @@
     function requestUnicorn() {
 
 var xhr = new XMLHttpRequest();
-xhr.open('GET', 'http://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema', true);
+xhr.open('GET', 'https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema', true);
 xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
         var response = JSON.parse(xhr.responseText);
