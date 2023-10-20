@@ -14,17 +14,24 @@
 	}
 
     function requestUnicorn() {
+		
+		
+		$.ajax({
 
-		var settings = {
-		  "url": "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema",
-		  "method": "GET",
-		  "timeout": 0,
-		};
-
-		$.ajax(settings).done(function (response) {
-		  console.log(response);
-		});
-
+			url: _config.api.functionUrl,
+            method: 'GET',
+            "timeout": 0,            
+            success: completeRequest,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error requesting resume: ', textStatus, ', Details: ', errorThrown);
+				var now = new Date();
+				console.log('Took Time: ', now - currentTime , "ms");
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+				hideLoading();
+            }
+        });    
+		
     }
 
 
