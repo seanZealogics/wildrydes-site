@@ -33,40 +33,19 @@
                 alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
 				hideLoading();
             }
-        });
+        });    
+		
     }
+
 
     function completeRequest(result) {
 		var now = new Date();
 		console.log('Escaped time ', now - currentTime);
-		console.log('Response received from API: ', result);
+        console.log('Response received from API: ', result);
 		hideLoading();
-		var jsonData = JSON.stringify(result);
-		//jsonData = JSON.stringify(JSON.parse(jsonData));
-		jsonData = jsonData.replace(/\\n/g, '').replace(/\\"/g, "\"").replace(/"{/g, "{").replace(/}"/g, "}");
-		displayUpdate(jsonData);
+        displayUpdate(JSON.stringify(result));
 
-		const jsonObject = jQuery.parseJSON(jsonData);
-		const properties = jsonObject.schema.properties;
-
-		for (const attribute in properties) {
-
-		  if (attribute === 'experiences' || attribute === 'educations') {
-			  displayUpdate(attribute);
-
-			if (!Array.isArray(properties[attribute].items.properties)) {
-
-			  properties[attribute].items.properties = Object.keys(properties[attribute].items.properties);
-			}
-
-
-			for (const item of properties[attribute].items.properties) {
-
-			  displayUpdate(item);
-			}
-		  }
-		}
-	}
+    }
 
     // Register click handler for #request button
     $(function onDocReady() {
