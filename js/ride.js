@@ -18,7 +18,7 @@
 		var invocation = new XMLHttpRequest();
 		var url = "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema";
 
-		function callOtherDomain() {
+		
 		  if (invocation) {
 			invocation.open("GET", url, true);
 			invocation.addEventListener("readystatechange", function() {
@@ -27,15 +27,17 @@
 				  // Success!
 				  var response = invocation.response;
 				  // Do something with the response data.
+				  console.log("response: " + response);
 				} else {
 				  // Error!
 				  // Handle the error.
+				  console.log("Error: "+ invocation.status);
 				}
 			  }
 			});
 			invocation.send();
 		  }
-		}
+		
 
 
   
