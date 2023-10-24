@@ -14,26 +14,31 @@
 	}
 
     function requestUnicorn() {
-		const express = require('express');
-		const cors = require('cors');
-
-		const app = express();
 		
-		$.ajax({
+		var invocation = new XMLHttpRequest();
+		var url = "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema";
 
-			url: _config.api.functionUrl,
-            method: 'GET',
-            "timeout": 0,            
-            success: completeRequest,
-            error: function ajaxError(jqXHR, textStatus, errorThrown) {
-                console.error('Error requesting resume: ', textStatus, ', Details: ', errorThrown);
-				var now = new Date();
-				console.log('Took Time: ', now - currentTime , "ms");
-                console.error('Response: ', jqXHR.responseText);
-                alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
-				hideLoading();
-            }
-        });    
+		function callOtherDomain() {
+		  if (invocation) {
+			invocation.open("GET", url, true);
+			invocation.addEventListener("readystatechange", function() {
+			  if (invocation.readyState === XMLHttpRequest.DONE) {
+				if (invocation.status === 200) {
+				  // Success!
+				  var response = invocation.response;
+				  // Do something with the response data.
+				} else {
+				  // Error!
+				  // Handle the error.
+				}
+			  }
+			});
+			invocation.send();
+		  }
+		}
+
+
+  
 		
     }
 
