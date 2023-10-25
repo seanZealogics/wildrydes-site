@@ -26,7 +26,7 @@
 	  }
 	});
 
-	xhr.open("GET", "https://jdmfpdxvzh.execute-api.ap-northeast-1.amazonaws.com/test");
+	xhr.open("GET", "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema");
 
 	xhr.send();
   
