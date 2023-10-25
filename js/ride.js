@@ -15,7 +15,7 @@
 
     function requestUnicorn() {
 		
-	const request = new Request("https://w2byy0wk17.execute-api.amazonaws.com/resume/schema", {
+	const request = new Request("https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema", {
 	  method: "GET",
 	  headers: {
 		"X-Requested-With": "XMLHttpRequest",
