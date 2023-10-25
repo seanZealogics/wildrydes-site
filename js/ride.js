@@ -24,7 +24,7 @@
 		  });
 
 		  // Process the response
-		  console.log(response);
+		  console.log(JSON.stringify(response));
 		}
 
 		fetchData();
