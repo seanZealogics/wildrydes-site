@@ -15,19 +15,20 @@
 
     function requestUnicorn() {
 		
-	// WARNING: For GET requests, body is set to null by browsers.
-
-	var xhr = new XMLHttpRequest();
-	xhr.withCredentials = true;
-
-	xhr.addEventListener("readystatechange", function() {
-	  if(this.readyState === 4) {
-		console.log(this.responseText);
-	  }
+	const request = new Request("https://w2byy0wk17.execute-api.amazonaws.com/resume/schema", {
+	  method: "GET",
+	  headers: {
+		"X-Requested-With": "XMLHttpRequest",
+		"Origin": "https://main.d1v8e4rxml57vm.amplifyapp.com",
+		"withCredentials": true,
+	  },
 	});
 
-	xhr.open("GET", "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema");
+	// 轉換成XMLHttpRequest物件
+	const xhr = new XMLHttpRequest();
+	xhr.open("GET", request.url, true);
 
+	// 發送請求
 	xhr.send();
   
 	}
