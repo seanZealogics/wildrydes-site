@@ -17,21 +17,17 @@
 		
 		const url = "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema";
 
-		fetch(url, {
-		  method: "GET",
-		  mode: "same-origin"
-		}).then((response) => {
-		  // Check the response status code
-		  if (response.status === 200) {
-			// Success!
-			const data = await response.json();
-			console.log(data);
-		  } else {
-			// Error!
-			console.log(response.statusText);
-		  }
-		});
-		
+		async function fetchData() {
+		  const response = await fetch(url, {
+			method: "GET",
+			mode: "no-cors"
+		  });
+
+		  // Process the response
+		  console.log(response);
+		}
+
+		fetchData();
   
 	}
 
