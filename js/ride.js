@@ -15,19 +15,21 @@
 
     function requestUnicorn() {
 		
-		const url = "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema";
+	const url = "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema";
 
-		async function fetchData() {
-		  const response = await fetch(url, {
-			method: "GET",
-			mode: "no-cors"
-		  });
+	const fetchData = async () => {
+	  const response = await fetch(url, {
+		method: "GET",
+		mode: "cors",
+	  });
 
-		  // Process the response
-		  console.log(JSON.stringify(response));
-		}
+	  const data = await response.json();
+	  console.log(data);
+	  completeRequest(data);
+	};
 
-		fetchData();
+	fetchData();
+	 
   
 	}
 
