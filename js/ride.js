@@ -15,21 +15,23 @@
 
     function requestUnicorn() {
 		
-	const request = new Request("https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema", {
-	  method: "GET",
-	  headers: {
-		"X-Requested-With": "XMLHttpRequest",
-		"Origin": "https://main.d1v8e4rxml57vm.amplifyapp.com",
-		"withCredentials": true,
-	  },
-	});
+		const url = "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema";
 
-	// 轉換成XMLHttpRequest物件
-	const xhr = new XMLHttpRequest();
-	xhr.open("GET", request.url, true);
-
-	// 發送請求
-	xhr.send();
+		fetch(url, {
+		  method: "GET",
+		  mode: "same-origin"
+		}).then((response) => {
+		  // Check the response status code
+		  if (response.status === 200) {
+			// Success!
+			const data = await response.json();
+			console.log(data);
+		  } else {
+			// Error!
+			console.log(response.statusText);
+		  }
+		});
+		
   
 	}
 
