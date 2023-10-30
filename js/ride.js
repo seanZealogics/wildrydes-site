@@ -41,6 +41,7 @@
 		var dropDownMainBtn = document.querySelector("#mainAttrBtn");
 		var dropdownSubMenu = document.querySelector(".dropdown2 .dropdown-menu");
 		var dropDownSubBtn = document.querySelector("#subAttrBtn");
+		var searchInput = document.querySelector("#searchInput");
 		var selectedIndex;
 		var selectedNextIndex;
 		
@@ -79,7 +80,7 @@
 					dropdownSubMenu.removeChild(dropdownSubMenu.firstChild);
 				}
 				
-				if(selectedIndex == selectedNextIndex)
+				if(selectedIndex == selectedNextIndex || typeof selectedNextIndex === 'undefined')
 				{
 					selectedNextIndex = arrSubAttr.length
 				}
@@ -99,8 +100,10 @@
 					aSubTag.addEventListener("click", function(event) {
 						event.preventDefault(); // 防止默認的點擊事件行為
 						dropDownSubBtn.textContent = this.textContent;
+						searchInput.setAttribute("placeholder", this.textContent + "=");
 						console.log(this.textContent); // 印出 menu item 的內容
 					});
+					
 					// 將 <a> 元素加入到 <li> 內
 					li.appendChild(aSubTag);
 
