@@ -38,61 +38,111 @@
 
 		// 獲取 dropdown menu
 		var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
-
+		var dropDownMainBtn = document.querySelector("#mainAttrBtn");
+		var dropdownSubMenu = document.querySelector(".dropdown2 .dropdown-menu");
+		var dropDownSubBtn = document.querySelector("#subAttrBtn");
+		var selectedIndex;
+		var selectedNextIndex;
+		
 		// 對每個新的 menuitem
-		for (const [key, value] of mapMainAttr) 
-		{
+		for (var [key, value] of mapMainAttr) 
+		{			
 			// 建立一個新的 <li> 元素
-			var li = document.createElement("li");
+			let li = document.createElement("li");
 			li.setAttribute("role", "presentation");
 
 			// 建立一個新的 <a> 元素
-			var a = document.createElement("a");
-			a.setAttribute("role", "menuitem");
-			a.setAttribute("tabindex", value);
-			a.setAttribute("href", "#");
-			a.textContent = key;
+			var aMainTag = document.createElement("a");
+			aMainTag.setAttribute("role", "menuitem");
+			aMainTag.setAttribute("tabindex", value);
+			aMainTag.setAttribute("href", "#");
+			aMainTag.textContent = key;
+			
+			aMainTag.addEventListener("click", function(event) {
+				event.preventDefault(); // 防止默認的點擊事件行為
+				dropDownMainBtn.textContent = this.textContent;
+				selectedIndex = this.getAttribute("tabindex");
+				
+				
+				let found = false;
+				for (var [key, value] of mapMainAttr) {
+					if (found) {
+						selectedNextIndex = value;
+						break;
+					}
+					if (value == selectedIndex) {
+						found = true;
+					}
+				}
+				
+				while (dropdownSubMenu.firstChild) {
+					dropdownSubMenu.removeChild(dropdownSubMenu.firstChild);
+				}
+				
+				if(selectedIndex == selectedNextIndex)
+				{
+					selectedNextIndex = arrSubAttr.length
+				}
+				
+				console.log("selectedIndex "+ selectedIndex + " selectedNextIndex "+selectedNextIndex);
+				for (var index = selectedIndex; index < selectedNextIndex; index++) {
+							// 建立一個新的 <li> 元素
+					let li = document.createElement("li");
+					li.setAttribute("role", "presentation");
+
+					// 建立一個新的 <a> 元素
+					let aSubTag = document.createElement("a");
+					aSubTag.setAttribute("role", "menuitem");
+					aSubTag.setAttribute("tabindex", index);
+					aSubTag.setAttribute("href", "#");
+					aSubTag.textContent = arrSubAttr[index];
+					aSubTag.addEventListener("click", function(event) {
+						event.preventDefault(); // 防止默認的點擊事件行為
+						dropDownSubBtn.textContent = this.textContent;
+						console.log(this.textContent); // 印出 menu item 的內容
+					});
+					// 將 <a> 元素加入到 <li> 內
+					li.appendChild(aSubTag);
+
+					// 最後，將 <li> 元素加入到 dropdown menu 中
+					dropdownSubMenu.appendChild(li);
+
+					console.log(arrSubAttr[index]);
+					dropDownSubBtn.textContent = arrSubAttr[index];
+				}
+				
+				
+				
+				
+				
+				//console.log(); // 印出 menu item 的內容
+			});
+			
 			// 將 <a> 元素加入到 <li> 內
-			li.appendChild(a);
+			li.appendChild(aMainTag);
 
 			// 最後，將 <li> 元素加入到 dropdown menu 中
 			dropdownMainMenu.appendChild(li);
+			
 		}
+		//dropDownMainBtn.textContent = key;
 		
 		
-// 獲取被選擇項目的索引
-var selectedIndex = dropdownMainMenu.selectedIndex;
+		// 獲取被選擇項目的索引
+		
 
-// 獲取被選擇項目的 tabindex 值
-var tabindex = dropdownMainMenu.options[selectedIndex].getAttribute("tabindex");
+		// 獲取被選擇項目的 tabindex 值
+		//var tabindex = dropdownMainMenu.options[selectedIndex].getAttribute("tabindex");
 
-console.log(tabindex);
+		//console.log(selectedIndex);
 	
 
 
-		var dropdownMainMenu = document.querySelector(".dropdown2 mx-2 .dropdown-menu");
 
-		// 對每個新的 menuitem
-		for (const [key, value] of mapMainAttr) 
-		{
-			// 建立一個新的 <li> 元素
-			var li = document.createElement("li");
-			li.setAttribute("role", "presentation");
-
-			// 建立一個新的 <a> 元素
-			var a = document.createElement("a");
-			a.setAttribute("role", "menuitem");
-			a.setAttribute("tabindex", value);
-			a.setAttribute("href", "#");
-			a.textContent = key;
-			// 將 <a> 元素加入到 <li> 內
-			li.appendChild(a);
-
-			// 最後，將 <li> 元素加入到 dropdown menu 中
-			dropdownMenu.appendChild(li);
-		}
 		
-	
+
+		
+			//dropDownSubBtn.textContent = arrSubAttr[index];
 
 	}
 
@@ -123,6 +173,8 @@ console.log(tabindex);
 			}
 		  }
 		}
+		window.mapMainAttr = mapMainAttr;
+		window.arrSubAttr = arrSubAttr;
 		refreshMainAttrBtn();
 	}
 
@@ -130,13 +182,28 @@ console.log(tabindex);
     $(function onDocReady() {
 		
         $('#request').click(handleRequestClick);
+
 		requestUnicorn();
 				
         
     });
+	
+	function handleMainAttrMenuClick(event) {		
+		event.preventDefault();
+		console.log("handleMainAttrMenuClick!");
+				
+				
+    }
+	
+	function handleSubAttrMenuClick(event) {		
+		event.preventDefault();
+		console.log("handleSubAttrMenuClick!");
+				
+				
+    }	
 
     function handleRequestClick(event) {		
-		//event.preventDefault();
+		event.preventDefault();
 		
 		currentTime = new Date();
         requestUnicorn();
