@@ -1,7 +1,12 @@
 /*global WildRydes _config*/
 
-
 (function rideScopeWrapper($) {
+	
+	var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
+	var dropDownMainBtn = document.querySelector("#mainAttrBtn");
+	var dropdownSubMenu = document.querySelector(".dropdown2 .dropdown-menu");
+	var dropDownSubBtn = document.querySelector("#subAttrBtn");
+	var searchInput = document.querySelector("#searchInput");
 	var mapMainAttr = new Map(); 
 	var arrSubAttr = [];
 	
@@ -16,12 +21,10 @@
 	  loading.style.display = 'none';
 	}
 
-    function requestUnicorn() {
-		
-		const url = "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema";
+    function fetchAttr() {
 
 		const fetchData = async () => {
-		  const response = await fetch(url, {
+		  const response = await fetch(_config.api.fetchUrl, {
 			method: "GET",
 			mode: "cors",
 		  });
@@ -34,14 +37,10 @@
 		fetchData();
 	}
 	
-	function refreshMainAttrBtn() {
+	function refreshAttrBtn() {
 
 		// 獲取 dropdown menu
-		var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
-		var dropDownMainBtn = document.querySelector("#mainAttrBtn");
-		var dropdownSubMenu = document.querySelector(".dropdown2 .dropdown-menu");
-		var dropDownSubBtn = document.querySelector("#subAttrBtn");
-		var searchInput = document.querySelector("#searchInput");
+
 		var selectedIndex;
 		var selectedNextIndex;
 		
@@ -178,18 +177,60 @@
 		}
 		window.mapMainAttr = mapMainAttr;
 		window.arrSubAttr = arrSubAttr;
-		refreshMainAttrBtn();
+		refreshAttrBtn();
 	}
 
     // Register click handler for #request button
     $(function onDocReady() {
 		
-        $('#request').click(handleRequestClick);
+		$('#searchBtn').click(handleSearchClick);
 
-		requestUnicorn();
+		fetchAttr();
 				
         
     });
+	
+	function handleSearchClick(event) {		
+		event.preventDefault();
+		console.log(dropDownMainBtn.textContent);
+		console.log(dropDownSubBtn.textContent);
+		console.log(searchInput.value);
+				
+		// 定義您的變數
+		let mainAttr = dropDownMainBtn.textContent;
+		let subAttr = dropDownSubBtn.textContent;
+		let searchStr = searchInput.value;
+
+		// 動態創建JSON對象
+		var jsonData = {
+		  "united": false,
+		  "filter_condition": {}
+		};
+
+		jsonData.filter_condition[mainAttr] = [{}];
+		jsonData.filter_condition[mainAttr][0][subAttr] = searchStr;
+
+		// 將JSON對象轉換為字符串
+		var jsonData = JSON.stringify(jsonData);
+		console.log(jsonData);
+		
+		
+		const queryStr = async () => {
+		  const response = await fetch( _config.api.queryUrl, {
+			method: "GET",
+			mode: "no-cors",
+			redirect: "follow"
+		  });
+
+		  const data = await response.json();
+		  console.log(data);
+		  completeRequest(data);
+		};
+
+		queryStr();
+
+		
+    }
 	
 	function handleMainAttrMenuClick(event) {		
 		event.preventDefault();
@@ -201,15 +242,6 @@
 	function handleSubAttrMenuClick(event) {		
 		event.preventDefault();
 		console.log("handleSubAttrMenuClick!");
-				
-				
-    }	
-
-    function handleRequestClick(event) {		
-		event.preventDefault();
-		
-		currentTime = new Date();
-        requestUnicorn();
 				
 				
     }
