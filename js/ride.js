@@ -114,7 +114,7 @@
     function fetchAttr() {
 
 		const fetchData = async () => {
-		  const response = await fetch(_config.api.fetchUrl, {
+		  const response = await fetch( _config.api.fetchUrl, {
 			method: "GET",
 			mode: "cors",
 		  });
@@ -203,10 +203,6 @@
 					dropDownSubBtn.textContent = arrSubAttr[index];
 				}
 				
-				
-				
-				
-				
 				//console.log(); // 印出 menu item 的內容
 			});
 			
@@ -228,13 +224,7 @@
 
 		//console.log(selectedIndex);
 	
-
-
-
-		
-
-		
-			//dropDownSubBtn.textContent = arrSubAttr[index];
+		//dropDownSubBtn.textContent = arrSubAttr[index];
 
 	}
 
@@ -276,17 +266,45 @@
 		$('#searchBtn').click(handleSearchClick);
 
 		fetchAttr();
-				
+		
         
     });
 	
+	async function fetchData() {
+		try {
+		  
+		  const data = {
+			united: false,
+			filter_condition: {
+			  educations: [{ institution: 'Taiwan' }]
+			}
+		  };
+	  
+		  const response = await fetch( _config.api.queryUrl, {
+			method: 'POST',
+			mode: 'cors',
+			body: JSON.stringify(data)
+		  });
+	  
+		  if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		  }
+	  
+		  const jsonResponse = await response.json();
+		  console.log("Type of jsonResponse:", typeof jsonResponse);
+		  console.log(jsonResponse.items);
+		  extractKeysAndValues(jsonResponse.items);
+		} catch (error) {
+		  console.error("Error:", error);
+		}
+	}
+	
 	function handleSearchClick(event) {		
-		//event.preventDefault();
+		event.preventDefault();
 		console.log(dropDownMainBtn.textContent);
 		console.log(dropDownSubBtn.textContent);
 		console.log(searchInput.value);
-				
-		// 定義您的變數
+
 		let mainAttr = dropDownMainBtn.textContent;
 		let subAttr = dropDownSubBtn.textContent;
 		let searchStr = searchInput.value;
@@ -300,44 +318,8 @@
 				'educations': [{'institution': 'Taiwan'}]
 			}
 		};
-console.log("URL: "+_config.api.queryUrl);
-		fetch(_config.api.queryUrl, {
-			method: 'POST', 
-			mode: 'no-cors',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data) 
-		}).then(response => {
-			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`);
-			}
-			return response.json();
-		})
-		.then(data => console.log(data))
-		.catch((error) => {
-		  console.error("Error:", error);
-		});
 
-		
-/* 
-		let raw = "{\r\n  \"united\": false,\r\n  \"filter_condition\": {\r\n    \"educations\": [\r\n      {\r\n        \"institution\": \"Taiwan\"\r\n      }\r\n    ]\r\n  }\r\n}";
-
-		let requestOptions = {
-		  method: 'POST',
-		  mode: "no-cors",
-		  headers: myHeaders,
-		  body: raw,
-		  redirect: 'follow'
-		};
-
-		fetch("https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume", requestOptions)
-		  .then(response => console.log("response" + JSON.stringify(response)))
-		  .catch(error => console.log('error', error)); */
-/* 
-		let tableData = extractKeysAndValues(data);
-console.log("tableData!" + tableData);
-		$('#reauleTable').bootstrapTable('load', tableData); */
+		fetchData();
 		
     }
 	
