@@ -1,6 +1,96 @@
 /*global WildRydes _config*/
 
 (function rideScopeWrapper($) {
+	const data = {
+	  "statusCode": 200,
+	  "headers": {
+		"Access-Control-Allow-Headers": "Content-Type",
+		"Access-Control-Allow-Origin": "*",
+		"Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+	  },
+	  "tableName": "resume",
+	  "items": [
+		{
+		  "publications": [],
+		  "certificates": [],
+		  "profile": {
+			"name": "Yu-Che Tsai",
+			"location": "3F., No.20 , Ln. 35, Zhuguang Rd., North Dist., City 300, Taiwan (R.O.C.)",
+			"phone": " 886 -988-696-414",
+			"email": "josephtsai331@gmail.com",
+			"personal_urls": []
+		  },
+		  "computer_skills": [
+			"Linux Kernel Driver",
+			"Socket programming",
+			"Multithreading",
+			"VMware certification",
+			"TCP/IP",
+			"Routing",
+			"iSCSI protocol",
+			"Embedded System",
+			"C/C ",
+			"Python",
+			"Storage stack",
+			"Rust"
+		  ],
+		  "patents": [],
+		  "educations": [
+			{
+			  "date": "2009 - 2011",
+			  "degree": "Master degree [Computer Science]",
+			  "institution": "National Chung Hsing University, Taichung",
+			  "detail": ""
+			},
+			{
+			  "date": "2005 - 2009",
+			  "degree": "Bachelor degree [Computer Science]",
+			  "institution": "National Chung Hsing University, Taichung",
+			  "detail": ""
+			}
+		  ],
+		  "id": "54b20e3d-bf82-4e52-b379-efc6ba2f33b0",
+		  "experiences": [
+			{
+			  "date": "2021/12 - Now",
+			  "company": "Western Digital Corporation",
+			  "position": "Staff Engineer (R&D)",
+			  "responsibility": "Refactor legacy code and add unittest cases, Rust utilities design, implementation and maintenance, Software packages maintenance, Kernel driver maintenance, Debug/Resolve customer reported issues",
+			  "accomplishment": "Refactor legacy C/C  code with unittest cases, Reimplement legacy C utilities in Rust, Port Gplv3 release utility from old product to new one, Work with team for My Cloud Home/Duo and other NAS products"
+			},
+			{
+			  "date": "2016/01 - 2021/11",
+			  "company": "Latticework Inc., Taiwan branch",
+			  "position": "Staff Engineer (R&D)",
+			  "responsibility": "Storage stack design and implementation, Management flow design and implementation, Linux software RAID / LVM / Btrfs kernel driver maintenance, Relay server design and implementation, C /Python RPC library design and implementation",
+			  "accomplishment": "Storage architecture design and module implementation, Python unittest for storage module and gitlab CI/CD integration, C /Python RPC library design with gtest unittest and gitlab CI/CD integration, Relay service flow design and related modules implementation with unittest and gitlab CI/CD integration, Work with team for Amber/AmberX NAS product"
+			},
+			{
+			  "date": "2011/09 - 2015/12",
+			  "company": "Promise technology",
+			  "position": "Senior Engineer (R&D)",
+			  "responsibility": "iSCSI target, iSNS client and subsystem management flow implementation and maintenance, iSCSI performance tuning, Ethernet device bring up, Multiple Ethernet devices routing handle",
+			  "accomplishment": "Hack Linux kernel TCP flow and Ethernet driver to decrease CPU utilization and increase iSCSI data out performance, Ex50 product integration for 2015 NAB show and 2015 IDF show, Fair core assignment for different threads, Survey Ethernet chips for new product, Work with TW team for VessRAID R2000 series product, Work with US & TW team for VTrak Ex30, VTrak A-Class (Ex30 with scale-out design), VTrak Ex50"
+			}
+		  ]
+		}
+	  ]
+	};
+
+
+	function extractKeysAndValues(obj, path = '') {
+		let result = [];
+		for (let key in obj) {
+			if (typeof obj[key] === 'object' && obj[key] !== null) {
+				result = result.concat(extractKeysAndValues(obj[key], `${path}${key}.`));
+			} else {
+				result.push([`${path}${key}`, obj[key]]);
+				console.log(`${path}${key}: ${obj[key]}`);
+			}
+		}
+		return result;
+	}
+
 	
 	var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
 	var dropDownMainBtn = document.querySelector("#mainAttrBtn");
@@ -191,7 +281,7 @@
     });
 	
 	function handleSearchClick(event) {		
-		event.preventDefault();
+		//event.preventDefault();
 		console.log(dropDownMainBtn.textContent);
 		console.log(dropDownSubBtn.textContent);
 		console.log(searchInput.value);
@@ -201,34 +291,53 @@
 		let subAttr = dropDownSubBtn.textContent;
 		let searchStr = searchInput.value;
 
-		// 動態創建JSON對象
-		var jsonData = {
-		  "united": false,
-		  "filter_condition": {}
+		let myHeaders = new Headers();
+		myHeaders.append("Content-Type", "text/plain");
+		
+		let data = {
+			'united': false,
+			'filter_condition': {
+				'educations': [{'institution': 'Taiwan'}]
+			}
+		};
+console.log("URL: "+_config.api.queryUrl);
+		fetch(_config.api.queryUrl, {
+			method: 'POST', 
+			mode: 'no-cors',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data) 
+		}).then(response => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+			return response.json();
+		})
+		.then(data => console.log(data))
+		.catch((error) => {
+		  console.error("Error:", error);
+		});
+
+		
+/* 
+		let raw = "{\r\n  \"united\": false,\r\n  \"filter_condition\": {\r\n    \"educations\": [\r\n      {\r\n        \"institution\": \"Taiwan\"\r\n      }\r\n    ]\r\n  }\r\n}";
+
+		let requestOptions = {
+		  method: 'POST',
+		  mode: "no-cors",
+		  headers: myHeaders,
+		  body: raw,
+		  redirect: 'follow'
 		};
 
-		jsonData.filter_condition[mainAttr] = [{}];
-		jsonData.filter_condition[mainAttr][0][subAttr] = searchStr;
-
-		// 將JSON對象轉換為字符串
-		var jsonData = JSON.stringify(jsonData);
-		console.log(jsonData);
-		
-		
-		const queryStr = async () => {
-		  const response = await fetch( _config.api.queryUrl, {
-			method: "GET",
-			mode: "no-cors",
-			redirect: "follow"
-		  });
-
-		  const data = await response.json();
-		  console.log(data);
-		  completeRequest(data);
-		};
-
-		queryStr();
-
+		fetch("https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume", requestOptions)
+		  .then(response => console.log("response" + JSON.stringify(response)))
+		  .catch(error => console.log('error', error)); */
+/* 
+		let tableData = extractKeysAndValues(data);
+console.log("tableData!" + tableData);
+		$('#reauleTable').bootstrapTable('load', tableData); */
 		
     }
 	
