@@ -83,7 +83,7 @@
 
 
 				result.push([match, `${key}`, obj[key]]);
-				console.log(`match : ${key}: ${obj[key]}`);
+				console.log(match+ ` : ${key}: ${obj[key]}`);
 				console.log(match);
 			}
 		}
@@ -271,7 +271,7 @@
 	
 	async function fetchData() {
 		try {
-			$('#queryResultTable').DataTable.clear;
+
 			const data = {
 				united: false,
 				filter_condition: {
@@ -294,7 +294,7 @@
 			console.log(jsonResponse.items);
 		  
 			let queryDataStr = extractKeysAndValues(jsonResponse.items);//(dummyData);//(jsonResponse.items);
-		  
+			
 			$('#queryResultTable').DataTable( {
 				ordering: false,
 				data: queryDataStr,
@@ -318,16 +318,6 @@
 		let mainAttr = dropDownMainBtn.textContent;
 		let subAttr = dropDownSubBtn.textContent;
 		let searchStr = searchInput.value;
-
-		let myHeaders = new Headers();
-		myHeaders.append("Content-Type", "text/plain");
-		
-		let data = {
-			'united': false,
-			'filter_condition': {
-				'educations': [{'institution': 'Taiwan'}]
-			}
-		};
 
 		fetchData();
 		
