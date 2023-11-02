@@ -1,14 +1,7 @@
 /*global WildRydes _config*/
 
 (function rideScopeWrapper($) {
-	const data = {
-	  "statusCode": 200,
-	  "headers": {
-		"Access-Control-Allow-Headers": "Content-Type",
-		"Access-Control-Allow-Origin": "*",
-		"Access-Control-Allow-Methods": "OPTIONS,POST,GET"
-	  },
-	  "tableName": "resume",
+	const dummyData = {
 	  "items": [
 		{
 		  "publications": [],
@@ -84,8 +77,14 @@
 			if (typeof obj[key] === 'object' && obj[key] !== null) {
 				result = result.concat(extractKeysAndValues(obj[key], `${path}${key}.`));
 			} else {
-				result.push([`${path}${key}`, obj[key]]);
-				console.log(`${path}${key}: ${obj[key]}`);
+				/* let regex = /\b[a-zA-Z]+\b/g;
+				let matches = `${path}`.match(regex); */
+				const match = `${path}`.match(/\b[a-zA-Z_-]+\b/g);
+
+
+				result.push([match, `${key}`, obj[key]]);
+				console.log(`match : ${key}: ${obj[key]}`);
+				console.log(match);
 			}
 		}
 		return result;
@@ -272,30 +271,41 @@
 	
 	async function fetchData() {
 		try {
-		  
-		  const data = {
-			united: false,
-			filter_condition: {
-			  educations: [{ institution: 'Taiwan' }]
+			$('#queryResultTable').DataTable.clear;
+			const data = {
+				united: false,
+				filter_condition: {
+				  [dropDownMainBtn.textContent]: [{ [dropDownSubBtn.textContent]: searchInput.value }]//[{ institution: searchInput.Text }] //[{ institution: 'Taiwan' }] //
+				}
+			};
+			console.log("JSON.stringify(data) " + JSON.stringify(data));
+			const response = await fetch( _config.api.queryUrl, {
+				method: 'POST',
+				mode: 'cors',
+				body: JSON.stringify(data)
+			});
+	  
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
 			}
-		  };
 	  
-		  const response = await fetch( _config.api.queryUrl, {
-			method: 'POST',
-			mode: 'cors',
-			body: JSON.stringify(data)
-		  });
-	  
-		  if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
-		  }
-	  
-		  const jsonResponse = await response.json();
-		  console.log("Type of jsonResponse:", typeof jsonResponse);
-		  console.log(jsonResponse.items);
-		  extractKeysAndValues(jsonResponse.items);
+			const jsonResponse = await response.json();
+			console.log("Type of jsonResponse:", typeof jsonResponse);
+			console.log(jsonResponse.items);
+		  
+			let queryDataStr = extractKeysAndValues(jsonResponse.items);//(dummyData);//(jsonResponse.items);
+		  
+			$('#queryResultTable').DataTable( {
+				ordering: false,
+				data: queryDataStr,
+				columns: [
+					{ title: "" },
+					{ title: "" },
+					{ title: "" }
+				]
+			} );
 		} catch (error) {
-		  console.error("Error:", error);
+			console.error("Error:", error);
 		}
 	}
 	
