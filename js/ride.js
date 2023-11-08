@@ -328,7 +328,7 @@
 			console.log("Type of jsonResponse:", typeof jsonResponse);
 			console.log(jsonResponse.items);
 		  
-			queryDataStr = extractKeysAndValues(dummyData);//(dummyData);//(jsonResponse.items);
+			queryDataStr = extractKeysAndValues(jsonResponse.items);//(dummyData);//(jsonResponse.items);
 			
 			var ResultTable =  $('#queryResultTable').DataTable( {
 				ordering: false,
@@ -349,14 +349,16 @@
 			// Add a new column to the HTML table
 			$('#queryResultTable thead tr').prepend('<th>New Column</th>');
 			$('#queryResultTable tbody tr').each(function(index) {
-				if(index < 3) {
+				if(index === 0) {
 					$(this).prepend('<td rowspan="3">New data</td>'); // Replace 'New data' with the data you want to insert
+				} else if(index < 3) {
+					// Do nothing
 				} else {
 					$(this).prepend('<td>New data</td>'); // Replace 'New data' with the data you want to insert
 				}
 			});
 			// Re-initialize the DataTable
-			//ResultTable = $('#queryResultTable').DataTable();		
+			//ResultTable = $('#queryResultTable').DataTable();
 		} catch (error) {
 			console.error("Error:", error);
 		}
