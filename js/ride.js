@@ -102,6 +102,8 @@
 	var currentTime;
 	var loading = document.getElementById('loading');
 	
+	var queryDataStr;
+	
 	function showLoading() {
 	  loading.style.display = 'block';
 	}
@@ -269,6 +271,39 @@
         
     });
 	
+	function MergeGridCells() {
+		var dimension_cells = new Array();
+		var dimension_col = null;
+		var columnCount = $("#queryResultTable tr:first th").length;
+		for (dimension_col = 0; dimension_col < columnCount; dimension_col++) {
+			// first_instance holds the first instance of identical td
+			var first_instance = null;
+			var rowspan = 1;
+			// iterate through rows
+			$("#queryResultTable").find('tr').each(function () {
+
+				// find the td of the correct column (determined by the dimension_col set above)
+				var dimension_td = $(this).find('td:nth-child(' + dimension_col + ')');
+
+				if (first_instance == null) {
+					// must be the first row
+					first_instance = dimension_td;
+				} else if (dimension_td.text() == first_instance.text()) {
+					// the current td is identical to the previous
+					// remove the current td
+					dimension_td.remove();
+					++rowspan;
+					// increment the rowspan attribute of the first instance
+					first_instance.attr('rowspan', rowspan);
+				} else {
+					// this cell is different from the last
+					first_instance = dimension_td;
+					rowspan = 1;
+				}
+			});
+		}
+	}
+	
 	async function fetchData() {
 		try {
 
@@ -293,10 +328,11 @@
 			console.log("Type of jsonResponse:", typeof jsonResponse);
 			console.log(jsonResponse.items);
 		  
-			let queryDataStr = extractKeysAndValues(jsonResponse.items);//(dummyData);//(jsonResponse.items);
+			queryDataStr = extractKeysAndValues(dummyData);//(dummyData);//(jsonResponse.items);
 			
-			$('#queryResultTable').DataTable( {
+			var ResultTable =  $('#queryResultTable').DataTable( {
 				ordering: false,
+				bPaginate: false,
 				data: queryDataStr,
 				columns: [
 					{ title: "" },
@@ -304,6 +340,23 @@
 					{ title: "" }
 				]
 			} );
+			
+			MergeGridCells();
+			
+			var ResultTable = $('#queryResultTable').DataTable();
+			// Destroy the existing table
+			ResultTable.destroy();
+			// Add a new column to the HTML table
+			$('#queryResultTable thead tr').prepend('<th>New Column</th>');
+			$('#queryResultTable tbody tr').each(function(index) {
+				if(index < 3) {
+					$(this).prepend('<td rowspan="3">New data</td>'); // Replace 'New data' with the data you want to insert
+				} else {
+					$(this).prepend('<td>New data</td>'); // Replace 'New data' with the data you want to insert
+				}
+			});
+			// Re-initialize the DataTable
+			//ResultTable = $('#queryResultTable').DataTable();		
 		} catch (error) {
 			console.error("Error:", error);
 		}
@@ -318,6 +371,10 @@
 		let mainAttr = dropDownMainBtn.textContent;
 		let subAttr = dropDownSubBtn.textContent;
 		let searchStr = searchInput.value;
+		
+		//$('#queryResultTable').DataTable.destroy();
+		//$('#queryResultTable').DataTable.empty();
+		
 
 		fetchData();
 		

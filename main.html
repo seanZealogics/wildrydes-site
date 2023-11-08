@@ -21,6 +21,18 @@
 	
 	<!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+	<style>
+	   .input-group-append {
+		position: relative;
+	  }
+	  #searchBtn {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-60%, 50%);
+	  }
+	</style>
+	
 
 </head>
 
@@ -363,12 +375,67 @@
 											</div>
 											<input id="searchInput" type="text" class="form-control bg-light border-primary" width="100px" placeholder="Company="
 												aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;">
-											<div class="input-group-append">
-												<button id="searchBtn" class="btn btn-primary mx-2" type="button">
-													<i class="fas fa-search fa-sm"></i>
-												</button>
+											<div class="dropdown2 mx-2">
+											  <button id="operatorBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Operator
+											  <span class="caret"></span></button>
+											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+													<li><a href="#">AND</a></li>
+													<li><a href="#">OR</a></li>
+													<li><a href="#">WITHOUT</a></li>
+											  </ul>
 											</div>
-										</div><br>
+											<div class="dropdown2">
+											  <button id="operatorBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">＋
+											  <span class="caret"></span></button>
+											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+													<li><a href="#">＋</a></li>
+													<li><a href="#">—</a></li>													
+											  </ul>
+											</div>
+											
+										</div>
+										<p>
+										<div class="input-group container">
+											<div class="dropdown1">
+											  <button id="mainAttrBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Condition1
+											  <span class="caret"></span></button>
+											  <ul id="mainDropMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+											
+											  </ul>
+											</div>
+											<div class="dropdown2 mx-2">
+											  <button id="subAttrBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Condition2
+											  <span class="caret"></span></button>
+											  <ul id="subDropMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+											  </ul>
+											</div>
+											<input id="searchInput" type="text" class="form-control bg-light border-primary" width="100px" placeholder="Company="
+												aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;">
+											<div class="dropdown2 mx-2">
+											  <button id="operatorBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Operator
+											  <span class="caret"></span></button>
+											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+													<li><a href="#">AND</a></li>
+													<li><a href="#">OR</a></li>
+													<li><a href="#">WITHOUT</a></li>
+											  </ul>
+											</div>
+											<div class="dropdown2">
+											  <button id="operatorBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">＋
+											  <span class="caret"></span></button>
+											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+													<li><a href="#">＋</a></li>
+													<li><a href="#">—</a></li>													
+											  </ul>
+											</div>
+										</div>
+										
+										
+										<div class="input-group-append ">
+											<button id="searchBtn" class="btn btn-primary mx-2" type="button" style="display: inline-block;">
+												<i class="fas fa-search fa-lg"></i>
+											</button>
+										</div><br><br><br>
 										
 											
 										<div class="alert alert-info container">
@@ -437,10 +504,10 @@
 						<!-- DataTables Example -->
 						<div class="card shadow mb-4">
 							<div class="card-header py-3">
-								<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+								<h6 class="m-0 font-weight-bold text-primary">Resume Profile</h6>
 							</div>
 							<div class="card-body">
-								<div class="table-responsive">
+								<div  >
 									<table id="queryResultTable" class="table table-bordered"  width="100%" cellspacing="0">
 										
 									</table>
@@ -518,9 +585,6 @@
 		<script src="vendor/datatables/jquery.dataTables.min.js"></script>
 		<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-
-		<!-- Page level custom scripts -->
-		<script src="js/demo/datatables-demo.js"></script>
 		
 		<!-- AWS scripts -->
 		<script src="js/vendor/aws-cognito-sdk.min.js"></script>
