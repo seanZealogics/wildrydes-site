@@ -133,26 +133,6 @@
     ]
 	};
 
-
-	function extractKeysAndValues(obj, path = '') {
-		let result = [];
-		for (let key in obj) {
-			if (typeof obj[key] === 'object' && obj[key] !== null) {
-				result = result.concat(extractKeysAndValues(obj[key], `${path}${key}.`));
-			} else {
-				/* let regex = /\b[a-zA-Z]+\b/g;
-				let matches = `${path}`.match(regex); */
-				const match = `${path}`.match(/\b[a-zA-Z_-]+\b/g);
-
-
-				result.push([match, `${key}`, obj[key]]);
-				console.log(match+ ` : ${key}: ${obj[key]}`);
-				console.log(match);
-			}
-		}
-		return result;
-	}
-
 	
 	var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
 	var dropDownMainBtn = document.querySelector("#mainAttrBtn");

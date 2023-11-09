@@ -17,10 +17,10 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/sb-admin-2.min.css" >
 	
 	<!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="vendor/datatables/dataTables.bootstrap4.min.css" >
 	<link rel="stylesheet" type="text/css" href="media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="resources/demo.css">
@@ -28,22 +28,28 @@
 		
 
 		td.details-control {
-			background: url('resources/details_open.png') no-repeat center center;
+			background: url('resources/details_open.png') no-repeat center top;
 			cursor: pointer;
 		}
 
 		tr.shown td.details-control {
-			background: url('resources/details_close.png') no-repeat center center;
+			background: url('resources/details_close.png') no-repeat center top;
 		}
 	
 		.input-group-append {
 			position: relative;
 		}
+		
 		#searchBtn {
 			position: absolute;
 			top: 50%;
 			left: 50%;
 			transform: translate(-60%, 50%);
+		}
+		
+		#queryResultTable th,
+		#queryResultTable td {
+			vertical-align: top;
 		}
 	</style>
 	
@@ -480,7 +486,7 @@
 
 									<div class="demo-html"></div>
 									<table id="queryResultTable" class="display" style="width:100%">
-										<thead class="text-muted text-xs">
+										<thead class="text-muted text-xs" style="display: none;">
 											<tr>
 												<th></th>
 												<th>ID</th>
