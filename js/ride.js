@@ -3,71 +3,134 @@
 (function rideScopeWrapper($) {
 	const dummyData = {
 	  "items": [
-		{
-		  "publications": [],
-		  "certificates": [],
-		  "profile": {
-			"name": "Yu-Che Tsai",
-			"location": "3F., No.20 , Ln. 35, Zhuguang Rd., North Dist., City 300, Taiwan (R.O.C.)",
-			"phone": " 886 -988-696-414",
-			"email": "josephtsai331@gmail.com",
-			"personal_urls": []
-		  },
-		  "computer_skills": [
-			"Linux Kernel Driver",
-			"Socket programming",
-			"Multithreading",
-			"VMware certification",
-			"TCP/IP",
-			"Routing",
-			"iSCSI protocol",
-			"Embedded System",
-			"C/C ",
-			"Python",
-			"Storage stack",
-			"Rust"
-		  ],
-		  "patents": [],
-		  "educations": [
-			{
-			  "date": "2009 - 2011",
-			  "degree": "Master degree [Computer Science]",
-			  "institution": "National Chung Hsing University, Taichung",
-			  "detail": ""
-			},
-			{
-			  "date": "2005 - 2009",
-			  "degree": "Bachelor degree [Computer Science]",
-			  "institution": "National Chung Hsing University, Taichung",
-			  "detail": ""
-			}
-		  ],
-		  "id": "54b20e3d-bf82-4e52-b379-efc6ba2f33b0",
-		  "experiences": [
-			{
-			  "date": "2021/12 - Now",
-			  "company": "Western Digital Corporation",
-			  "position": "Staff Engineer (R&D)",
-			  "responsibility": "Refactor legacy code and add unittest cases, Rust utilities design, implementation and maintenance, Software packages maintenance, Kernel driver maintenance, Debug/Resolve customer reported issues",
-			  "accomplishment": "Refactor legacy C/C  code with unittest cases, Reimplement legacy C utilities in Rust, Port Gplv3 release utility from old product to new one, Work with team for My Cloud Home/Duo and other NAS products"
-			},
-			{
-			  "date": "2016/01 - 2021/11",
-			  "company": "Latticework Inc., Taiwan branch",
-			  "position": "Staff Engineer (R&D)",
-			  "responsibility": "Storage stack design and implementation, Management flow design and implementation, Linux software RAID / LVM / Btrfs kernel driver maintenance, Relay server design and implementation, C /Python RPC library design and implementation",
-			  "accomplishment": "Storage architecture design and module implementation, Python unittest for storage module and gitlab CI/CD integration, C /Python RPC library design with gtest unittest and gitlab CI/CD integration, Relay service flow design and related modules implementation with unittest and gitlab CI/CD integration, Work with team for Amber/AmberX NAS product"
-			},
-			{
-			  "date": "2011/09 - 2015/12",
-			  "company": "Promise technology",
-			  "position": "Senior Engineer (R&D)",
-			  "responsibility": "iSCSI target, iSNS client and subsystem management flow implementation and maintenance, iSCSI performance tuning, Ethernet device bring up, Multiple Ethernet devices routing handle",
-			  "accomplishment": "Hack Linux kernel TCP flow and Ethernet driver to decrease CPU utilization and increase iSCSI data out performance, Ex50 product integration for 2015 NAB show and 2015 IDF show, Fair core assignment for different threads, Survey Ethernet chips for new product, Work with TW team for VessRAID R2000 series product, Work with US & TW team for VTrak Ex30, VTrak A-Class (Ex30 with scale-out design), VTrak Ex50"
-			}
-		  ]
-		}
-	  ]
+        {
+            "publications": [],
+            "certificates": [
+                {
+                    "date": "N/A",
+                    "title": "JLPT N2",
+                    "certifying_authority": "Japanese Language Proficiency Test"
+                }
+            ],
+            "profile": {
+                "name": "Yen-Chih Liao",
+                "location": "Wuri Dist, Taichung City, 414 Taiwan",
+                "phone": "(886) 972-190-248",
+                "email": "yen.yenchih.liao@gmail.com",
+                "personal_urls": []
+            },
+            "computer_skills": [
+                "Python",
+                "C/C  ",
+                "Java",
+                "Solidity",
+                "Golang",
+                "JavaScript",
+                "Sell Script",
+                "Matlab"
+            ],
+            "patents": [],
+            "educations": [
+                {
+                    "date": "Sep. 2018 - Jan. 2021",
+                    "degree": "Master in Networking and Multimedia",
+                    "description": "Publication: View-based Federated Byzantine Agreement System for Environmental Blockchain (BRAINS Jul. 2021)",
+                    "school": "National Taiwan University"
+                },
+                {
+                    "date": "Sep. 2014 - Jun. 2018",
+                    "degree": "B.S. in Computer Science and Information Engineering",
+                    "description": "Publications: Applying Blockchain to an Automated Clearinghouse System (TANET Oct. 2017), Governance on the Drug Supply Chain via Gcoin Blockchain (IJERPH May 2018)",
+                    "school": "National Taiwan University"
+                }
+            ],
+            "id": "43452950-4411-4d93-9639-791d630536df",
+            "experiences": [
+                {
+                    "date": "Nov. 2021 - Now",
+                    "company": "Taisys",
+                    "position": "R&D Software Engineer",
+                    "responsibility": "• Automated Data Handling and Notification System.\n• Developed a Docker container deployed on Google Kubernetes Engine (GKE) for robust data handling.\n• Implemented a system to store incoming data into a PostgreSQL database, ensuring efficient data management.\n• Engineered a cron job that dispatched events to Pub/Sub, providing real-time notifications to subscribers.\n• Utilized mail services to notify subscribers about relevant events, improving user engagement and experience.\n• Smart contract and decentralized application (DApp) development.\n• Developed, tested, and launched Solidity smart contracts using Hardhat (Node.js) and designed demo DApps utilizing React (JavaScript).\n• Created API servers with the gin-gonic (Golang web framework), integrated with MySQL for efficient data management.\n• Customized and deployed open-source blockchain projects such as Omni/Tokenbridge, Project OpenSea/seadrop, and Gnosis/MultiSigWallet to meet specific company needs, enhancing overall system effectiveness.\n• Conducted comprehensive analysis of open-source codes using sequence diagrams and class diagrams to identify areas of improvement.\n• Authored detailed documentation complemented with JavaScript demo code, facilitating knowledge sharing and collaboration among diverse engineering teams.\n• Developed and managed smart contracts, integrating features such as ERC20, ERC721, Ownable, Accessible, Upgradeable, etc., enhancing system functionality.\n• Stress test our own consortium chain (Quorum).\n• Undertook rigorous testing of TPS and latency under various gas consumption scenarios using Python multithreading, ensuring optimal system performance.\n• Visualized analytical results using matplotlib, supporting data-driven decision-making."
+                },
+                {
+                    "date": "Apr. 2019 - May. 2020",
+                    "company": "HTC DeepQ",
+                    "position": "Contractor (R&D)",
+                    "responsibility": "• Adopted and implemented MedRec, a paper published by Stanford University, prototype on Ethereum private chain in a group of five people."
+                }
+            ]
+        },
+        {
+            "publications": [],
+            "certificates": [],
+            "profile": {
+                "name": "Lichen Hsu"
+            },
+            "computer_skills": [
+                "C",
+                "8051/52 MCU"
+            ],
+            "patents": [
+                {
+                    "date": "N/A",
+                    "title": "I702569 METHOD FOR ENHANCING INSTANT IMAGE SHARPNESS"
+                },
+                {
+                    "date": "N/A",
+                    "title": "I687672 OPTICAL INSPECTION SYSTEM AND IMAGE PROCESSING METHOD THEREOF"
+                },
+                {
+                    "date": "N/A",
+                    "title": "I690692 INSPECTION SYSTEM WTH LINE CAMERA UNDER EXTERNAL TRIGGER AND IMAGE EXPOSURE PROCESSING METHOD"
+                },
+                {
+                    "date": "N/A",
+                    "title": "I677680 INSPECTION SYSTEM WTH LINE CAMERA UNDER EXTERNAL TRIGGER AND IMAGE UNIFORMITY PROCESSING METHOD"
+                }
+            ],
+            "educations": [
+                {
+                    "date": "July 1999 - June 2001",
+                    "degree": "Master’s degree",
+                    "description": "Communications Engineering",
+                    "school": "National Chiao Tung University"
+                },
+                {
+                    "date": "September 1997 - June 1999",
+                    "degree": "Bachelor’s degree",
+                    "description": "Electronic and Computer Engineering",
+                    "school": "National Taiwan University of Science and Technology"
+                }
+            ],
+            "id": "c00c83b5-63ff-471c-a0a5-a619ef4d011e",
+            "experiences": [
+                {
+                    "date": "February 2016 - Present",
+                    "company": "Creative Sensor Inc.",
+                    "position": "Senior Deputy Project Manager",
+                    "responsibility": "Leading the development of new products in the new product department of CSI. Participating in projects such as AOI wide-format camera products development, thermal imaging products development, and conducting research and analysis on related problems."
+                },
+                {
+                    "date": "April 2010 - June 2014",
+                    "company": "OPPO Digital Inc.",
+                    "position": "Technical Service Engineer",
+                    "responsibility": "Designed and implemented FPGA and CPLD based on system requirements. Provided technology study, technical support, and services for related OPPO digital products."
+                },
+                {
+                    "date": "March 2010 - January 2016",
+                    "company": "TIC Inc.",
+                    "position": "Technical Service, Sales & Marketing",
+                    "responsibility": "Performed technology study, refurbished, re-modified, and repaired thermal imaging cameras and cores. Resold them to the public market in the USA."
+                },
+                {
+                    "date": "July 2001 - February 2010",
+                    "company": "Opvista Inc.",
+                    "position": "Sr. Hardware Engineer",
+                    "responsibility": "Designed FPGA codes and schematics based on system requirements. Managed projects using MS Project. Worked with PCB Layout Company, tested and verified PCBs, and collaborated with testing department for quality assurance. Contributed to various FPGA-based projects."
+                }
+            ]
+        }
+    ]
 	};
 
 
@@ -96,6 +159,8 @@
 	var dropdownSubMenu = document.querySelector(".dropdown2 .dropdown-menu");
 	var dropDownSubBtn = document.querySelector("#subAttrBtn");
 	var searchInput = document.querySelector("#searchInput");
+	var thead = document.querySelector("table thead");
+	var tfoot = document.querySelector("table tfoot");
 	var mapMainAttr = new Map(); 
 	var arrSubAttr = [];
 	
@@ -271,37 +336,23 @@
         
     });
 	
-	function MergeGridCells() {
-		var dimension_cells = new Array();
-		var dimension_col = null;
-		var columnCount = $("#queryResultTable tr:first th").length;
-		for (dimension_col = 0; dimension_col < columnCount; dimension_col++) {
-			// first_instance holds the first instance of identical td
-			var first_instance = null;
-			var rowspan = 1;
-			// iterate through rows
-			$("#queryResultTable").find('tr').each(function () {
-
-				// find the td of the correct column (determined by the dimension_col set above)
-				var dimension_td = $(this).find('td:nth-child(' + dimension_col + ')');
-
-				if (first_instance == null) {
-					// must be the first row
-					first_instance = dimension_td;
-				} else if (dimension_td.text() == first_instance.text()) {
-					// the current td is identical to the previous
-					// remove the current td
-					dimension_td.remove();
-					++rowspan;
-					// increment the rowspan attribute of the first instance
-					first_instance.attr('rowspan', rowspan);
-				} else {
-					// this cell is different from the last
-					first_instance = dimension_td;
-					rowspan = 1;
-				}
-			});
-		}
+	
+	function format(d) {
+	// `d` is the original data object for the row
+	return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+		'<tr class="text-muted text-xs">' +
+		'<td>Full name:</td>' +
+		'<td>' + d.name + '</td>' +
+		'</tr>' +
+		'<tr class="text-muted text-xs">' +
+		'<td>Extension number:</td>' +
+		'<td>' + d.extn + '</td>' +
+		'</tr>' +
+		'<tr class="text-muted text-xs">' +
+		'<td>Extra info:</td>' +
+		'<td>And any further details here (images etc)...</td>' +
+		'</tr>' +
+		'</table>';
 	}
 	
 	async function fetchData() {
@@ -313,7 +364,7 @@
 				  [dropDownMainBtn.textContent]: [{ [dropDownSubBtn.textContent]: searchInput.value }]//[{ institution: searchInput.Text }] //[{ institution: 'Taiwan' }] //
 				}
 			};
-			console.log("JSON.stringify(data) " + JSON.stringify(data));
+			//console.log("JSON.stringify(data) " + JSON.stringify(data));
 			const response = await fetch( _config.api.queryUrl, {
 				method: 'POST',
 				mode: 'cors',
@@ -325,38 +376,160 @@
 			}
 	  
 			const jsonResponse = await response.json();
-			console.log("Type of jsonResponse:", typeof jsonResponse);
-			console.log(jsonResponse.items);
-		  
-			queryDataStr = extractKeysAndValues(jsonResponse.items);//(dummyData);//(jsonResponse.items);
-			
-			var ResultTable =  $('#queryResultTable').DataTable( {
-				ordering: false,
-				bPaginate: false,
-				data: queryDataStr,
-				columns: [
-					{ title: "" },
-					{ title: "" },
-					{ title: "" }
-				]
-			} );
-			
-			MergeGridCells();
-			
-			var ResultTable = $('#queryResultTable').DataTable();
-			// Destroy the existing table
-			ResultTable.destroy();
-			// Add a new column to the HTML table
-			$('#queryResultTable thead tr').prepend('<th>New Column</th>');
-			$('#queryResultTable tbody tr').each(function(index) {
-				if(index === 0) {
-					$(this).prepend('<td rowspan="3">New data</td>'); // Replace 'New data' with the data you want to insert
-				} else if(index < 3) {
-					// Do nothing
-				} else {
-					$(this).prepend('<td>New data</td>'); // Replace 'New data' with the data you want to insert
-				}
+			/* console.log("Type of jsonResponse:", typeof jsonResponse);
+			console.log(jsonResponse.items); */
+		              var allData = [];
+            for (var item of jsonResponse.items) //dummyData.items
+            {
+                allData.push(item);
+            }
+
+			var resultTable = $('#queryResultTable').DataTable({
+                "data": allData,
+                "scrollX": 200,
+                "scrollCollapse": true,
+				"columnDefs": [
+					{
+						"targets": "_all",
+						"className": "text-xs"
+					}
+				],
+				"columns": [
+					{
+						"class": 'details-control',
+						"orderable": false,
+						"data": null,
+                        "defaultContent": ''
+					},
+                    { "data": "id" },
+                    { "data": "profile.name" },
+                    { "data": "profile.location",
+                        "render": function (data, type, row) {
+                            if (data) {
+                                return type === 'display' ? data: ''; 
+                            } else {
+                                return type === 'display' ? 'N / A' : '';  
+                            } 
+                        }
+                    },
+                    { "data": "profile.phone",
+                        "render": function (data, type, row) {
+                            if (data) {
+                                return type === 'display' ? data : ''; 
+                            } else {
+                                return type === 'display' ? 'N / A' : '';  
+                            }
+                        }
+                    },
+                    { "data": "profile.email",
+                        "render": function (data, type, row) {
+                            if (data) {
+                                return type === 'display' ? data : ''; 
+                            } else {
+                                return type === 'display' ? 'N / A' : '';  
+                            }
+                        }
+                    },
+                    { "data": "profile.personal_urls",
+                        "render": function (data, type, row) {
+                            if (data) {
+                                return type === 'display' ? data : ''; 
+                            } else { 
+                                return type === 'display' ? 'N / A' : '';
+                            }
+                        } },
+                    { "data": "educations",
+                      "render": function (data, type, row) {
+                            
+                            if (type === 'display') {
+                                var educations = data.map(function (education) {
+                                    return education.date + ' - ' + education.degree + ' (' + education.school + ')';
+                                });
+                                return educations.join('<br>');
+                            }
+                            return data; 
+                        }
+                    },                       
+                    { "data": "computer_skills" },
+                    { "data": "certificates",
+                        "render": function (data, type, row) {
+                            
+                            if (type === 'display') {
+                                var certificates = data.map(function (certificates) {
+                                    return certificates.date + ' - ' + certificates.title + ' (' + certificates.certifying_authority + ')';
+                                });
+                                return certificates.join('<br>');
+                            }
+                            return data; 
+                        }
+                    },
+                    { "data": "publications",
+                        "render": function (data, type, row) {
+                            
+                            if (type === 'display') {
+                                var publications = data.map(function (publications) {
+                                    return publications.date + ' - ' + publications.title ;
+                                });
+                                return publications.join('<br>');
+                            }
+                            return data; 
+                        }
+                    },
+                    { "data": "patents",
+                        "render": function (data, type, row) {
+                            
+                            if (type === 'display') {
+                                var patents = data.map(function (patents) {
+                                    return patents.date + ' - ' + patents.title;
+                                });
+                                return patents.join('<br>');
+                            }
+                            return data; 
+                        }
+                    },
+                    {
+                        "data": "experiences",
+                        "render": function (data, type, row) {
+                            
+                            if (type === 'display') {
+                                var experiences = data.map(function (experiences) {
+                                    return experiences.date + ' - ' + experiences.company + ' (' + experiences.position + ')<br> ' + experiences.responsibility ;
+                                });
+                                return experiences.join('<br>');
+                            }
+                            return data; 
+                        }
+                    }
+
+				],
+				"order": [[1, 'asc']]
 			});
+			
+
+            $('#queryResultTable tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = resultTable.row(tr);
+
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child(format(row.data())).show();
+                    tr.addClass('shown');
+                }
+            });
+
+			thead.style.display = "table-header-group";
+			tfoot.style.display = "table-footer-group";
+
+			//var newWindow = window.open('', '_blank', 'width=400,height=200');			
+			//newWindow.document.write('<html><body>');
+            //newWindow.document.write(stringWithoutFirstAndLast);
+			//newWindow.document.write('</body></html>');			
+			//newWindow.document.close();
 			// Re-initialize the DataTable
 			//ResultTable = $('#queryResultTable').DataTable();
 		} catch (error) {
