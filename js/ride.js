@@ -166,7 +166,7 @@
 		  });
 
 		  const data = await response.json();
-		  console.log(data);
+		  //console.log(data);
 		  completeRequest(data);
 		};
 
@@ -220,7 +220,7 @@
 					selectedNextIndex = arrSubAttr.length
 				}
 				
-				console.log("selectedIndex "+ selectedIndex + " selectedNextIndex "+selectedNextIndex);
+				//console.log("selectedIndex "+ selectedIndex + " selectedNextIndex "+selectedNextIndex);
 				for (var index = selectedIndex; index < selectedNextIndex; index++) {
 							// 建立一個新的 <li> 元素
 					let li = document.createElement("li");
@@ -236,7 +236,7 @@
 						event.preventDefault(); // 防止默認的點擊事件行為
 						dropDownSubBtn.textContent = this.textContent;
 						searchInput.setAttribute("placeholder", this.textContent + "=");
-						console.log(this.textContent); // 印出 menu item 的內容
+						//console.log(this.textContent); // 印出 menu item 的內容
 					});
 					
 					// 將 <a> 元素加入到 <li> 內
@@ -245,7 +245,7 @@
 					// 最後，將 <li> 元素加入到 dropdown menu 中
 					dropdownSubMenu.appendChild(li);
 
-					console.log(arrSubAttr[index]);
+					//console.log(arrSubAttr[index]);
 					dropDownSubBtn.textContent = arrSubAttr[index];
 				}
 				
@@ -319,19 +319,133 @@
 	
 	function format(d) {
 	// `d` is the original data object for the row
-	return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-		'<tr class="text-muted text-xs">' +
-		'<td>Full name:</td>' +
-		'<td>' + d.name + '</td>' +
-		'</tr>' +
-		'<tr class="text-muted text-xs">' +
-		'<td>Extension number:</td>' +
-		'<td>' + d.extn + '</td>' +
-		'</tr>' +
-		'<tr class="text-muted text-xs">' +
-		'<td>Extra info:</td>' +
-		'<td>And any further details here (images etc)...</td>' +
-		'</tr>' +
+	
+	let data =  d.educations;
+	for (let i = 0; i < data.length; i ++) {
+		const date = data[i].date;
+		const degree = data[i].degree;
+		const description = data[i].description;
+		const school = data[i].school;
+
+		
+		/* console.log(`Date: ${date}`);
+		console.log(`Company: ${company}`);
+		console.log(`Position: ${position}`);
+		console.log(`Responsibility: ${responsibility}`); */
+	}	                       
+                            
+	let educations = d.educations.map(function (m_educations) {									
+		return '<p>' + m_educations.date + '<br>' + m_educations.degree + ' at ' + m_educations.school + '<br>' + m_educations.description + '</p>';
+	});															
+	//////////////////////////////////////////////////
+	data =  d.computer_skills;
+	let computer_skills = "<p>";
+	//console.log("computer_skills.length = "+data.length);
+	for (let i = 0; i < data.length; i ++) {
+		computer_skills += data[i] + "<br><br>";
+		/* const date = data[i].date;
+		const degree = data[i].degree;
+		const description = data[i].description;
+		const school = data[i].school; */
+
+		
+		/* console.log(`Date: ${date}`);`
+		console.log(`Company: ${company}`);
+		console.log(`Position: ${position}`);
+		console.log(`Responsibility: ${responsibility}`); */
+	}
+	computer_skills += "</p>";
+	//////////////////////////////////////////////////
+	data =  d.certificates;
+	for (let i = 0; i < data.length; i ++) {
+		
+		const date = data[i].date;
+		const title = data[i].title;
+		const certifying_authority = data[i].certifying_authority;
+
+		
+		/* console.log(`Date: ${date}`);
+		console.log(`Company: ${company}`);
+		console.log(`Position: ${position}`);
+		console.log(`Responsibility: ${responsibility}`); */
+	}	      
+	let certificates = d.certificates.map(function (m_certificates) {									
+		return '<p>' + m_certificates.date + '<br>' + m_certificates.title + '<br>' + m_certificates.certifying_authority + '</p>';
+	});	
+	//////////////////////////////////////////////////
+	data =  d.publications;
+	for (let i = 0; i < data.length; i ++) {
+		
+		const date = data[i].date;
+		const title = data[i].title;
+
+		
+		/* console.log(`Date: ${date}`);
+		console.log(`Company: ${company}`);
+		console.log(`Position: ${position}`);
+		console.log(`Responsibility: ${responsibility}`); */
+	}	      
+	let publications = d.publications.map(function (m_publications) {									
+		return '<p>' + m_publications.date + '<br>' + m_publications.title + '</p>';
+	});	
+	//////////////////////////////////////////////////
+	data =  d.patents;
+	for (let i = 0; i < data.length; i ++) {
+		
+		const date = data[i].date;
+		const title = data[i].title;
+
+		
+		/* console.log(`Date: ${date}`);
+		console.log(`Company: ${company}`);
+		console.log(`Position: ${position}`);
+		console.log(`Responsibility: ${responsibility}`); */
+	}	      
+	let patents = d.patents.map(function (m_patents) {									
+		return '<p>' + m_patents.date + '<br>' + m_patents.title + '</p>';
+	});	
+	
+	//////////////////////////////////////////////////
+	data =  d.experiences;	
+	for (let i = 0; i < data.length; i ++) {
+		
+		const date = data[i].date;
+		const company = data[i].company;
+		const position = data[i].position;
+		const responsibility = data[i].responsibility;
+
+		
+		/* console.log(`Date: ${date}`);
+		console.log(`Company: ${company}`);
+		console.log(`Position: ${position}`);
+		console.log(`Responsibility: ${responsibility}`); */
+	}	                       
+                            
+	let experiences = d.experiences.map(function (m_experiences) {									
+		return '<p>' + m_experiences.date + '<br>' + m_experiences.company + '<br>' + m_experiences.position + '<br>' + m_experiences.responsibility+ '</p>';
+	});															
+	//experiences.join('<br>');								
+ 
+                            
+							
+                        
+	return '<table cellspacing="10" border="1" style="width:100%">' +
+		'<tr class="text-muted text-xs">'
+		+ '<td>Educations</td>'
+		+ '<td>Computer Skills</td>'		
+		+ '<td>Certificates</td>'
+		+ '<td>Publications</td>' 
+		+ '<td>Patents</td>' 
+		+ '<td>Experiences</td>' 
+		+'</tr>'
+		+'<tr class="text-muted text-xs">'
+		+ '<td>' + educations + '</td>' 
+		+ '<td>' + computer_skills + '</td>'		
+		+ '<td>' + certificates + '</td>'
+		+ '<td>' + publications + '</td>' 
+		+ '<td>' + patents + '</td>'
+		+ '<td>' + experiences + '</td>'
+		+'</tr>'
 		'</table>';
 	}
 	
@@ -385,7 +499,7 @@
                     { "data": "profile.name" },
                     { "data": "profile.location",
                         "render": function (data, type, row) {
-                            if (data) {
+                            if (data.length) {
                                 return type === 'display' ? data: ''; 
                             } else {
                                 return type === 'display' ? 'N / A' : '';  
@@ -394,7 +508,7 @@
                     },
                     { "data": "profile.phone",
                         "render": function (data, type, row) {
-                            if (data) {
+                            if (data.length) {
                                 return type === 'display' ? data : ''; 
                             } else {
                                 return type === 'display' ? 'N / A' : '';  
@@ -403,7 +517,7 @@
                     },
                     { "data": "profile.email",
                         "render": function (data, type, row) {
-                            if (data) {
+                            if (data.length) {
                                 return type === 'display' ? data : ''; 
                             } else {
                                 return type === 'display' ? 'N / A' : '';  
@@ -412,71 +526,107 @@
                     },
                     { "data": "profile.personal_urls",
                         "render": function (data, type, row) {
-                            if (data) {
-                                return type === 'display' ? data : ''; 
+                            if (data.length) {
+                                return type === 'display' ? data.length + " Records" : ''; 
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
                             }
-                        } },
+                        } 
+					},
                     { "data": "educations",
                       "render": function (data, type, row) {
-                            
-                            if (type === 'display') {
-                                var educations = data.map(function (education) {
-                                    return education.date + ' - ' + education.degree + ' (' + education.school + ')';
-                                });
-                                return educations.join('<br>');
+                            if (data.length) {
+                                if (type === 'display') {
+									var educations = data.map(function (education) {									
+										return education.date + ' - ' + education.degree + ' (' + education.school + ')';
+                                });				
+								educations.join('<br>');
+                                return educations.length + " Records";
+                            } 
+                            } else { 
+                                return type === 'display' ? 'N / A' : '';
                             }
+                            
+							
                             return data; 
                         }
                     },                       
-                    { "data": "computer_skills" },
+                    { "data": "computer_skills",
+						"render": function (data, type, row) {
+                            if (data.length) {
+                                return type === 'display' ? data.length + " Records" : ''; 
+                            } else { 
+                                return type === 'display' ? 'N / A' : '';
+                            }
+                        } 
+					},
                     { "data": "certificates",
                         "render": function (data, type, row) {
-                            
-                            if (type === 'display') {
-                                var certificates = data.map(function (certificates) {
-                                    return certificates.date + ' - ' + certificates.title + ' (' + certificates.certifying_authority + ')';
+                            if (data.length) {
+                                if (type === 'display') {
+									var certificates = data.map(function (certificates) {
+										return certificates.date + ' - ' + certificates.title + ' (' + certificates.certifying_authority + ')';
                                 });
-                                return certificates.join('<br>');
+                                certificates.join('<br>');
+								return certificates.length + " Records";
                             }
+                            } else { 
+                                return type === 'display' ? 'N / A' : '';
+                            }
+                            
                             return data; 
                         }
                     },
                     { "data": "publications",
                         "render": function (data, type, row) {
-                            
-                            if (type === 'display') {
-                                var publications = data.map(function (publications) {
-                                    return publications.date + ' - ' + publications.title ;
-                                });
-                                return publications.join('<br>');
+                             if (data.length) {
+                                if (type === 'display') {
+									var publications = data.map(function (publications) {
+										return publications.date + ' - ' + publications.title ;
+									});
+									publications.join('<br>');
+									return publications.length + " Records";
+								}
+                            } else { 
+                                return type === 'display' ? 'N / A' : '';
                             }
+                            
                             return data; 
                         }
                     },
                     { "data": "patents",
                         "render": function (data, type, row) {
-                            
-                            if (type === 'display') {
-                                var patents = data.map(function (patents) {
-                                    return patents.date + ' - ' + patents.title;
-                                });
-                                return patents.join('<br>');
+                            if (data.length) {
+                                if (type === 'display') {
+									var patents = data.map(function (patents) {
+										return patents.date + ' - ' + patents.title;
+									});
+									patents.join('<br>');
+									return patents.length + " Records";
+								}
+                            } else { 
+                                return type === 'display' ? 'N / A' : '';
                             }
+                            
                             return data; 
                         }
                     },
                     {
                         "data": "experiences",
                         "render": function (data, type, row) {
-                            
-                            if (type === 'display') {
-                                var experiences = data.map(function (experiences) {
-                                    return experiences.date + ' - ' + experiences.company + ' (' + experiences.position + ')<br> ' + experiences.responsibility ;
-                                });
-                                return experiences.join('<br>');
+                            if (data.length) {
+                                if (type === 'display') {
+									var experiences = data.map(function (experiences) {
+										//console.log(experiences.company);
+										return experiences.date + ' - ' + experiences.company + ' (' + experiences.position + ')<br> ' + experiences.responsibility ;
+									});
+									experiences.join('<br>');
+									return experiences.length + " Records";
+								}
+                            } else { 
+                                return type === 'display' ? 'N / A' : '';
                             }
+                            
                             return data; 
                         }
                     }
@@ -519,10 +669,10 @@
 	
 	function handleSearchClick(event) {		
 		event.preventDefault();
-		console.log(dropDownMainBtn.textContent);
+		/* console.log(dropDownMainBtn.textContent);
 		console.log(dropDownSubBtn.textContent);
 		console.log(searchInput.value);
-
+		*/
 		let mainAttr = dropDownMainBtn.textContent;
 		let subAttr = dropDownSubBtn.textContent;
 		let searchStr = searchInput.value;
