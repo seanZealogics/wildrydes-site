@@ -51,6 +51,7 @@
 		#queryResultTable td {
 			vertical-align: top;
 		}
+
 	</style>
 	
 	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -97,23 +98,24 @@
 				</div>
 
 				
-
-				<!-- Nav Item - Utilities Collapse Menu -->
 				<li class="nav-item">
-					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-						aria-expanded="true" aria-controls="collapseUtilities">
-						<i class="fas fa-fw fa-wrench"></i>
-						<span>Utilities</span>
-					</a>
-					<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-						data-parent="#accordionSidebar">
-						<div class="bg-white py-2 collapse-inner rounded">
-							<h6 class="collapse-header">Custom Utilities:</h6>
-							<a class="collapse-item" href="utilities-color.html">Search Employees</a>
-							<a class="collapse-item" href="utilities-border.html">Upload Resumes</a>
-							<a class="collapse-item" href="utilities-other.html">Other</a>
-						</div>
-					</div>
+					<a class="nav-link" href="charts.html">
+						<i class="fas fa-fw fa-chart-area"></i>
+						<span>Employee Statiscs</span></a>
+				</li>
+
+
+				<li class="nav-item">
+					<a class="nav-link" href="charts.html">
+						<i class="fas fa-fw fa-file-archive"></i>
+						<span>Upload Resumes</span></a>
+				</li>
+
+				<!-- Nav Item - Charts -->
+				<li class="nav-item">
+					<a class="nav-link" href="charts.html">
+						<i class="fas fa-fw fa-chart-area"></i>
+						<span>Employee Statiscs</span></a>
 				</li>
 
 				<!-- Divider -->
@@ -333,22 +335,22 @@
 						<div class="row">
 							<!--Search -->
 							
-							<form class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 w-100">
+							<form class="shadow d-sm-inline-block form-inline mr-auto ml-md-3  my-md-0 w-100">
 								<fieldset class="p-0" style="border-width: 2px; border-style: solid; border-color: gray;">
-									<legend class="w-auto">Search</legend><br>
+									<legend class="w-auto" style="margin-inline-start: 25px">Search</legend><br>
 
 										<div class="input-group container">
 											<div class="dropdown1">
 											  <button id="mainAttrBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Condition1
 											  <span class="caret"></span></button>
-											  <ul id="mainDropMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+											  <ul id="mainDropMenu" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
 											
 											  </ul>
 											</div>
 											<div class="dropdown2 mx-2">
 											  <button id="subAttrBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Condition2
 											  <span class="caret"></span></button>
-											  <ul id="subDropMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+											  <ul id="subDropMenu" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
 											  </ul>
 											</div>
 											<input id="searchInput" type="text" class="form-control bg-light border-primary" width="100px" placeholder="Company="
@@ -356,7 +358,7 @@
 											<div class="dropdown2 mx-2">
 											  <button id="operatorBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Operator
 											  <span class="caret"></span></button>
-											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
 													<li><a href="#">AND</a></li>
 													<li><a href="#">OR</a></li>
 													<li><a href="#">WITHOUT</a></li>
@@ -365,7 +367,7 @@
 											<div class="dropdown2">
 											  <button id="operatorBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">＋
 											  <span class="caret"></span></button>
-											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
 													<li><a href="#">＋</a></li>
 													<li><a href="#">—</a></li>													
 											  </ul>
@@ -377,14 +379,14 @@
 											<div class="dropdown1">
 											  <button id="mainAttrBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Condition1
 											  <span class="caret"></span></button>
-											  <ul id="mainDropMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+											  <ul id="mainDropMenu" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
 											
 											  </ul>
 											</div>
 											<div class="dropdown2 mx-2">
 											  <button id="subAttrBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Condition2
 											  <span class="caret"></span></button>
-											  <ul id="subDropMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+											  <ul id="subDropMenu" class="dropdown-menu dropdown-menu-right  shadow animated--grow-in animated--fade-in">
 											  </ul>
 											</div>
 											<input id="searchInput" type="text" class="form-control bg-light border-primary" width="100px" placeholder="Company="
@@ -392,7 +394,7 @@
 											<div class="dropdown2 mx-2">
 											  <button id="operatorBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Operator
 											  <span class="caret"></span></button>
-											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right  shadow animated--grow-in animated--fade-in">
 													<li><a href="#">AND</a></li>
 													<li><a href="#">OR</a></li>
 													<li><a href="#">WITHOUT</a></li>
@@ -401,7 +403,7 @@
 											<div class="dropdown2">
 											  <button id="operatorBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">＋
 											  <span class="caret"></span></button>
-											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in animated--fade-in">
+											  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right  shadow animated--grow-in animated--fade-in">
 													<li><a href="#">＋</a></li>
 													<li><a href="#">—</a></li>													
 											  </ul>
@@ -424,122 +426,55 @@
 							</form>                            
 						</div>
 						<p>
-						<div class="row">
-							<!--Search -->
-							
-						<form class="mr-auto ml-md-3 my-2 my-md-0 w-100">
 						
-								<fieldset class="p-0" style="display: none; border-width: 2px; border-style: solid; border-color: gray;">
-									<legend class="w-auto">Search by Condition</legend>
-										<div class="input-group container d-sm-inline-block form-inline">
-											<div class="form-group">
-												<label for="exampleFormControlSelect1 ">Seniority</label>
-												<select class="form-control" style="width:100%;" name="seniority" >
-													<option value="0">Below 5 years</option>
-													<option value="1">Below 10 years</option>
-													<option value="2">Below 15 years</option>
-													</option>
-												</select>	
-											</div>											
-										</div><p>									
-										<div class="input-group container d-sm-inline-block form-inline">
-											<div class="form-group">
-												<label for="exampleFormControlSelect1">Educational Level</label>
-												<select class="form-control" style="width:100%;" name="educational">
-													<option value="0">Bachelor</option>
-													<option value="1">Master</option>
-													<option value="2">PhD</option>
-													</option>
-												</select>
-											</div>
-										</div><p>
-										<div class="input-group container d-sm-inline-block form-inline">
-											<div class="form-group">
-												<label for="exampleFormControlSelect1">Age</label>
-												<select class="form-control" style="width:100%;" name="age">
-													<option value="0">25 above</option>
-													<option value="1">30 above</option>
-													<option value="2">35 above</option>
-													<option value="2">40 above</option>
-													</option>
-												</select>
-											</div>
-										</div><p>
-										<p>
-								</fieldset>
-						</form>   
-						<p>
-						<form class="mr-auto ml-md-3 my-2 my-md-0 w-100">
-							<div class="container">
-							  <div class="row">
-								
-					<!-- Begin Page Content -->
-					<div class="container-fluid">
-						<!-- DataTables Example -->
-						<div class="card shadow mb-4">
-							<div class="card-header py-3">
-								<h6 class="m-0 font-weight-bold text-primary">Resume Profile</h6>
 							</div>
-							<div class="container">
-								<section>							
-								
-
-									<div class="demo-html"></div>
-									<table id="queryResultTable" class="display" style="width:100%">
-										<thead class="text-muted text-xs" style="display: none;">
-											<tr>
-												<th></th>
-												<th>ID</th>
-												<th>Name</th>
-												<th>Location</th>
-												<th>Phone</th>
-												<th>Email</th>
-												<th>Personal URLs</th>
-												<th>Educations</th>
-												<th>Computer Skills</th>
-												<th>Certificates</th>
-												<th>Publications</th>
-												<th>Patents</th>
-												<th>Experiences</th>
-											</tr>
-										</thead>
-										<tfoot style="display: none;">
-											<tr>
-												<th></th>
-												<th>ID</th>
-												<th>Name</th>
-												<th>Location</th>
-												<th>Phone</th>
-												<th>Email</th>
-												<th>Personal URLs</th>
-												<th>Educations</th>
-												<th>Computer Skills</th>
-												<th>Certificates</th>
-												<th>Publications</th>
-												<th>Patents</th>
-												<th>Experiences</th>
-											</tr>
-										</tfoot>
-									</table>
 									
-								</section>
-							</div>								
-							
-						</div>
+									<!-- Begin Page Content -->
+									<div class="container-fluid ml-md-2">
+										<!-- DataTables Example -->	
+										<div class="card shadow mb-4 ">
+											<div class="card-header py-3">
+												<h6 class="m-0 font-weight-bold text-primary">Resumes</h6>
+											</div>
+											
+												<section>							
+												
 
-					</div>
-					<!-- /.container-fluid -->
-							  </div>
-							</div>
+													<div class="demo-html "></div>
+													<table id="queryResultTable" class="display" style="width:100%">
+														<thead class="text-muted text-xs" style="display: none;">
+															<tr>
+																<th></th>
+																<th>ID</th>
+																<th>Name</th>
+																<th>Location</th>
+																<th>Phone</th>
+																<th>Email</th>
+																<th>Personal URLs</th>
+																<th>Educations</th>
+																<th>Computer Skills</th>
+																<th>Certificates</th>
+																<th>Publications</th>
+																<th>Patents</th>
+																<th>Experiences</th>
+															</tr>
+														</thead>
+														
+													</table>
+													
+												</section>
+																		
+											
+										</div>
 
+									</div>
+									<!-- /.container-fluid -->
+								
 
+						
+						<!-- /.container-fluid -->
 
-						</form>
-
-					</div>
-					<!-- /.container-fluid -->
-
-				</div>
+				
 				<!-- End of Main Content -->
 
 				<!-- Footer -->
