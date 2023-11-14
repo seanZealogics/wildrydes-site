@@ -136,11 +136,10 @@
 	
 	var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
 	var dropDownMainBtn = document.querySelector("#mainAttrBtn");
-	var dropdownSubMenu = document.querySelector(".dropdown2 .dropdown-menu");
-	var dropDownSubBtn = document.querySelector("#subAttrBtn");
+	
 	var searchInput = document.querySelector("#searchInput");
 	var thead = document.querySelector("table thead");
-	var tfoot = document.querySelector("table tfoot");
+
 	var mapMainAttr = new Map(); 
 	var arrSubAttr = [];
 	
@@ -166,7 +165,7 @@
 		  });
 
 		  const data = await response.json();
-		  //console.log(data);
+		  console.log(data);
 		  completeRequest(data);
 		};
 
@@ -193,63 +192,14 @@
 			aMainTag.setAttribute("tabindex", value);
 			aMainTag.setAttribute("href", "#");
 			aMainTag.textContent = key;
+			console.log(key);
 			
 			aMainTag.addEventListener("click", function(event) {
 				event.preventDefault(); // 防止默認的點擊事件行為
 				dropDownMainBtn.textContent = this.textContent;
 				selectedIndex = this.getAttribute("tabindex");
-				
-				
-				let found = false;
-				for (var [key, value] of mapMainAttr) {
-					if (found) {
-						selectedNextIndex = value;
-						break;
-					}
-					if (value == selectedIndex) {
-						found = true;
-					}
-				}
-				
-				while (dropdownSubMenu.firstChild) {
-					dropdownSubMenu.removeChild(dropdownSubMenu.firstChild);
-				}
-				
-				if(selectedIndex == selectedNextIndex || typeof selectedNextIndex === 'undefined')
-				{
-					selectedNextIndex = arrSubAttr.length
-				}
-				
-				//console.log("selectedIndex "+ selectedIndex + " selectedNextIndex "+selectedNextIndex);
-				for (var index = selectedIndex; index < selectedNextIndex; index++) {
-							// 建立一個新的 <li> 元素
-					let li = document.createElement("li");
-					li.setAttribute("role", "presentation");
-
-					// 建立一個新的 <a> 元素
-					let aSubTag = document.createElement("a");
-					aSubTag.setAttribute("role", "menuitem");
-					aSubTag.setAttribute("tabindex", index);
-					aSubTag.setAttribute("href", "#");
-					aSubTag.textContent = arrSubAttr[index];
-					aSubTag.addEventListener("click", function(event) {
-						event.preventDefault(); // 防止默認的點擊事件行為
-						dropDownSubBtn.textContent = this.textContent;
-						searchInput.setAttribute("placeholder", this.textContent + "=");
-						//console.log(this.textContent); // 印出 menu item 的內容
-					});
-					
-					// 將 <a> 元素加入到 <li> 內
-					li.appendChild(aSubTag);
-
-					// 最後，將 <li> 元素加入到 dropdown menu 中
-					dropdownSubMenu.appendChild(li);
-
-					//console.log(arrSubAttr[index]);
-					dropDownSubBtn.textContent = arrSubAttr[index];
-				}
-				
-				//console.log(); // 印出 menu item 的內容
+			
+				console.log(this.textContent); // 印出 menu item 的內容
 			});
 			
 			// 將 <a> 元素加入到 <li> 內
@@ -452,17 +402,18 @@
 	async function fetchData() {
 		try {
 
-			const data = {
-				united: false,
-				filter_condition: {
-				  [dropDownMainBtn.textContent]: [{ [dropDownSubBtn.textContent]: searchInput.value }]//[{ institution: searchInput.Text }] //[{ institution: 'Taiwan' }] //
+			const queryData = {
+				//[dropDownMainBtn.textContent]: {
+					education: {
+					excluded: false,
+					conditions:[searchInput.value]				
 				}
 			};
-			//console.log("JSON.stringify(data) " + JSON.stringify(data));
+			console.log("JSON.stringify(queryData) " + JSON.stringify(queryData));
 			const response = await fetch( _config.api.queryUrl, {
 				method: 'POST',
 				mode: 'cors',
-				body: JSON.stringify(data)
+				body: JSON.stringify(queryData)
 			});
 	  
 			if (!response.ok) {
@@ -470,8 +421,8 @@
 			}
 	  
 			const jsonResponse = await response.json();
-			/* console.log("Type of jsonResponse:", typeof jsonResponse);
-			console.log(jsonResponse.items); */
+			console.log("Type of jsonResponse:", typeof jsonResponse);
+			console.log(JSON.stringify(jsonResponse)); 
 		              var allData = [];
             for (var item of jsonResponse.items) //dummyData.items
             {
@@ -495,7 +446,7 @@
 						"data": null,
                         "defaultContent": ''
 					},
-                    { "data": "id" },
+                    { "data": "id", "visible": false },
                     { "data": "profile.name" },
                     { "data": "profile.location",
                         "render": function (data, type, row) {
@@ -527,7 +478,7 @@
                     { "data": "profile.personal_urls",
                         "render": function (data, type, row) {
                             if (data.length) {
-                                return type === 'display' ? data.length + " Records" : ''; 
+                                return type === 'display' ? data.length + " Personal URLs Records" : ''; 
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
                             }
@@ -541,7 +492,7 @@
 										return education.date + ' - ' + education.degree + ' (' + education.school + ')';
                                 });				
 								educations.join('<br>');
-                                return educations.length + " Records";
+                                return educations.length + " Education Records";
                             } 
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
@@ -554,7 +505,7 @@
                     { "data": "computer_skills",
 						"render": function (data, type, row) {
                             if (data.length) {
-                                return type === 'display' ? data.length + " Records" : ''; 
+                                return type === 'display' ? data.length + " Computer Skills Records" : ''; 
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
                             }
@@ -568,7 +519,7 @@
 										return certificates.date + ' - ' + certificates.title + ' (' + certificates.certifying_authority + ')';
                                 });
                                 certificates.join('<br>');
-								return certificates.length + " Records";
+								return certificates.length + " Certificate Records";
                             }
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
@@ -585,7 +536,7 @@
 										return publications.date + ' - ' + publications.title ;
 									});
 									publications.join('<br>');
-									return publications.length + " Records";
+									return publications.length + " Publication Records";
 								}
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
@@ -602,7 +553,7 @@
 										return patents.date + ' - ' + patents.title;
 									});
 									patents.join('<br>');
-									return patents.length + " Records";
+									return patents.length + " Patent Records";
 								}
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
@@ -621,7 +572,7 @@
 										return experiences.date + ' - ' + experiences.company + ' (' + experiences.position + ')<br> ' + experiences.responsibility ;
 									});
 									experiences.join('<br>');
-									return experiences.length + " Records";
+									return experiences.length + " Experience Records";
 								}
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
@@ -632,6 +583,7 @@
                     }
 
 				],
+				"paging": false,
 				"order": [[1, 'asc']]
 			});
 			
@@ -653,7 +605,7 @@
             });
 
 			thead.style.display = "table-header-group";
-			tfoot.style.display = "table-footer-group";
+			
 
 			//var newWindow = window.open('', '_blank', 'width=400,height=200');			
 			//newWindow.document.write('<html><body>');
@@ -670,11 +622,10 @@
 	function handleSearchClick(event) {		
 		event.preventDefault();
 		/* console.log(dropDownMainBtn.textContent);
-		console.log(dropDownSubBtn.textContent);
 		console.log(searchInput.value);
 		*/
 		let mainAttr = dropDownMainBtn.textContent;
-		let subAttr = dropDownSubBtn.textContent;
+		
 		let searchStr = searchInput.value;
 		
 		//$('#queryResultTable').DataTable.destroy();
