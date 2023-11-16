@@ -148,6 +148,63 @@
 	
 	var queryDataStr;
 	
+	document.addEventListener("DOMContentLoaded", function () {
+				
+		var maxFields = 5; // Maximum input boxes allowed
+		var wrapper = document.getElementById("controlContainer"); // Fields wrapper
+		var addButton = document.getElementById("addDelSearchGroup"); // Add button ID
+		var x = 1; // Initial text box count
+		// Get the operator menu
+		var operatorMenu = document.getElementById("addDelSearchGroupMenu");
+		// Add event listener for click event
+		operatorMenu.addEventListener('click', function(e) {
+			e.preventDefault();
+			if(e.target && e.target.nodeName == "A") {
+				if(e.target.classList.contains('fa-plus') && x < maxFields) { // Add new input box
+					x++; // Text box increment
+					var newElement = document.createElement('div');
+					newElement.innerHTML = '<p><div id="controlContainer" class="input-group container"> \
+											<div id="group'+x+'" class="dropdown1"> \
+											<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Condition'+x+' \
+											<span class="caret"></span></button> \
+											<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in"> \
+											</ul> \
+											</div> \
+											<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" \="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;"> \
+											<div class="dropdown2 mx-1"> \
+											<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Operator \
+											<span class="caret"></span></button> \
+											<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in"> \
+											<li><a href="#">AND</a></li> \
+											<li><a href="#">OR</a></li> \
+											<li><a href="#">WITHOUT</a></li> \
+											</ul> \
+											</div>'; // Add field html
+					wrapper.appendChild(newElement);
+					
+					
+					
+					var operationLinks = newElement.getElementsByTagName('a');
+					for(var i = 0; i < operationLinks.length; i++) {
+						operationLinks[i].id = 'newId' + x + '_' + i; // Set new id
+						operationLinks[i].addEventListener('click', function() { // Register click event listener
+							console.log('Clicked: ' + this.id + ', Text: ' + this.textContent);
+						});
+					}
+				} else if(e.target.classList.contains('fa-minus')  && x > 1) { // Remove input box
+					wrapper.lastChild.remove();
+					x--;
+				}
+			}
+		});
+	});
+	
+	function initSearchGroup() {
+		
+
+		
+	}
+	
 	function showLoading() {
 	  loading.style.display = 'block';
 	}
@@ -263,7 +320,7 @@
 
 		fetchAttr();
 		
-        
+        initSearchGroup();
     });
 	
 	
@@ -433,6 +490,7 @@
                 "data": allData,
                 "scrollX": 200,
                 "scrollCollapse": true,
+				"autoWidth": true,
 				"columnDefs": [
 					{
 						"targets": "_all",
@@ -582,8 +640,7 @@
                         }
                     }
 
-				],
-				"paging": false,
+				],				
 				"order": [[1, 'asc']]
 			});
 			
