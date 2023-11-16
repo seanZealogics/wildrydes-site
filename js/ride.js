@@ -136,7 +136,8 @@
 	
 	var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
 	var dropDownMainBtn = document.querySelector("#mainAttrBtn");
-	
+	var dropDownOperatorBtn = document.querySelector("#operatorBtn");
+	var dropDownOperatorMenuBtn = document.querySelector("#operatorMenu");
 	var searchInput = document.querySelector("#searchInput");
 	var thead = document.querySelector("table thead");
 
@@ -155,17 +156,26 @@
 		var addButton = document.getElementById("addDelSearchGroup"); // Add button ID
 		var x = 1; // Initial text box count
 		// Get the operator menu
-		var operatorMenu = document.getElementById("addDelSearchGroupMenu");
+		var addDelSearchGroupMenu = document.getElementById("addDelSearchGroupMenu");
+		
+		dropDownOperatorMenuBtn.addEventListener('click', function(e) {
+			e.preventDefault();
+			if(e.target && e.target.nodeName == "A") {
+				dropDownOperatorBtn.textContent = e.target.textContent;
+				console.log(e.target.textContent);
+			}
+		});
+		
 		// Add event listener for click event
-		operatorMenu.addEventListener('click', function(e) {
+		addDelSearchGroupMenu.addEventListener('click', function(e) {
 			e.preventDefault();
 			if(e.target && e.target.nodeName == "A") {
 				if(e.target.classList.contains('fa-plus') && x < maxFields) { // Add new input box
 					x++; // Text box increment
 					var newElement = document.createElement('div');
-					newElement.innerHTML = '<p><div id="controlContainer" class="input-group container"> \
+					 newElement.innerHTML = '<p><div id="controlContainer" class="input-group container"> \
 											<div id="group'+x+'" class="dropdown1"> \
-											<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Condition'+x+' \
+											<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown"> \
 											<span class="caret"></span></button> \
 											<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in"> \
 											</ul> \
@@ -180,15 +190,50 @@
 											<li><a href="#">WITHOUT</a></li> \
 											</ul> \
 											</div>'; // Add field html
+					 						
+								
 					wrapper.appendChild(newElement);
 					
+					var mainMenuLinks = newElement.getElementsByTagName('ul');
+					for(var i = 0; i < mainMenuLinks.length; i++) {
+						if(mainMenuLinks[i].id.indexOf("mainDropMenu") !== -1){
+							console.log("mainMenuLinks !!!!!　" +　mainMenuLinks[i].id);
+							break;
+						}
+					}
+					
+					var mainBtnLinks = newElement.getElementsByTagName('button');
+					let operatorBtn = undefined;
+					for(var i = 0; i < mainBtnLinks.length; i++) {
+						//console.log("mainBtnLinks !!!!!　" +　mainBtnLinks[i].id);
+						//mainBtnLinks[i].id = 'newId' + x + '_' + i; // Set new id
+						if(mainBtnLinks[i].id.indexOf("mainAttrBtn") != -1){
+							refreshAttrBtn(mainBtnLinks[i], mainMenuLinks[i]);
+							mainBtnLinks[i].addEventListener('click', function() { // Register click event listener
+								//console.log('mainBtnLinks Clicked: ' + this.id + ', Text: ' + this.textContent);
+								
+								
+							});
+						}else if(mainBtnLinks[i].id.indexOf("operatorBtn") != -1){
+							operatorBtn = mainBtnLinks[i];	
+							//console.log("operatorBtn=" + operatorBtn.id);							
+						}
+					}
 					
 					
 					var operationLinks = newElement.getElementsByTagName('a');
+					
 					for(var i = 0; i < operationLinks.length; i++) {
+						console.log('operationLinks: ' + operationLinks[i].id);
 						operationLinks[i].id = 'newId' + x + '_' + i; // Set new id
 						operationLinks[i].addEventListener('click', function() { // Register click event listener
 							console.log('Clicked: ' + this.id + ', Text: ' + this.textContent);
+							if(operatorBtn !== undefined){
+								if(this.textContent === 'AND' || this.textContent === 'OR' || this.textContent === 'WITHOUT'){
+									operatorBtn.textContent = this.textContent;
+								}
+								
+							}
 						});
 					}
 				} else if(e.target.classList.contains('fa-minus')  && x > 1) { // Remove input box
@@ -198,12 +243,6 @@
 			}
 		});
 	});
-	
-	function initSearchGroup() {
-		
-
-		
-	}
 	
 	function showLoading() {
 	  loading.style.display = 'block';
@@ -222,14 +261,14 @@
 		  });
 
 		  const data = await response.json();
-		  console.log(data);
+		  //console.log(data);
 		  completeRequest(data);
 		};
 
 		fetchData();
 	}
 	
-	function refreshAttrBtn() {
+	function refreshAttrBtn(attrButton, mainMenu) {
 
 		// 獲取 dropdown menu
 
@@ -249,11 +288,11 @@
 			aMainTag.setAttribute("tabindex", value);
 			aMainTag.setAttribute("href", "#");
 			aMainTag.textContent = key;
-			console.log(key);
+			//console.log(key);
 			
 			aMainTag.addEventListener("click", function(event) {
 				event.preventDefault(); // 防止默認的點擊事件行為
-				dropDownMainBtn.textContent = this.textContent;
+				attrButton.textContent = this.textContent;
 				selectedIndex = this.getAttribute("tabindex");
 			
 				console.log(this.textContent); // 印出 menu item 的內容
@@ -263,10 +302,10 @@
 			li.appendChild(aMainTag);
 
 			// 最後，將 <li> 元素加入到 dropdown menu 中
-			dropdownMainMenu.appendChild(li);
+			mainMenu.appendChild(li);
 			
 		}
-		//dropDownMainBtn.textContent = key;
+		attrButton.textContent = key;
 		
 		
 		// 獲取被選擇項目的索引
@@ -277,8 +316,6 @@
 
 		//console.log(selectedIndex);
 	
-		//dropDownSubBtn.textContent = arrSubAttr[index];
-
 	}
 
 	function completeRequest(result) {		
@@ -310,7 +347,7 @@
 		}
 		window.mapMainAttr = mapMainAttr;
 		window.arrSubAttr = arrSubAttr;
-		refreshAttrBtn();
+		refreshAttrBtn(dropDownMainBtn, dropdownMainMenu);
 	}
 
     // Register click handler for #request button
@@ -320,7 +357,7 @@
 
 		fetchAttr();
 		
-        initSearchGroup();
+       
     });
 	
 	
@@ -458,6 +495,14 @@
 	
 	async function fetchData() {
 		try {
+			
+		/* 	var inputLinks = newElement.getElementsByTagName('input');
+					for(var i = 0; i < inputLinks.length; i++) {
+						if(inputLinks[i].id.indexOf("searchInput") !== -1){
+							console.log("mainMenuLinks !!!!!　" +　mainMenuLinks[i].id);
+							break;
+						}
+					} */
 
 			const queryData = {
 				//[dropDownMainBtn.textContent]: {
