@@ -217,6 +217,9 @@
 							});
 						}else if(mainBtnLinks[i].id.indexOf("operatorBtn") != -1){
 							operatorBtn = mainBtnLinks[i];	
+							if(operatorBtn.id === "operatorBtn3"){
+								operatorBtn.style.visibility = "hidden";
+							}
 							//console.log("operatorBtn=" + operatorBtn.id);							
 						}
 					}
@@ -287,6 +290,8 @@
 			var aMainTag = document.createElement("a");
 			aMainTag.setAttribute("role", "menuitem");
 			aMainTag.setAttribute("tabindex", value);
+			aMainTag.setAttribute("display", "flex");
+			aMainTag.setAttribute("justifyContent", "center");
 			aMainTag.setAttribute("href", "#");
 			aMainTag.textContent = key;
 			//console.log(key);
@@ -497,9 +502,7 @@
 	async function fetchData() {
 		try {
 			
-			let queryData = 						{
-			  "united": true,
-			};
+			let queryData ={};
 			
 		 	let previousButtonName = null;
 			let nextButtonName = null;
@@ -530,6 +533,7 @@
 			
  
 						  var key = previousButton.innerText;
+						  var key = key.substring(0, key.length - 1);
 						  var condition = inputLinks[i].value;
 						 
 						  var type = prevCondition === "WITHOUT" ? "excluded_conditions" : "included_conditions";
@@ -540,7 +544,13 @@
 							};
 						  }
 						  queryData[key][type].push(condition);
-						  queryData["united"] = nextButton.innerText === "AND" ? false : true;				
+						  //queryData["united"] = nextButton.innerText === "AND" ? false : true;				
+						  if (queryData[key]["included_conditions"].length === 0) {
+							  delete queryData[key]["included_conditions"];
+						  }
+						  if (queryData[key]["excluded_conditions"].length === 0) {
+							  delete queryData[key]["excluded_conditions"];
+						  }
 												
 						  prevCondition = nextButton.innerText;
 					} 
