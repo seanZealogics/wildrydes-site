@@ -7,6 +7,7 @@ window._config = {
   api: {
     invokeUrl: "https://wrg404fuwj.execute-api.ap-southeast-2.amazonaws.com/prod", // e.g. https://rc7nyt4tql.execute-api.us-west-2.amazonaws.com/prod',	
 	fetchUrl: "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume/schema", //functionUrl: "https://5qz5tinbeuaa2gqhjggl7gsovy0rmhvs.lambda-url.ap-northeast-1.on.aws/"
-	queryUrl: "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume"
+	//queryUrl: "https://w2byy0wk17.execute-api.ap-northeast-1.amazonaws.com/resume"
+	queryUrl: "https://2rsi3py4lk.execute-api.ap-northeast-1.amazonaws.com/lowercase_resume"
   }
 };

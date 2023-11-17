@@ -151,8 +151,8 @@
 	
 	document.addEventListener("DOMContentLoaded", function () {
 				
-		var maxFields = 5; // Maximum input boxes allowed
-		var wrapper = document.getElementById("controlContainer"); // Fields wrapper
+		var maxFields = 3; // Maximum input boxes allowed
+		var wrapper = document.getElementById("newbelow"); // Fields wrapper
 		var addButton = document.getElementById("addDelSearchGroup"); // Add button ID
 		var x = 1; // Initial text box count
 		// Get the operator menu
@@ -162,7 +162,7 @@
 			e.preventDefault();
 			if(e.target && e.target.nodeName == "A") {
 				dropDownOperatorBtn.textContent = e.target.textContent;
-				console.log(e.target.textContent);
+				//console.log(e.target.textContent);
 			}
 		});
 		
@@ -172,24 +172,25 @@
 			if(e.target && e.target.nodeName == "A") {
 				if(e.target.classList.contains('fa-plus') && x < maxFields) { // Add new input box
 					x++; // Text box increment
-					var newElement = document.createElement('div');
-					 newElement.innerHTML = '<p><div id="controlContainer" class="input-group container"> \
-											<div id="group'+x+'" class="dropdown1"> \
-											<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown"> \
-											<span class="caret"></span></button> \
-											<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in"> \
-											</ul> \
-											</div> \
-											<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" \="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;"> \
-											<div class="dropdown2 mx-1"> \
-											<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Operator \
-											<span class="caret"></span></button> \
-											<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in"> \
-											<li><a href="#">AND</a></li> \
-											<li><a href="#">OR</a></li> \
-											<li><a href="#">WITHOUT</a></li> \
-											</ul> \
-											</div>'; // Add field html
+					var newElement = document.createElement("p");
+					 newElement.className = 'dynamic-control-group';
+					 newElement.innerHTML = '<div id="controlContainer'+x+'"" class="input-group container">' +
+											'<div id="group'+x+'" class="dropdown1">' +
+											'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">' +
+											'<span class="caret"></span></button>' +
+											'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
+											'</ul>' +
+											'</div>' +
+											'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" +="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;">' +
+											'<div class="dropdown2 mx-1">' +
+											'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">Operator' +
+											'<span class="caret"></span></button>' +
+											'<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
+											'<li><a href="#">AND</a></li>' +
+											'<li><a href="#">OR</a></li>' +
+											'<li><a href="#">WITHOUT</a></li>' +
+											'</ul>' +
+											'</div></div>'; // Add field html
 					 						
 								
 					wrapper.appendChild(newElement);
@@ -224,7 +225,7 @@
 					var operationLinks = newElement.getElementsByTagName('a');
 					
 					for(var i = 0; i < operationLinks.length; i++) {
-						console.log('operationLinks: ' + operationLinks[i].id);
+						//console.log('operationLinks: ' + operationLinks[i].id);
 						operationLinks[i].id = 'newId' + x + '_' + i; // Set new id
 						operationLinks[i].addEventListener('click', function() { // Register click event listener
 							//console.log('Clicked: ' + this.id + ', Text: ' + this.textContent);
@@ -295,7 +296,7 @@
 				attrButton.textContent = this.textContent;
 				selectedIndex = this.getAttribute("tabindex");
 			
-				console.log(this.textContent); // 印出 menu item 的內容
+				//console.log(this.textContent); // 印出 menu item 的內容
 			});
 			
 			// 將 <a> 元素加入到 <li> 內
@@ -496,21 +497,57 @@
 	async function fetchData() {
 		try {
 			
-		 	var inputLinks = newElement.getElementsByTagName('input');
-			for(var i = 0; i < inputLinks.length; i++) {
-				if(inputLinks[i].id.indexOf("searchInput") !== -1){
-					console.log("inputLinks !!!!!　" +　inputLinks[i].id);
-					break;
-				}
-			} 
-
-			const queryData = {
-				//[dropDownMainBtn.textContent]: {
-					education: {
-					excluded: false,
-					conditions:[searchInput.value]				
-				}
+			let queryData = 						{
+			  "united": true,
 			};
+			
+		 	let previousButtonName = null;
+			let nextButtonName = null;
+			var prevCondition = "OR";
+
+		 	var inputLinks = document.getElementsByTagName('input');
+			//console.log("inputLinks !!!!!　" +　inputLinks.length);
+			for(var i = 0; i < inputLinks.length; i++) {
+				//console.log("inputLinks !!!!!　" + i + " "+　inputLinks[i].id);
+				if(inputLinks[i].id.indexOf("searchInput") !== -1){
+					//console.log("inputLinks !!!!!　" +　inputLinks[i].id + " " +inputLinks[i].value);
+					if (inputLinks[i].value.length > 0) {
+					   // 尋找最近的前一個 button
+						var previousButton = inputLinks[i].previousElementSibling;
+						if (previousButton && previousButton.tagName === 'button') {
+						  previousButtonName = previousButton.name;
+						}
+						// 尋找最近的下一個 button
+						var nextButton = inputLinks[i].nextElementSibling;
+						if (nextButton && nextButton.tagName === 'button') {
+						  nextButtonName = nextButton.name;
+						}
+						console.log(previousButton.innerText);
+						console.log(inputLinks[i].value);
+						console.log(nextButton.innerText);
+						
+						
+			
+ 
+						  var key = previousButton.innerText;
+						  var condition = inputLinks[i].value;
+						 
+						  var type = prevCondition === "WITHOUT" ? "excluded_conditions" : "included_conditions";
+						  if (!queryData[key]) {
+							queryData[key] = {
+							  "included_conditions": [],
+							  "excluded_conditions": []
+							};
+						  }
+						  queryData[key][type].push(condition);
+						  queryData["united"] = nextButton.innerText === "AND" ? false : true;				
+												
+						  prevCondition = nextButton.innerText;
+					} 
+				} 
+			}
+
+			
 			console.log("JSON.stringify(queryData) " + JSON.stringify(queryData));
 			const response = await fetch( _config.api.queryUrl, {
 				method: 'POST',
