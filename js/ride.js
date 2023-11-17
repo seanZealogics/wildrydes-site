@@ -197,7 +197,7 @@
 					var mainMenuLinks = newElement.getElementsByTagName('ul');
 					for(var i = 0; i < mainMenuLinks.length; i++) {
 						if(mainMenuLinks[i].id.indexOf("mainDropMenu") !== -1){
-							console.log("mainMenuLinks !!!!!　" +　mainMenuLinks[i].id);
+							//console.log("mainMenuLinks !!!!!　" +　mainMenuLinks[i].id);
 							break;
 						}
 					}
@@ -227,7 +227,7 @@
 						console.log('operationLinks: ' + operationLinks[i].id);
 						operationLinks[i].id = 'newId' + x + '_' + i; // Set new id
 						operationLinks[i].addEventListener('click', function() { // Register click event listener
-							console.log('Clicked: ' + this.id + ', Text: ' + this.textContent);
+							//console.log('Clicked: ' + this.id + ', Text: ' + this.textContent);
 							if(operatorBtn !== undefined){
 								if(this.textContent === 'AND' || this.textContent === 'OR' || this.textContent === 'WITHOUT'){
 									operatorBtn.textContent = this.textContent;
@@ -496,13 +496,13 @@
 	async function fetchData() {
 		try {
 			
-		/* 	var inputLinks = newElement.getElementsByTagName('input');
-					for(var i = 0; i < inputLinks.length; i++) {
-						if(inputLinks[i].id.indexOf("searchInput") !== -1){
-							console.log("mainMenuLinks !!!!!　" +　mainMenuLinks[i].id);
-							break;
-						}
-					} */
+		 	var inputLinks = newElement.getElementsByTagName('input');
+			for(var i = 0; i < inputLinks.length; i++) {
+				if(inputLinks[i].id.indexOf("searchInput") !== -1){
+					console.log("inputLinks !!!!!　" +　inputLinks[i].id);
+					break;
+				}
+			} 
 
 			const queryData = {
 				//[dropDownMainBtn.textContent]: {
