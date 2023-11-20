@@ -397,8 +397,6 @@
 						console.log(inputLinks[i].value);
 						console.log(nextButton.innerText);
 						 */
-						
-			
  
 						  var key = previousButton.innerText;
 						  var key = key.substring(0, key.length - 1);
@@ -472,6 +470,8 @@
             {
                 allData.push(item);
             }
+			$('#queryResultTable').DataTable().clear();
+			$('#queryResultTable').DataTable().destroy();
 
 			var resultTable = $('#queryResultTable').DataTable({
                 "data": allData,
@@ -636,7 +636,7 @@
                     }
 
 				],				
-				"order": [[1, 'asc']]
+				//"order": [[1, 'asc']]
 			});
 			
 
