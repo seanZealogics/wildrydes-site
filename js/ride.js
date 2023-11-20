@@ -217,7 +217,7 @@
 							});
 						}else if(mainBtnLinks[i].id.indexOf("operatorBtn") != -1){
 							operatorBtn = mainBtnLinks[i];	
-							if(operatorBtn.id === "operatorBtn3"){
+							if(operatorBtn.id === 'operatorBtn'+maxFields){
 								operatorBtn.style.visibility = "hidden";
 							}
 							//console.log("operatorBtn=" + operatorBtn.id);							
@@ -605,10 +605,18 @@
                         "defaultContent": ''
 					},
                     { "data": "id", "visible": false },
-                    { "data": "profile.name" },
+                    { "data": "profile.name",
+						"render": function (data, type, row) {
+                            if (data && data.length) {								
+                                return type === 'display' ? data: ''; 
+                            } else {
+                                return type === 'display' ? 'N / A' : '';  
+                            } 
+                        }
+					},
                     { "data": "profile.location",
                         "render": function (data, type, row) {
-                            if (data.length) {
+                            if (data && data.length) {
                                 return type === 'display' ? data: ''; 
                             } else {
                                 return type === 'display' ? 'N / A' : '';  
@@ -617,7 +625,7 @@
                     },
                     { "data": "profile.phone",
                         "render": function (data, type, row) {
-                            if (data.length) {
+                            if (data && data.length) {
                                 return type === 'display' ? data : ''; 
                             } else {
                                 return type === 'display' ? 'N / A' : '';  
@@ -626,7 +634,7 @@
                     },
                     { "data": "profile.email",
                         "render": function (data, type, row) {
-                            if (data.length) {
+                            if (data && data.length) {
                                 return type === 'display' ? data : ''; 
                             } else {
                                 return type === 'display' ? 'N / A' : '';  
@@ -635,7 +643,7 @@
                     },
                     { "data": "profile.personal_urls",
                         "render": function (data, type, row) {
-                            if (data.length) {
+                            if (data && data.length) {
                                 return type === 'display' ? data.length + " Personal URLs Records" : ''; 
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
@@ -644,7 +652,7 @@
 					},
                     { "data": "educations",
                       "render": function (data, type, row) {
-                            if (data.length) {
+                            if (data && data.length) {
                                 if (type === 'display') {
 									var educations = data.map(function (education) {									
 										return education.date + ' - ' + education.degree + ' (' + education.school + ')';
@@ -662,7 +670,7 @@
                     },                       
                     { "data": "computer_skills",
 						"render": function (data, type, row) {
-                            if (data.length) {
+                            if (data && data.length) {
                                 return type === 'display' ? data.length + " Computer Skills Records" : ''; 
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
@@ -671,7 +679,7 @@
 					},
                     { "data": "certificates",
                         "render": function (data, type, row) {
-                            if (data.length) {
+                            if (data && data.length) {
                                 if (type === 'display') {
 									var certificates = data.map(function (certificates) {
 										return certificates.date + ' - ' + certificates.title + ' (' + certificates.certifying_authority + ')';
@@ -688,7 +696,7 @@
                     },
                     { "data": "publications",
                         "render": function (data, type, row) {
-                             if (data.length) {
+                             if (data && data.length) {
                                 if (type === 'display') {
 									var publications = data.map(function (publications) {
 										return publications.date + ' - ' + publications.title ;
@@ -705,7 +713,7 @@
                     },
                     { "data": "patents",
                         "render": function (data, type, row) {
-                            if (data.length) {
+                            if (data && data.length) {
                                 if (type === 'display') {
 									var patents = data.map(function (patents) {
 										return patents.date + ' - ' + patents.title;
@@ -723,7 +731,7 @@
                     {
                         "data": "experiences",
                         "render": function (data, type, row) {
-                            if (data.length) {
+                            if (data && data.length) {
                                 if (type === 'display') {
 									var experiences = data.map(function (experiences) {
 										//console.log(experiences.company);
