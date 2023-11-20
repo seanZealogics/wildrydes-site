@@ -254,7 +254,7 @@
                             
 	let educations = d.educations.map(function (m_educations) {									
 		return '<p>' + m_educations.date + '<br>' + m_educations.degree + ' at ' + m_educations.school + '<br>' + m_educations.description + '</p>';
-	});															
+	});
 	//////////////////////////////////////////////////
 	data =  d.computer_skills;
 	let computer_skills = "<p>";
@@ -347,7 +347,7 @@
                             
 							
                         
-	return '<table cellspacing="10" border="1" style="width:100%">' +
+	return '<table id="childTable"  cellspacing="10" border="1" style="width:100%">' +
 		'<tr class="text-muted text-xs">'
 		+ '<td>Educations</td>'
 		+ '<td>Computer Skills</td>'		
@@ -495,7 +495,7 @@
                     { "data": "profile.name",
 						"render": function (data, type, row) {
                             if (data && data.length) {								
-                                return type === 'display' ? data: ''; 
+                                return data; 
                             } else {
                                 return type === 'display' ? 'N / A' : '';  
                             } 
@@ -504,7 +504,7 @@
                     { "data": "profile.location",
                         "render": function (data, type, row) {
                             if (data && data.length) {
-                                return type === 'display' ? data: ''; 
+                                return data; 
                             } else {
                                 return type === 'display' ? 'N / A' : '';  
                             } 
@@ -513,7 +513,7 @@
                     { "data": "profile.phone",
                         "render": function (data, type, row) {
                             if (data && data.length) {
-                                return type === 'display' ? data : ''; 
+                                return data; 
                             } else {
                                 return type === 'display' ? 'N / A' : '';  
                             }
@@ -522,7 +522,7 @@
                     { "data": "profile.email",
                         "render": function (data, type, row) {
                             if (data && data.length) {
-                                return type === 'display' ? data : ''; 
+                                return data; 
                             } else {
                                 return type === 'display' ? 'N / A' : '';  
                             }
@@ -531,7 +531,7 @@
                     { "data": "profile.personal_urls",
                         "render": function (data, type, row) {
                             if (data && data.length) {
-                                return type === 'display' ? data.length + " Personal URLs Records" : ''; 
+                                return data.join(', ');
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
                             }
@@ -636,7 +636,7 @@
                     }
 
 				],				
-				//"order": [[1, 'asc']]
+				
 			});
 			
 
