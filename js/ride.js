@@ -1,139 +1,7 @@
 /*global WildRydes _config*/
 
 (function rideScopeWrapper($) {
-	const dummyData = {
-	  "items": [
-        {
-            "publications": [],
-            "certificates": [
-                {
-                    "date": "N/A",
-                    "title": "JLPT N2",
-                    "certifying_authority": "Japanese Language Proficiency Test"
-                }
-            ],
-            "profile": {
-                "name": "Yen-Chih Liao",
-                "location": "Wuri Dist, Taichung City, 414 Taiwan",
-                "phone": "(886) 972-190-248",
-                "email": "yen.yenchih.liao@gmail.com",
-                "personal_urls": []
-            },
-            "computer_skills": [
-                "Python",
-                "C/C  ",
-                "Java",
-                "Solidity",
-                "Golang",
-                "JavaScript",
-                "Sell Script",
-                "Matlab"
-            ],
-            "patents": [],
-            "educations": [
-                {
-                    "date": "Sep. 2018 - Jan. 2021",
-                    "degree": "Master in Networking and Multimedia",
-                    "description": "Publication: View-based Federated Byzantine Agreement System for Environmental Blockchain (BRAINS Jul. 2021)",
-                    "school": "National Taiwan University"
-                },
-                {
-                    "date": "Sep. 2014 - Jun. 2018",
-                    "degree": "B.S. in Computer Science and Information Engineering",
-                    "description": "Publications: Applying Blockchain to an Automated Clearinghouse System (TANET Oct. 2017), Governance on the Drug Supply Chain via Gcoin Blockchain (IJERPH May 2018)",
-                    "school": "National Taiwan University"
-                }
-            ],
-            "id": "43452950-4411-4d93-9639-791d630536df",
-            "experiences": [
-                {
-                    "date": "Nov. 2021 - Now",
-                    "company": "Taisys",
-                    "position": "R&D Software Engineer",
-                    "responsibility": "• Automated Data Handling and Notification System.\n• Developed a Docker container deployed on Google Kubernetes Engine (GKE) for robust data handling.\n• Implemented a system to store incoming data into a PostgreSQL database, ensuring efficient data management.\n• Engineered a cron job that dispatched events to Pub/Sub, providing real-time notifications to subscribers.\n• Utilized mail services to notify subscribers about relevant events, improving user engagement and experience.\n• Smart contract and decentralized application (DApp) development.\n• Developed, tested, and launched Solidity smart contracts using Hardhat (Node.js) and designed demo DApps utilizing React (JavaScript).\n• Created API servers with the gin-gonic (Golang web framework), integrated with MySQL for efficient data management.\n• Customized and deployed open-source blockchain projects such as Omni/Tokenbridge, Project OpenSea/seadrop, and Gnosis/MultiSigWallet to meet specific company needs, enhancing overall system effectiveness.\n• Conducted comprehensive analysis of open-source codes using sequence diagrams and class diagrams to identify areas of improvement.\n• Authored detailed documentation complemented with JavaScript demo code, facilitating knowledge sharing and collaboration among diverse engineering teams.\n• Developed and managed smart contracts, integrating features such as ERC20, ERC721, Ownable, Accessible, Upgradeable, etc., enhancing system functionality.\n• Stress test our own consortium chain (Quorum).\n• Undertook rigorous testing of TPS and latency under various gas consumption scenarios using Python multithreading, ensuring optimal system performance.\n• Visualized analytical results using matplotlib, supporting data-driven decision-making."
-                },
-                {
-                    "date": "Apr. 2019 - May. 2020",
-                    "company": "HTC DeepQ",
-                    "position": "Contractor (R&D)",
-                    "responsibility": "• Adopted and implemented MedRec, a paper published by Stanford University, prototype on Ethereum private chain in a group of five people."
-                }
-            ]
-        },
-        {
-            "publications": [],
-            "certificates": [],
-            "profile": {
-                "name": "Lichen Hsu"
-            },
-            "computer_skills": [
-                "C",
-                "8051/52 MCU"
-            ],
-            "patents": [
-                {
-                    "date": "N/A",
-                    "title": "I702569 METHOD FOR ENHANCING INSTANT IMAGE SHARPNESS"
-                },
-                {
-                    "date": "N/A",
-                    "title": "I687672 OPTICAL INSPECTION SYSTEM AND IMAGE PROCESSING METHOD THEREOF"
-                },
-                {
-                    "date": "N/A",
-                    "title": "I690692 INSPECTION SYSTEM WTH LINE CAMERA UNDER EXTERNAL TRIGGER AND IMAGE EXPOSURE PROCESSING METHOD"
-                },
-                {
-                    "date": "N/A",
-                    "title": "I677680 INSPECTION SYSTEM WTH LINE CAMERA UNDER EXTERNAL TRIGGER AND IMAGE UNIFORMITY PROCESSING METHOD"
-                }
-            ],
-            "educations": [
-                {
-                    "date": "July 1999 - June 2001",
-                    "degree": "Master’s degree",
-                    "description": "Communications Engineering",
-                    "school": "National Chiao Tung University"
-                },
-                {
-                    "date": "September 1997 - June 1999",
-                    "degree": "Bachelor’s degree",
-                    "description": "Electronic and Computer Engineering",
-                    "school": "National Taiwan University of Science and Technology"
-                }
-            ],
-            "id": "c00c83b5-63ff-471c-a0a5-a619ef4d011e",
-            "experiences": [
-                {
-                    "date": "February 2016 - Present",
-                    "company": "Creative Sensor Inc.",
-                    "position": "Senior Deputy Project Manager",
-                    "responsibility": "Leading the development of new products in the new product department of CSI. Participating in projects such as AOI wide-format camera products development, thermal imaging products development, and conducting research and analysis on related problems."
-                },
-                {
-                    "date": "April 2010 - June 2014",
-                    "company": "OPPO Digital Inc.",
-                    "position": "Technical Service Engineer",
-                    "responsibility": "Designed and implemented FPGA and CPLD based on system requirements. Provided technology study, technical support, and services for related OPPO digital products."
-                },
-                {
-                    "date": "March 2010 - January 2016",
-                    "company": "TIC Inc.",
-                    "position": "Technical Service, Sales & Marketing",
-                    "responsibility": "Performed technology study, refurbished, re-modified, and repaired thermal imaging cameras and cores. Resold them to the public market in the USA."
-                },
-                {
-                    "date": "July 2001 - February 2010",
-                    "company": "Opvista Inc.",
-                    "position": "Sr. Hardware Engineer",
-                    "responsibility": "Designed FPGA codes and schematics based on system requirements. Managed projects using MS Project. Worked with PCB Layout Company, tested and verified PCBs, and collaborated with testing department for quality assurance. Contributed to various FPGA-based projects."
-                }
-            ]
-        }
-    ]
-	};
-
-	
+		
 	var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
 	var dropDownMainBtn = document.querySelector("#mainAttrBtn");
 	var dropDownOperatorBtn = document.querySelector("#operatorBtn");
@@ -502,7 +370,7 @@
 	async function fetchData() {
 		try {
 			
-			let queryData ={};
+			let queryData ={"united" : true};
 			
 		 	let previousButtonName = null;
 			let nextButtonName = null;
@@ -538,16 +406,23 @@
 						 
 						  var type = prevCondition === "WITHOUT" ? "excluded_conditions" : "included_conditions";
 						  
-						  if (!queryData[key]) {
+							if (!queryData[key]) {
 							queryData[key] = {
-							  "included_conditions": [],
-							  "excluded_conditions": []
-							};							
+								"united": nextButton.innerText === "AND" ? false : true,
+								"included_conditions": [],
+								"excluded_conditions": []
+							};						
+							if(prevCondition === "AND"){
+								queryData["united"] === "AND" ? false : true;
+							}
 						  }
-						  //console.log(" queryData[key][type] " +queryData[key][type] + " " +  key + " "  +type+ "　"+condition );
-						  queryData[key][type].push(condition);
 						  
-						  //queryData["united"] = nextButton.innerText === "AND" ? false : true;				
+						  console.log("queryData " +　JSON.stringify(queryData));
+						  console.log(" queryData[key][type] " +queryData[key][type] + " " +  key + " "  +type+ "　"+condition );
+						  queryData[key][type].push(condition);
+						  console.log("queryData " +　JSON.stringify(queryData));
+						  
+						  			
 						
 						  if(nextButton){
 							prevCondition = nextButton.innerText;
@@ -555,17 +430,29 @@
 					} 
 				} 
 			}
-
-			for (var key in queryData) {				  
-			  
-				if (queryData[key]["included_conditions"].length === 0) {
-					delete queryData[key]["included_conditions"];
-				}
-				if (queryData[key]["excluded_conditions"].length === 0) {
-					delete queryData[key]["excluded_conditions"];
+			//console.log("pre-clean JSON.stringify(queryData) " + JSON.stringify(queryData));
+			let elementsQueryData = 0;
+			for (var key in queryData) {
+				elementsQueryData++;			
+				if(key !== "united"){
+					console.log("queryData[key]['included_conditions'].length" + queryData[key]["included_conditions"].length);
+					if (queryData[key]["included_conditions"].length === 0) {
+						delete queryData[key]["included_conditions"];
+					}else if (queryData[key]["included_conditions"].length === 1) {
+						delete queryData[key]["united"];
+					}
+					
+					if (queryData[key]["excluded_conditions"].length === 0) {
+						delete queryData[key]["excluded_conditions"];
+					}else if (queryData[key]["excluded_conditions"].length === 1) {
+						delete queryData[key]["united"];
+					}
 				}
 			}
-			
+			if(elementsQueryData === 2){
+				delete queryData["united"];
+			}
+			console.log("queryData elementsQueryData legnth " + elementsQueryData);
 			console.log("JSON.stringify(queryData) " + JSON.stringify(queryData));
 			const response = await fetch( _config.api.queryUrl, {
 				method: 'POST',
@@ -578,7 +465,7 @@
 			}
 	  
 			const jsonResponse = await response.json();
-			console.log("Type of jsonResponse:", typeof jsonResponse);
+			//console.log("Type of jsonResponse:", typeof jsonResponse);
 			console.log(JSON.stringify(jsonResponse)); 
 		              var allData = [];
             for (var item of jsonResponse.items) //dummyData.items
