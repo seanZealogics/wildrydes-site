@@ -674,7 +674,25 @@ var resultTable ;
                     tr.addClass('shown');
                 }
             });
+			
+			resultTable.on('draw.dt', function() {
+				// clean last style
+				resultTable.cells().every(function() {
+					var cell = $(this.node());
+					cell.unmark();
+				});
 
+				// get query string
+				var searchTerm = resultTable.search();
+
+				// use mark.js to highligt the match string in search result
+				if (searchTerm !== '') {
+					resultTable.cells().every(function() {
+						var cell = $(this.node());
+						cell.mark(searchTerm, { className: 'highlight' });
+					});
+				}
+			});
 
 			//var newWindow = window.open('', '_blank', 'width=400,height=200');			
 			//newWindow.document.write('<html><body>');
