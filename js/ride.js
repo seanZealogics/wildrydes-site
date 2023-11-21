@@ -8,7 +8,7 @@
 	var dropDownOperatorMenuBtn = document.querySelector("#operatorMenu");
 	var searchInput = document.querySelector("#searchInput");
 	var thead = document.querySelector("table thead");
-
+	var tableWrapper = document.getElementById("tableContent"); // Fields wrapper
 	var mapMainAttr = new Map(); 
 	var arrSubAttr = [];
 	
@@ -62,6 +62,7 @@
 					 						
 								
 					wrapper.appendChild(newElement);
+					
 					
 					var mainMenuLinks = newElement.getElementsByTagName('ul');
 					for(var i = 0; i < mainMenuLinks.length; i++) {
@@ -237,134 +238,134 @@
 	
 	function format(d) {
 	// `d` is the original data object for the row
-	
-	let data =  d.educations;
-	for (let i = 0; i < data.length; i ++) {
-		const date = data[i].date;
-		const degree = data[i].degree;
-		const description = data[i].description;
-		const school = data[i].school;
+		console.log("d=" + d);
+		let data =  d.educations;
+		for (let i = 0; i < data.length; i ++) {
+			const date = data[i].date;
+			const degree = data[i].degree;
+			const description = data[i].description;
+			const school = data[i].school;
 
-		
-		/* console.log(`Date: ${date}`);
-		console.log(`Company: ${company}`);
-		console.log(`Position: ${position}`);
-		console.log(`Responsibility: ${responsibility}`); */
-	}	                       
-                            
-	let educations = d.educations.map(function (m_educations) {									
-		return '<p>' + m_educations.date + '<br>' + m_educations.degree + ' at ' + m_educations.school + '<br>' + m_educations.description + '</p>';
-	});
-	//////////////////////////////////////////////////
-	data =  d.computer_skills;
-	let computer_skills = "<p>";
-	//console.log("computer_skills.length = "+data.length);
-	for (let i = 0; i < data.length; i ++) {
-		computer_skills += data[i] + "<br><br>";
-		/* const date = data[i].date;
-		const degree = data[i].degree;
-		const description = data[i].description;
-		const school = data[i].school; */
+			
+			/* console.log(`Date: ${date}`);
+			console.log(`Company: ${company}`);
+			console.log(`Position: ${position}`);
+			console.log(`Responsibility: ${responsibility}`); */
+		}	                       
+								
+		let educations = d.educations.map(function (m_educations) {									
+			return '<p>' + m_educations.date + '<br>' + m_educations.degree + ' at ' + m_educations.school + '<br>' + m_educations.description + '</p>';
+		});
+		//////////////////////////////////////////////////
+		data =  d.computer_skills;
+		let computer_skills = "<p>";
+		//console.log("computer_skills.length = "+data.length);
+		for (let i = 0; i < data.length; i ++) {
+			computer_skills += data[i] + "<br><br>";
+			/* const date = data[i].date;
+			const degree = data[i].degree;
+			const description = data[i].description;
+			const school = data[i].school; */
 
-		
-		/* console.log(`Date: ${date}`);`
-		console.log(`Company: ${company}`);
-		console.log(`Position: ${position}`);
-		console.log(`Responsibility: ${responsibility}`); */
-	}
-	computer_skills += "</p>";
-	//////////////////////////////////////////////////
-	data =  d.certificates;
-	for (let i = 0; i < data.length; i ++) {
-		
-		const date = data[i].date;
-		const title = data[i].title;
-		const certifying_authority = data[i].certifying_authority;
+			
+			/* console.log(`Date: ${date}`);`
+			console.log(`Company: ${company}`);
+			console.log(`Position: ${position}`);
+			console.log(`Responsibility: ${responsibility}`); */
+		}
+		computer_skills += "</p>";
+		//////////////////////////////////////////////////
+		data =  d.certificates;
+		for (let i = 0; i < data.length; i ++) {
+			
+			const date = data[i].date;
+			const title = data[i].title;
+			const certifying_authority = data[i].certifying_authority;
 
-		
-		/* console.log(`Date: ${date}`);
-		console.log(`Company: ${company}`);
-		console.log(`Position: ${position}`);
-		console.log(`Responsibility: ${responsibility}`); */
-	}	      
-	let certificates = d.certificates.map(function (m_certificates) {									
-		return '<p>' + m_certificates.date + '<br>' + m_certificates.title + '<br>' + m_certificates.certifying_authority + '</p>';
-	});	
-	//////////////////////////////////////////////////
-	data =  d.publications;
-	for (let i = 0; i < data.length; i ++) {
-		
-		const date = data[i].date;
-		const title = data[i].title;
+			
+			/* console.log(`Date: ${date}`);
+			console.log(`Company: ${company}`);
+			console.log(`Position: ${position}`);
+			console.log(`Responsibility: ${responsibility}`); */
+		}	      
+		let certificates = d.certificates.map(function (m_certificates) {									
+			return '<p>' + m_certificates.date + '<br>' + m_certificates.title + '<br>' + m_certificates.certifying_authority + '</p>';
+		});	
+		//////////////////////////////////////////////////
+		data =  d.publications;
+		for (let i = 0; i < data.length; i ++) {
+			
+			const date = data[i].date;
+			const title = data[i].title;
 
-		
-		/* console.log(`Date: ${date}`);
-		console.log(`Company: ${company}`);
-		console.log(`Position: ${position}`);
-		console.log(`Responsibility: ${responsibility}`); */
-	}	      
-	let publications = d.publications.map(function (m_publications) {									
-		return '<p>' + m_publications.date + '<br>' + m_publications.title + '</p>';
-	});	
-	//////////////////////////////////////////////////
-	data =  d.patents;
-	for (let i = 0; i < data.length; i ++) {
-		
-		const date = data[i].date;
-		const title = data[i].title;
+			
+			/* console.log(`Date: ${date}`);
+			console.log(`Company: ${company}`);
+			console.log(`Position: ${position}`);
+			console.log(`Responsibility: ${responsibility}`); */
+		}	      
+		let publications = d.publications.map(function (m_publications) {									
+			return '<p>' + m_publications.date + '<br>' + m_publications.title + '</p>';
+		});	
+		//////////////////////////////////////////////////
+		data =  d.patents;
+		for (let i = 0; i < data.length; i ++) {
+			
+			const date = data[i].date;
+			const title = data[i].title;
 
+			
+			/* console.log(`Date: ${date}`);
+			console.log(`Company: ${company}`);
+			console.log(`Position: ${position}`);
+			console.log(`Responsibility: ${responsibility}`); */
+		}	      
+		let patents = d.patents.map(function (m_patents) {									
+			return '<p>' + m_patents.date + '<br>' + m_patents.title + '</p>';
+		});	
 		
-		/* console.log(`Date: ${date}`);
-		console.log(`Company: ${company}`);
-		console.log(`Position: ${position}`);
-		console.log(`Responsibility: ${responsibility}`); */
-	}	      
-	let patents = d.patents.map(function (m_patents) {									
-		return '<p>' + m_patents.date + '<br>' + m_patents.title + '</p>';
-	});	
-	
-	//////////////////////////////////////////////////
-	data =  d.experiences;	
-	for (let i = 0; i < data.length; i ++) {
-		
-		const date = data[i].date;
-		const company = data[i].company;
-		const position = data[i].position;
-		const responsibility = data[i].responsibility;
+		//////////////////////////////////////////////////
+		data =  d.experiences;	
+		for (let i = 0; i < data.length; i ++) {
+			
+			const date = data[i].date;
+			const company = data[i].company;
+			const position = data[i].position;
+			const responsibility = data[i].responsibility;
 
-		
-		/* console.log(`Date: ${date}`);
-		console.log(`Company: ${company}`);
-		console.log(`Position: ${position}`);
-		console.log(`Responsibility: ${responsibility}`); */
-	}	                       
-                            
-	let experiences = d.experiences.map(function (m_experiences) {									
-		return '<p>' + m_experiences.date + '<br>' + m_experiences.company + '<br>' + m_experiences.position + '<br>' + m_experiences.responsibility+ '</p>';
-	});															
-	//experiences.join('<br>');								
- 
-                            
+			
+			/* console.log(`Date: ${date}`);
+			console.log(`Company: ${company}`);
+			console.log(`Position: ${position}`);
+			console.log(`Responsibility: ${responsibility}`); */
+		}	                       
+								
+		let experiences = d.experiences.map(function (m_experiences) {									
+			return '<p>' + m_experiences.date + '<br>' + m_experiences.company + '<br>' + m_experiences.position + '<br>' + m_experiences.responsibility+ '</p>';
+		});															
+		//experiences.join('<br>');								
+	 
+								
+								
 							
-                        
-	return '<table id="childTable"  cellspacing="10" border="1" style="width:100%">' +
-		'<tr class="text-muted text-xs">'
-		+ '<td>Educations</td>'
-		+ '<td>Computer Skills</td>'		
-		+ '<td>Certificates</td>'
-		+ '<td>Publications</td>' 
-		+ '<td>Patents</td>' 
-		+ '<td>Experiences</td>' 
-		+'</tr>'
-		+'<tr class="text-muted text-xs">'
-		+ '<td>' + educations + '</td>' 
-		+ '<td>' + computer_skills + '</td>'		
-		+ '<td>' + certificates + '</td>'
-		+ '<td>' + publications + '</td>' 
-		+ '<td>' + patents + '</td>'
-		+ '<td>' + experiences + '</td>'
-		+'</tr>'
-		'</table>';
+		return '<table id="childTable"  cellspacing="10" border="1" style="width:100%">' +
+			'<tr class="text-muted text-xs">'
+			+ '<td>Educations</td>'
+			+ '<td>Computer Skills</td>'		
+			+ '<td>Certificates</td>'
+			+ '<td>Publications</td>' 
+			+ '<td>Patents</td>' 
+			+ '<td>Experiences</td>' 
+			+'</tr>'
+			+'<tr class="text-muted text-xs">'
+			+ '<td>' + educations + '</td>' 
+			+ '<td>' + computer_skills + '</td>'		
+			+ '<td>' + certificates + '</td>'
+			+ '<td>' + publications + '</td>' 
+			+ '<td>' + patents + '</td>'
+			+ '<td>' + experiences + '</td>'
+			+'</tr>'
+			'</table>';
 	}
 	
 	async function fetchData() {
@@ -375,7 +376,7 @@
 		 	let previousButtonName = null;
 			let nextButtonName = null;
 			var prevCondition = "OR";
-
+var resultTable ;
 		 	var inputLinks = document.getElementsByTagName('input');
 			//console.log("inputLinks !!!!!　" +　inputLinks.length);
 			for(var i = 0; i < inputLinks.length; i++) {
@@ -470,10 +471,29 @@
             {
                 allData.push(item);
             }
-			$('#queryResultTable').DataTable().clear();
-			$('#queryResultTable').DataTable().destroy();
+			
+			let queryResultTableElement = tableWrapper.querySelector('#queryResultTable');
+			if (queryResultTableElement) {
+				console.log('Element exists in the container!');
+				
+				tableWrapper.lastChild.remove();
+				$('#queryResultTable').DataTable().clear();
+				$('#queryResultTable').DataTable().destroy();
+				
+				
+			} else {
+				console.log('Element does not exist in the container!');
+			}
+					
+			let tableElement = document.createElement("p");
+			tableElement.className = 'dynamic-control-group';
+			tableElement.innerHTML = '<div class="demo-html "></div><table id="queryResultTable" class="table-responsive display " style="width:100%"><thead class="text-muted text-xs" style="display: none;"><tr><th></th><th>Name</th><th>Location</th><th>Phone</th><th>Email</th><th>Personal URLs</th><th>Educations</th><th>Computer Skills</th><th>Certificates</th><th>Publications</th><th>Patents</th><th>Experiences</th></tr></thead></table>';
+			
+			tableWrapper.appendChild(tableElement);
+			
 
-			var resultTable = $('#queryResultTable').DataTable({
+
+			 resultTable = $('#queryResultTable').DataTable({
                 "data": allData,
                 "scrollX": 200,
                 "scrollCollapse": true,
@@ -491,7 +511,7 @@
 						"data": null,
                         "defaultContent": ''
 					},
-                    { "data": "id", "visible": false },
+                    /* { "data": "id", "visible": false }, */
                     { "data": "profile.name",
 						"render": function (data, type, row) {
                             if (data && data.length) {								
@@ -641,9 +661,10 @@
 			
 
             $('#queryResultTable tbody').on('click', 'td.details-control', function () {
+
                 var tr = $(this).closest('tr');
                 var row = resultTable.row(tr);
-
+console.log("row "+row);
                 if (row.child.isShown()) {
                     // This row is already open - close it
                     row.child.hide();
@@ -651,12 +672,14 @@
                 }
                 else {
                     // Open this row
+					console.log("row.data()!!!!!!!! "+row.data());
                     row.child(format(row.data())).show();
                     tr.addClass('shown');
+					//resultTable.columns.adjust().draw();
                 }
             });
 
-			thead.style.display = "table-header-group";
+			//thead.style.display = "table-header-group";
 			
 
 			//var newWindow = window.open('', '_blank', 'width=400,height=200');			
