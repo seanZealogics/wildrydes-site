@@ -7,7 +7,7 @@
 	var dropDownOperatorBtn = document.querySelector("#operatorBtn");
 	var dropDownOperatorMenuBtn = document.querySelector("#operatorMenu");
 	var searchInput = document.querySelector("#searchInput");
-	var thead = document.querySelector("table thead");
+	var thead = null;
 	var tableWrapper = document.getElementById("tableContent"); // Fields wrapper
 	var mapMainAttr = new Map(); 
 	var arrSubAttr = [];
@@ -487,17 +487,15 @@ var resultTable ;
 					
 			let tableElement = document.createElement("p");
 			tableElement.className = 'dynamic-control-group';
-			tableElement.innerHTML = '<div class="demo-html "></div><table id="queryResultTable" class="table-responsive display " style="width:100%"><thead class="text-muted text-xs" style="display: none;"><tr><th></th><th>Name</th><th>Location</th><th>Phone</th><th>Email</th><th>Personal URLs</th><th>Educations</th><th>Computer Skills</th><th>Certificates</th><th>Publications</th><th>Patents</th><th>Experiences</th></tr></thead></table>';
+			tableElement.innerHTML = '<div class="demo-html "></div><table id="queryResultTable" class="table-responsive display " style="width:100%"><thead class="text-muted text-xs" ><tr><th></th><th>Name</th><th>Location</th><th>Phone</th><th>Email</th><th>Personal URLs</th><th>Educations</th><th>Computer Skills</th><th>Certificates</th><th>Publications</th><th>Patents</th><th>Experiences</th></tr></thead></table>';
 			
 			tableWrapper.appendChild(tableElement);
-			
-
+			thead = document.querySelector("table thead");
 
 			 resultTable = $('#queryResultTable').DataTable({
                 "data": allData,
-                "scrollX": 200,
                 "scrollCollapse": true,
-				"autoWidth": true,
+				"autoWidth": false,
 				"columnDefs": [
 					{
 						"targets": "_all",
@@ -664,7 +662,7 @@ var resultTable ;
 
                 var tr = $(this).closest('tr');
                 var row = resultTable.row(tr);
-console.log("row "+row);
+
                 if (row.child.isShown()) {
                     // This row is already open - close it
                     row.child.hide();
@@ -672,15 +670,11 @@ console.log("row "+row);
                 }
                 else {
                     // Open this row
-					console.log("row.data()!!!!!!!! "+row.data());
                     row.child(format(row.data())).show();
                     tr.addClass('shown');
-					//resultTable.columns.adjust().draw();
                 }
             });
 
-			//thead.style.display = "table-header-group";
-			
 
 			//var newWindow = window.open('', '_blank', 'width=400,height=200');			
 			//newWindow.document.write('<html><body>');
