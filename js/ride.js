@@ -11,11 +11,17 @@
 	var tableWrapper = document.getElementById("tableContent"); // Fields wrapper
 	var mapMainAttr = new Map(); 
 	var arrSubAttr = [];
-	
+	var resultTable;
 	var currentTime;
 	var loading = document.getElementById('loading');
 	
 	var queryDataStr;
+	
+	var conditions = {
+        'educations': { text: 'Educations', value: 'education', color: 'blue' }, //blue
+        'experiences': { text: 'Experiences', value: 'experience', color: 'rgb(100,0,255)' },
+        'default': { text: 'Select',value: '', color: 'green' }
+    };
 	
 	document.addEventListener("DOMContentLoaded", function () {
 				
@@ -24,7 +30,8 @@
 		var addButton = document.getElementById("addDelSearchGroup"); // Add button ID
 		var x = 1; // Initial text box count
 		// Get the operator menu
-		var addDelSearchGroupMenu = document.getElementById("addDelSearchGroupMenu");
+		
+	
 		
 		dropDownOperatorMenuBtn.addEventListener('click', function(e) {
 			e.preventDefault();
@@ -35,10 +42,11 @@
 		});
 		
 		// Add event listener for click event
-		addDelSearchGroupMenu.addEventListener('click', function(e) {
+		addButton.addEventListener('click', function(e) {
 			e.preventDefault();
-			if(e.target && e.target.nodeName == "A") {
-				if(e.target.classList.contains('fa-plus') && x < maxFields) { // Add new input box
+			console.log("addButton!!!");
+			
+				if(x < maxFields) { // Add new input box
 					x++; // Text box increment
 					var newElement = document.createElement("p");
 					 newElement.className = 'dynamic-control-group';
@@ -109,11 +117,7 @@
 							}
 						});
 					}
-				} else if(e.target.classList.contains('fa-minus')  && x > 1) { // Remove input box
-					wrapper.lastChild.remove();
-					x--;
-				}
-			}
+				} 			
 		});
 	});
 	
@@ -127,7 +131,7 @@
 
     function fetchAttr() {
 
-		const fetchData = async () => {
+		const fetchAttrData = async () => {
 		  const response = await fetch( _config.api.fetchUrl, {
 			method: "GET",
 			mode: "cors",
@@ -138,7 +142,7 @@
 		  completeRequest(data);
 		};
 
-		fetchData();
+		fetchAttrData();
 	}
 	
 	function refreshAttrBtn(attrButton, mainMenu) {
@@ -147,6 +151,8 @@
 
 		var selectedIndex;
 		var selectedNextIndex;
+		var conditionData;
+		attrButton.textContent = conditions['default'];
 		
 		// 對每個新的 menuitem
 		for (var [key, value] of mapMainAttr) 
@@ -162,13 +168,14 @@
 			aMainTag.setAttribute("display", "flex");
 			aMainTag.setAttribute("justifyContent", "center");
 			aMainTag.setAttribute("href", "#");
-			aMainTag.textContent = key;
+			aMainTag.textContent = conditions[key].text;//key;
 			//console.log(key);
 			
 			aMainTag.addEventListener("click", function(event) {
 				event.preventDefault(); // 防止默認的點擊事件行為
 				attrButton.textContent = this.textContent;
-				selectedIndex = this.getAttribute("tabindex");
+				selectedIndex = this.getAttribute("tabindex");				
+				attrButton.style.backgroundColor = conditions[this.textContent.toLowerCase()].color;
 			
 				//console.log(this.textContent); // 印出 menu item 的內容
 			});
@@ -180,8 +187,9 @@
 			mainMenu.appendChild(li);
 			
 		}
-		attrButton.textContent = key;
-		
+		attrButton.textContent = conditions[key].text;
+		attrButton.style.backgroundColor = conditions[key].color;
+
 		
 		// 獲取被選擇項目的索引
 		
@@ -232,9 +240,14 @@
 
 		fetchAttr();
 		
-       
+       $('#queryResultTable').on( 'init.dt', function () { 
+	   console.log("queryResultTable init!!" );
+	   });
+
+
     });
 	
+
 	
 	function format(d) {
 	// `d` is the original data object for the row
@@ -368,7 +381,7 @@
 			'</table>';
 	}
 	
-	async function fetchData() {
+	async function fetchAttrData() {
 		try {
 			
 			let queryData ={"united" : true};
@@ -376,7 +389,7 @@
 		 	let previousButtonName = null;
 			let nextButtonName = null;
 			var prevCondition = "OR";
-var resultTable ;
+			
 		 	var inputLinks = document.getElementsByTagName('input');
 			//console.log("inputLinks !!!!!　" +　inputLinks.length);
 			for(var i = 0; i < inputLinks.length; i++) {
@@ -399,7 +412,7 @@ var resultTable ;
 						console.log(nextButton.innerText);
 						 */
  
-						  var key = previousButton.innerText;
+						  var key = previousButton.innerText.toLowerCase();
 						  var key = key.substring(0, key.length - 1);
 						  var condition = inputLinks[i].value;
 						 
@@ -492,7 +505,7 @@ var resultTable ;
 			tableWrapper.appendChild(tableElement);
 			thead = document.querySelector("table thead");
 
-			 resultTable = $('#queryResultTable').DataTable({
+			resultTable = $('#queryResultTable').DataTable({
                 "data": allData,
                 "scrollCollapse": true,
 				"autoWidth": false,
@@ -653,9 +666,45 @@ var resultTable ;
                         }
                     }
 
-				],				
+				],	
+				"drawCallback": function(settings) {
+					
+					
+					this.api().cells().every(function() {
+						var cell = $(this.node());
+						cell.unmark();
+					});
+
+					// 獲取查詢字串
+					let searchInput2 = document.querySelector("#searchInput2");
+					let searchInput3 = document.querySelector("#searchInput3");
+					let searchTerm = searchInput.value;
+					
+
+					// 如果查詢字串不為空，則使用mark.js來在搜尋結果中高亮顯示匹配的字串
+					if (searchTerm !== '') {
+						this.api().cells().every(function() {
+							var cell = $(this.node());
+							cell.mark(searchTerm, { className: 'highlight' });
+							if (searchInput2 && (searchInput2.value !== '')) {
+								cell.mark(searchInput2.value, { className: 'highlight2' });
+							}
+							if (searchInput3 && (searchInput3.value !== '')) {
+								cell.mark(searchInput3.value, { className: 'highlight3' });
+							}
+						});
+					}
+					
+					
+				   
+					  
+				}
+	
+				
 				
 			});
+			
+			
 			
 
             $('#queryResultTable tbody').on('click', 'td.details-control', function () {
@@ -693,6 +742,8 @@ var resultTable ;
 					});
 				}
 			});
+			
+
 
 			//var newWindow = window.open('', '_blank', 'width=400,height=200');			
 			//newWindow.document.write('<html><body>');
@@ -719,7 +770,9 @@ var resultTable ;
 		//$('#queryResultTable').DataTable.empty();
 		
 
-		fetchData();
+		fetchAttrData();
+		
+		
 		
     }
 	
