@@ -52,14 +52,14 @@
 					 newElement.className = 'dynamic-control-group';
 					 newElement.innerHTML = '<div id="controlContainer'+x+'"" class="input-group container">' +
 											'<div id="group'+x+'" class="dropdown1">' +
-											'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">' +
+											'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-attrButton" width="100px" type="button" data-toggle="dropdown">' +
 											'<span class="caret"></span></button>' +
 											'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
 											'</ul>' +
 											'</div>' +
-											'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" +="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;">' +
+											'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2 fixed-width-queryTxtInput" width="100px" placeholder="" +="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;">' +
 											'<div class="dropdown2 mx-1">' +
-											'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">OR' +
+											'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown">OR' +
 											'<span class="caret"></span></button>' +
 											'<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
 											'<li><a href="#">AND</a></li>' +
@@ -391,17 +391,30 @@
 			var prevCondition = "OR";
 			
 		 	var inputLinks = document.getElementsByTagName('input');
-			//console.log("inputLinks !!!!!　" +　inputLinks.length);
+			console.log("inputLinks !!!!!　" +　inputLinks.length);
 			for(var i = 0; i < inputLinks.length; i++) {
 				//console.log("inputLinks !!!!!　" + i + " "+　inputLinks[i].id);
 				if(inputLinks[i].id.indexOf("searchInput") !== -1){
-					//console.log("inputLinks !!!!!　" +　inputLinks[i].id + " " +inputLinks[i].value);
+					console.log("inputLinks !!!!!　" +　inputLinks[i].id + " " +inputLinks[i].value);
 					if (inputLinks[i].value.length > 0) {
+						currentElement = inputLinks[i].id;
 					   // 尋找最近的前一個 button
 						var previousButton = inputLinks[i].previousElementSibling;
+						console.log("previousButton id = "+ previousButton);
 						if (previousButton && previousButton.tagName === 'button') {
 						  previousButtonName = previousButton.name;
 						}
+						
+						while (currentElement) {
+							if (currentElement.tagName === 'BUTTON') {
+								console.log("currentElement " +currentElement.id);
+								return currentElement;
+							}
+
+							currentElement = currentElement.parentElement;
+							console.log("currentElement " +currentElement.id);
+						}
+						
 						// 尋找最近的下一個 button
 						var nextButton = inputLinks[i].nextElementSibling;
 						if (nextButton && nextButton.tagName === 'button') {
@@ -693,10 +706,7 @@
 								cell.mark(searchInput3.value, { className: 'highlight3' });
 							}
 						});
-					}
-					
-					
-				   
+					}					
 					  
 				}
 	
@@ -756,6 +766,27 @@
 			console.error("Error:", error);
 		}
 	}
+	
+window.changeButtonColor = function(selectedText, clickedElement) {
+    // 獲取父級 <button> 元素
+    var operatorBtn = $(clickedElement).closest('ul').prev('button');
+
+    // 設置按鈕文本
+    operatorBtn.text(selectedText);
+
+    // 根據文本設置相應的樣式
+    switch (selectedText) {
+        case "AND":
+            operatorBtn.css("background-color", "green");
+            break;
+        case "OR":
+            operatorBtn.css("background-color", "blue");
+            break;
+        case "WITHOUT":
+            operatorBtn.css("background-color", "red");
+            break;
+    }
+}
 	
 	function handleSearchClick(event) {		
 		event.preventDefault();

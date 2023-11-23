@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html> 
    
 <head>
@@ -77,12 +78,25 @@
 			color: black;		
 		}
 		
+		.fixed-width-attrButton {
+			width: 8em;
+		}
+		
+		.fixed-width-operButton {
+			width: 6.5em;
+		}
+		
+		.fixed-width-queryTxtInput {
+			width: 10em;
+		}
+		
+		
 	</style>
 	
-	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<!-- <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script> -->
-	<script type="text/javascript" language="javascript" src="resources/syntax/shCore.js"></script>
-	<script type="text/javascript" language="javascript" src="resources/demo.js"></script>
+	<script type="text/javascript" src="resources/syntax/shCore.js"></script>
+	<script type="text/javascript" src="resources/demo.js"></script>
 
 
 
@@ -210,35 +224,43 @@
 									<h5 class="m-0 font-weight-bold text-primary">Search</h5>
 								</div>
 
-								<div id="controlContainer" class="input-group container">
+
+								<div class="row justify-content-center">
+								  <div class="col-md-2">
 									<div id="first-group" class="dropdown1">
-									  <button id="mainAttrBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">
-									  <span class="caret"></span></button>
+									  <button id="mainAttrBtn" class="btn btn-primary dropdown-toggle fixed-width-attrButton ml-3" type="button" data-toggle="dropdown">
+										<span class="caret"></span>
+									  </button>
 									  <ul id="mainDropMenu" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
-									
 									  </ul>
 									</div>
-								
-									<input id="searchInput" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder=""
-										aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;">
-									<div class="dropdown2 mx-1">
-									  <button id="operatorBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">OR
-									  <span class="caret"></span></button>
-									  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
-											<li><a href="#">AND</a></li>
-											<li><a href="#">OR</a></li>
-											<li><a href="#">WITHOUT</a></li>
-									  </ul>
+								  </div>
+
+								  <div class="col-md-7 mx-0 px-0">
+									<div class="">
+									  <input id="searchInput" type="text" class="form-control bg-light border-primary " style="width:100%;" placeholder="" aria-label="Search" aria-describedby="basic-addon2">
 									</div>
+								  </div>
+
+								  <div class="col-md-1 mx-0 px-0">
 									<div class="dropdown2">
-									  <button id="addDelSearchGroup" class="btn btn-primary" width="100px" type="button" >+
-									  </button>									 
+									  <button id="operatorBtn" class="btn btn-primary dropdown-toggle fixed-width-operButton ml-2" type="button" data-toggle="dropdown" style="background-color: blue;">OR<span class="caret"></span>
+									  </button>
+									  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
+										<li><a href="#" onclick="changeButtonColor('AND', this)">AND</a></li>
+										<li><a href="#" onclick="changeButtonColor('OR', this)">OR</a></li>
+										<li><a href="#" onclick="changeButtonColor('WITHOUT', this)">WITHOUT</a></li>
+									  </ul>
 									</div>
-									
-									
+								  </div>
+
+								  <div class="col-md-2">
+									<button id="addDelSearchGroup" class="btn btn-primary ml-4" type="button" style="background-color: blue;">+</button>
+								  </div>
 								</div>
-							
-								
+
+
+
 								
 								<p>
 											
@@ -247,7 +269,7 @@
 							</form>                            
 						
 						<div class="input-group-append ">
-									<button id="searchBtn" class="btn btn-primary mx-2" type="button" style="display: inline-block;">
+									<button id="searchBtn" class="btn btn-primary mx-2" type="button" style="display: inline-block; background-color: blue;">
 										<i class="fas fa-search fa-lg"></i>
 									</button>
 								</div><br><br><br>
