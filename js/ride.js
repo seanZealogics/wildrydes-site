@@ -62,9 +62,9 @@
 											'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown">OR' +
 											'<span class="caret"></span></button>' +
 											'<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
-											'<li><a href="#">AND</a></li>' +
-											'<li><a href="#">OR</a></li>' +
-											'<li><a href="#">WITHOUT</a></li>' +
+											'<li><a href="#" onclick="changeButtonColor(\'AND\', this)">AND</a></li>' +
+											'<li><a href="#" onclick="changeButtonColor(\'OR\', this)">OR</a></li>' +
+											'<li><a href="#" onclick="changeButtonColor(\'WITHOUT\', this)">WITHOUT</a></li>' +
 											'</ul>' +
 											'</div></div>'; // Add field html
 					 						
@@ -756,6 +756,28 @@
 			console.error("Error:", error);
 		}
 	}
+	
+	window.changeButtonColor = function(selectedText, clickedElement) {
+		// 獲取父級 <button> 元素
+		var operatorBtn = $(clickedElement).closest('ul').prev('button');
+
+		// 設置按鈕文本
+		operatorBtn.text(selectedText);
+
+		// 根據文本設置相應的樣式
+		switch (selectedText) {
+			case "AND":
+				operatorBtn.css("background-color", "green");
+				break;
+			case "OR":
+				operatorBtn.css("background-color", "blue");
+				break;
+			case "WITHOUT":
+				operatorBtn.css("background-color", "red");
+				break;
+		}
+	}
+
 	
 	function handleSearchClick(event) {		
 		event.preventDefault();
