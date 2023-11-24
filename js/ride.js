@@ -66,7 +66,11 @@
 											'<li><a href="#" onclick="changeButtonColor(\'OR\', this)">OR</a></li>' +
 											'<li><a href="#" onclick="changeButtonColor(\'WITHOUT\', this)">WITHOUT</a></li>' +
 											'</ul>' +
-											'</div></div>'; // Add field html
+											'</div>'+
+											'<div class="dropdown2">' +
+									 '<button id="addDelSearchGroup'+x+'" class="btn btn-primary" width="100px" type="button" >+'+
+									  '</button>'+								 
+									'</div></div>';// Add field html
 					 						
 								
 					wrapper.appendChild(newElement);
@@ -82,6 +86,7 @@
 					
 					var mainBtnLinks = newElement.getElementsByTagName('button');
 					let operatorBtn = undefined;
+					let addBtn = undefined;
 					for(var i = 0; i < mainBtnLinks.length; i++) {
 						//console.log("mainBtnLinks !!!!!　" +　mainBtnLinks[i].id);
 						//mainBtnLinks[i].id = 'newId' + x + '_' + i; // Set new id
@@ -98,7 +103,14 @@
 								operatorBtn.style.visibility = "hidden";
 							}
 							//console.log("operatorBtn=" + operatorBtn.id);							
+						}else if(mainBtnLinks[i].id.indexOf("addDelSearchGroup") != -1){
+							addBtn = mainBtnLinks[i];	
+							if(addBtn.id === 'addDelSearchGroup'+maxFields){
+								addBtn.style.visibility = "hidden";
+							}
+							console.log("addBtn=" + addBtn.id);							
 						}
+						
 					}
 					
 					
