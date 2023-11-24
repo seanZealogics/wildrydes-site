@@ -52,14 +52,14 @@
 					 newElement.className = 'dynamic-control-group';
 					 newElement.innerHTML = '<div id="controlContainer'+x+'"" class="input-group container">' +
 											'<div id="group'+x+'" class="dropdown1">' +
-											'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">' +
+											'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown">' +
 											'<span class="caret"></span></button>' +
 											'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
 											'</ul>' +
 											'</div>' +
 											'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" +="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;">' +
 											'<div class="dropdown2 mx-1">' +
-											'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">OR' +
+											'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown">OR' +
 											'<span class="caret"></span></button>' +
 											'<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
 											'<li><a href="#">AND</a></li>' +

@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html> 
    
 <head>
@@ -77,6 +79,17 @@
 			color: black;		
 		}
 		
+		.fixed-width-attrButton {
+			width: 8em;
+		}
+
+		.fixed-width-operButton {
+			width: 6.5em;
+		}
+
+		.fixed-width-queryTxtInput {
+			width: 10em;
+		}
 	</style>
 	
 	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -212,7 +225,7 @@
 
 								<div id="controlContainer" class="input-group container">
 									<div id="first-group" class="dropdown1">
-									  <button id="mainAttrBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">
+									  <button id="mainAttrBtn" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown">
 									  <span class="caret"></span></button>
 									  <ul id="mainDropMenu" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
 									
@@ -222,7 +235,7 @@
 									<input id="searchInput" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder=""
 										aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;">
 									<div class="dropdown2 mx-1">
-									  <button id="operatorBtn" class="btn btn-primary dropdown-toggle" width="100px" type="button" data-toggle="dropdown">OR
+									  <button id="operatorBtn" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown">OR
 									  <span class="caret"></span></button>
 									  <ul id="operatorMenu" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
 											<li><a href="#">AND</a></li>
