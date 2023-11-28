@@ -66,8 +66,11 @@
 											'<li><a href="#" onclick="changeButtonColor(\'OR\', this)">OR</a></li>' +
 											'<li><a href="#" onclick="changeButtonColor(\'WITHOUT\', this)">WITHOUT</a></li>' +
 											'</ul>' +
-											'</div></div>'; // Add field html
 											'</div>'+
+											'<div class="dropdown2">' +
+									 '<button id="addDelSearchGroup'+x+'" class="btn btn-primary" width="100px" type="button" >+'+
+									  '</button>'+								 
+									'</div></div>';// Add field html
 					 						
 								
 					wrapper.appendChild(newElement);
