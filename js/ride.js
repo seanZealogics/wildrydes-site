@@ -6,7 +6,9 @@
 	var dropDownMainBtn = document.querySelector("#mainAttrBtn");
 	var dropDownOperatorBtn = document.querySelector("#operatorBtn");
 	var dropDownOperatorMenuBtn = document.querySelector("#operatorMenu");
-	var searchInput = document.querySelector("#searchInput");
+	var searchInput = document.querySelector("#searchInput");	
+	var wrapper = document.getElementById("newbelow"); // Fields wrapper		
+	var maxFields = 3; // Maximum input boxes allowed
 	var thead = null;
 	var tableWrapper = document.getElementById("tableContent"); // Fields wrapper
 	var mapMainAttr = new Map(); 
@@ -14,7 +16,7 @@
 	var resultTable;
 	var currentTime;
 	var loading = document.getElementById('loading');
-	
+	var x = 1; // Initial text box count
 	var queryDataStr;
 	
 	var conditions = {
@@ -25,10 +27,8 @@
 	
 	document.addEventListener("DOMContentLoaded", function () {
 				
-		var maxFields = 3; // Maximum input boxes allowed
-		var wrapper = document.getElementById("newbelow"); // Fields wrapper
-		var addButton = document.getElementById("addDelSearchGroup"); // Add button ID
-		var x = 1; // Initial text box count
+
+		
 		// Get the operator menu
 		
 	
@@ -41,96 +41,7 @@
 			}
 		});
 		
-		// Add event listener for click event
-		addButton.addEventListener('click', function(e) {
-			e.preventDefault();
-			console.log("addButton!!!");
-			
-				if(x < maxFields) { // Add new input box
-					x++; // Text box increment
-					var newElement = document.createElement("p");
-					 newElement.className = 'dynamic-control-group';
-					 newElement.innerHTML = '<div id="controlContainer'+x+'"" class="input-group container">' +
-											'<div id="group'+x+'" class="dropdown1">' +
-											'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown">' +
-											'<span class="caret"></span></button>' +
-											'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
-											'</ul>' +
-											'</div>' +
-											'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" +="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;">' +
-											'<div class="dropdown2 mx-1">' +
-											'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown">OR' +
-											'<span class="caret"></span></button>' +
-											'<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
-											'<li><a href="#" onclick="changeButtonColor(\'AND\', this)">AND</a></li>' +
-											'<li><a href="#" onclick="changeButtonColor(\'OR\', this)">OR</a></li>' +
-											'<li><a href="#" onclick="changeButtonColor(\'WITHOUT\', this)">WITHOUT</a></li>' +
-											'</ul>' +
-											'</div>'+
-											'<div class="dropdown2">' +
-									 '<button id="addDelSearchGroup'+x+'" class="btn btn-primary" width="100px" type="button" >+'+
-									  '</button>'+								 
-									'</div></div>';// Add field html
-					 						
-								
-					wrapper.appendChild(newElement);
-					
-					
-					var mainMenuLinks = newElement.getElementsByTagName('ul');
-					for(var i = 0; i < mainMenuLinks.length; i++) {
-						if(mainMenuLinks[i].id.indexOf("mainDropMenu") !== -1){
-							//console.log("mainMenuLinks !!!!!　" +　mainMenuLinks[i].id);
-							break;
-						}
-					}
-					
-					var mainBtnLinks = newElement.getElementsByTagName('button');
-					let operatorBtn = undefined;
-					let addBtn = undefined;
-					for(var i = 0; i < mainBtnLinks.length; i++) {
-						//console.log("mainBtnLinks !!!!!　" +　mainBtnLinks[i].id);
-						//mainBtnLinks[i].id = 'newId' + x + '_' + i; // Set new id
-						if(mainBtnLinks[i].id.indexOf("mainAttrBtn") != -1){
-							refreshAttrBtn(mainBtnLinks[i], mainMenuLinks[i]);
-							mainBtnLinks[i].addEventListener('click', function() { // Register click event listener
-								//console.log('mainBtnLinks Clicked: ' + this.id + ', Text: ' + this.textContent);
-								
-								
-							});
-						}else if(mainBtnLinks[i].id.indexOf("operatorBtn") != -1){
-							operatorBtn = mainBtnLinks[i];	
-							if(operatorBtn.id === 'operatorBtn'+maxFields){
-								operatorBtn.style.visibility = "hidden";
-							}
-							//console.log("operatorBtn=" + operatorBtn.id);							
-						}else if(mainBtnLinks[i].id.indexOf("addDelSearchGroup") != -1){
-							addBtn = mainBtnLinks[i];	
-							if(addBtn.id === 'addDelSearchGroup'+maxFields){
-								addBtn.style.visibility = "hidden";
-							}
-							console.log("addBtn=" + addBtn.id);							
-						}
-						
-					}
-					
-					
-					var operationLinks = newElement.getElementsByTagName('a');
-					
-					for(var i = 0; i < operationLinks.length; i++) {
-						//console.log('operationLinks: ' + operationLinks[i].id);
-						operationLinks[i].id = 'newId' + x + '_' + i; // Set new id
-						operationLinks[i].addEventListener('click', function() { // Register click event listener
-							//console.log('Clicked: ' + this.id + ', Text: ' + this.textContent);
-							if(operatorBtn !== undefined){
-								if(this.textContent === 'AND' || this.textContent === 'OR' || this.textContent === 'WITHOUT'){
-									operatorBtn.textContent = this.textContent;
-								}
-								
-							}
-						});
-					}
-				} 			
-		});
+		
 	});
 	
 	function showLoading() {
@@ -397,10 +308,14 @@
 		try {
 			
 			let queryData ={"united" : true};
+			let mainQueryData ={"united" : true};
+
 			
 		 	let previousButtonName = null;
 			let nextButtonName = null;
 			var prevCondition = "OR";
+			var prevKey = null;
+
 			
 		 	var inputLinks = document.getElementsByTagName('input');
 			//console.log("inputLinks !!!!!　" +　inputLinks.length);
@@ -412,76 +327,92 @@
 					   // 尋找最近的前一個 button
 						var previousButton = inputLinks[i].previousElementSibling;
 						if (previousButton && previousButton.tagName === 'button') {
-						  previousButtonName = previousButton.name;
+							previousButtonName = previousButton.name;
 						}
 						// 尋找最近的下一個 button
 						var nextButton = inputLinks[i].nextElementSibling;
 						if (nextButton && nextButton.tagName === 'button') {
-						  nextButtonName = nextButton.name;
+							nextButtonName = nextButton.name;
 						}
 						/* console.log(previousButton.innerText);
 						console.log(inputLinks[i].value);
 						console.log(nextButton.innerText);
 						 */
+							
  
-						  var key = previousButton.innerText.toLowerCase();
-						  var key = key.substring(0, key.length - 1);
-						  var condition = inputLinks[i].value;
-						 
-						  var type = prevCondition === "WITHOUT" ? "excluded_conditions" : "included_conditions";
-						  
-							if (!queryData[key]) {
+						var key = conditions[previousButton.innerText.toLowerCase()].value;
+						var condition = inputLinks[i].value;
+
+						var type = prevCondition === "WITHOUT" ? "excluded_conditions" : "included_conditions";
+							  
+						if (!mainQueryData[key]) {
 							queryData[key] = {
 								"united": nextButton.innerText === "AND" ? false : true,
 								"included_conditions": [],
 								"excluded_conditions": []
-							};						
-							if(prevCondition === "AND"){
-								queryData["united"] === "AND" ? false : true;
+							};
+							console.log("prevkey " + prevKey + " key " + key + "!!!!!!!!!!!!!!!!    " +　JSON.stringify(mainQueryData));
+							if(prevKey !== key)
+							{
+								console.log("prevKey !== key prevCondition "+ prevCondition );
+								if(prevCondition.includes("AND") || prevCondition.includes("OR")){
+									mainQueryData["united"]  = prevCondition.includes("AND")  ? false : true;
+									console.log("mainQueryData['united'] = " + mainQueryData["united"]  + " mainQueryData   " +　JSON.stringify(mainQueryData));
+								}
 							}
-						  }
+							//console.log(" queryData[key][type] " +queryData[key][type] + " " +  key + " "  +type+ "　"+condition );
+							queryData[key][type].push(condition);
+							console.log("queryData " +　JSON.stringify(queryData));
+							Object.assign(mainQueryData, queryData);
+							queryData = {};
+						}else{
+							console.log("mainQueryData[key] key " + key + " " + JSON.stringify(mainQueryData));
+							mainQueryData[key]["united"] = prevCondition.includes("AND")  ? false : true;
+							mainQueryData[key][type].push(condition);
+						}
 						  
-						  console.log("queryData " +　JSON.stringify(queryData));
-						  console.log(" queryData[key][type] " +queryData[key][type] + " " +  key + " "  +type+ "　"+condition );
-						  queryData[key][type].push(condition);
-						  console.log("queryData " +　JSON.stringify(queryData));
 						  
-						  			
 						
-						  if(nextButton){
+
+						console.log("mainQueryData " +　JSON.stringify(mainQueryData));
+
+
+						if(nextButton){
 							prevCondition = nextButton.innerText;
-						  }
+							prevKey = key;
+						}
 					} 
 				} 
 			}
-			console.log("pre-clean JSON.stringify(queryData) " + JSON.stringify(queryData));
+			console.log("pre-clean JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
 			let elementsQueryData = 0;
-			for (var key in queryData) {
+			for (var key in mainQueryData) {
 				elementsQueryData++;			
 				if(key !== "united"){
-					console.log("queryData[key]['included_conditions'].length" + queryData[key]["included_conditions"].length);
-					if (queryData[key]["included_conditions"].length === 0) {
-						delete queryData[key]["included_conditions"];
-					}else if (queryData[key]["included_conditions"].length === 1) {
-						delete queryData[key]["united"];
+					console.log("mainQueryData[key]['included_conditions'].length" + mainQueryData[key]["included_conditions"].length);
+					if (mainQueryData[key]["included_conditions"].length === 0) {
+						delete mainQueryData[key]["included_conditions"];
+					}else if (mainQueryData[key]["included_conditions"].length === 1) {
+						delete mainQueryData[key]["united"];
 					}
 					
-					if (queryData[key]["excluded_conditions"].length === 0) {
-						delete queryData[key]["excluded_conditions"];
-					}else if (queryData[key]["excluded_conditions"].length === 1) {
-						delete queryData[key]["united"];
+					if (mainQueryData[key]["excluded_conditions"].length === 0) {
+						delete mainQueryData[key]["excluded_conditions"];
+					}else if (mainQueryData[key]["excluded_conditions"].length === 1) {
+						delete mainQueryData[key]["united"];
 					}
 				}
 			}
 		 	if(elementsQueryData === 2){
-				delete queryData["united"];
+				delete mainQueryData["united"];
 			} 
-			console.log("queryData elementsQueryData legnth " + elementsQueryData);
-			console.log("JSON.stringify(queryData) " + JSON.stringify(queryData));
+			console.log("mainQueryData elementsQueryData legnth " + elementsQueryData);
+			console.log("JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
+			
 			const response = await fetch( _config.api.queryUrl, {
 				method: 'POST',
 				mode: 'cors',
-				body: JSON.stringify(queryData)
+				body: JSON.stringify(mainQueryData)
 			});
 	  
 			if (!response.ok) {
@@ -490,7 +421,7 @@
 	  
 			const jsonResponse = await response.json();
 			//console.log("Type of jsonResponse:", typeof jsonResponse);
-			console.log(JSON.stringify(jsonResponse)); 
+			//console.log(JSON.stringify(jsonResponse)); 
 		              var allData = [];
             for (var item of jsonResponse.items) //dummyData.items
             {
@@ -706,13 +637,7 @@
 							}
 						});
 					}
-					
-					
-				   
-					  
 				}
-	
-				
 				
 			});
 			
@@ -769,14 +694,104 @@
 		}
 	}
 	
+	window.addQueryBtnGrp = function( clickedElement) {
+
+		console.log("addButton!!!");
+	
+		if(x < maxFields) { // Add new input box
+			x++; // Text box increment
+			var newElement = document.createElement("p");
+			 newElement.className = 'dynamic-control-group';
+			 newElement.innerHTML = '<div id="controlContainer'+x+'"" class="input-group container">' +
+									'<div id="group'+x+'" class="dropdown1">' +
+									'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown">' +
+									'<span class="caret"></span></button>' +
+									'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
+									'</ul>' +
+									'</div>' +
+									'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" +="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;">' +
+									'<div class="dropdown2 mx-1">' +
+									'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown">OR' +
+									'<span class="caret"></span></button>' +
+									'<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
+									'<li><a href="#" onclick="changeButtonColor(\'AND\', this)">AND</a></li>' +
+									'<li><a href="#" onclick="changeButtonColor(\'OR\', this)">OR</a></li>' +
+									'<li><a href="#" onclick="changeButtonColor(\'WITHOUT\', this)">WITHOUT</a></li>' +
+									'</ul>' +
+									'</div>'+
+									'<div class="dropdown2">' +
+							 '<button id="addDelSearchGroup'+x+'" class="btn btn-primary" width="100px" type="button" onclick="addQueryBtnGrp(this)"  >+'+
+							  '</button>'+								 
+							'</div></div>';// Add field html
+									
+						
+			wrapper.appendChild(newElement);
+			
+			
+			var mainMenuLinks = newElement.getElementsByTagName('ul');
+			for(var i = 0; i < mainMenuLinks.length; i++) {
+				if(mainMenuLinks[i].id.indexOf("mainDropMenu") !== -1){
+					//console.log("mainMenuLinks !!!!!　" +　mainMenuLinks[i].id);
+					break;
+				}
+			}
+			
+			var mainBtnLinks = newElement.getElementsByTagName('button');
+			let operatorBtn = undefined;
+			let addBtn = undefined;
+			for(var i = 0; i < mainBtnLinks.length; i++) {
+				//console.log("mainBtnLinks !!!!!　" +　mainBtnLinks[i].id);
+				//mainBtnLinks[i].id = 'newId' + x + '_' + i; // Set new id
+				if(mainBtnLinks[i].id.indexOf("mainAttrBtn") != -1){
+					refreshAttrBtn(mainBtnLinks[i], mainMenuLinks[i]);
+					mainBtnLinks[i].addEventListener('click', function() { // Register click event listener
+						//console.log('mainBtnLinks Clicked: ' + this.id + ', Text: ' + this.textContent);
+						
+						
+					});
+				}else if(mainBtnLinks[i].id.indexOf("operatorBtn") != -1){
+					operatorBtn = mainBtnLinks[i];	
+					if(operatorBtn.id === 'operatorBtn'+maxFields){
+						operatorBtn.style.visibility = "hidden";
+					}
+					//console.log("operatorBtn=" + operatorBtn.id);							
+				}else if(mainBtnLinks[i].id.indexOf("addDelSearchGroup") != -1){
+					addBtn = mainBtnLinks[i];	
+					if(addBtn.id === 'addDelSearchGroup'+maxFields){
+						addBtn.style.visibility = "hidden";
+					}
+					console.log("addBtn=" + addBtn.id);							
+				}
+				
+			}
+			
+			
+			var operationLinks = newElement.getElementsByTagName('a');
+			
+			for(var i = 0; i < operationLinks.length; i++) {
+				//console.log('operationLinks: ' + operationLinks[i].id);
+				operationLinks[i].id = 'newId' + x + '_' + i; // Set new id
+				operationLinks[i].addEventListener('click', function() { // Register click event listener
+					//console.log('Clicked: ' + this.id + ', Text: ' + this.textContent);
+					if(operatorBtn !== undefined){
+						if(this.textContent === 'AND' || this.textContent === 'OR' || this.textContent === 'WITHOUT'){
+							operatorBtn.textContent = this.textContent;
+						}
+						
+					}
+				});
+			}
+		} 			
+
+
+	}
+	
 	window.changeButtonColor = function(selectedText, clickedElement) {
-		// 獲取父級 <button> 元素
+	
 		var operatorBtn = $(clickedElement).closest('ul').prev('button');
 
-		// 設置按鈕文本
 		operatorBtn.text(selectedText);
 
-		// 根據文本設置相應的樣式
 		switch (selectedText) {
 			case "AND":
 				operatorBtn.css("background-color", "green");
@@ -789,7 +804,6 @@
 				break;
 		}
 	}
-
 	
 	function handleSearchClick(event) {		
 		event.preventDefault();
@@ -797,34 +811,14 @@
 		console.log(searchInput.value);
 		*/
 		let mainAttr = dropDownMainBtn.textContent;
-		
 		let searchStr = searchInput.value;
-		
-		//$('#queryResultTable').DataTable.destroy();
-		//$('#queryResultTable').DataTable.empty();
-		
 
 		fetchAttrData();
-		
-		
-		
-    }
-	
-	function handleMainAttrMenuClick(event) {		
-		event.preventDefault();
-		console.log("handleMainAttrMenuClick!");
-				
-				
-    }
-	
-	function handleSubAttrMenuClick(event) {		
-		event.preventDefault();
-		console.log("handleSubAttrMenuClick!");
-				
-				
+			
     }
 
     function displayUpdate(text) {
         $('#updates').append($('<li>' + text + '</li>'));
     }
+	
 }(jQuery));
