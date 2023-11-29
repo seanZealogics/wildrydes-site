@@ -3,14 +3,15 @@
 (function rideScopeWrapper($) {
 		
 	var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
-	var dropDownMainBtn = document.querySelector("#mainAttrBtn");
-	var dropDownOperatorBtn = document.querySelector("#operatorBtn");
-	var dropDownOperatorMenuBtn = document.querySelector("#operatorMenu");
-	var searchInput = document.querySelector("#searchInput");	
+	var dropDownMainBtn = document.querySelector("#mainAttrBtn0");
+	var dropDownOperatorBtn = document.querySelector("#operatorBtn0");
+	var dropDownOperatorMenuBtn = document.querySelector("#operatorMenu0");
+	var searchInput = document.querySelector("#searchInput0");	
 	var wrapper = document.getElementById("newbelow"); // Fields wrapper		
+	var tableWrapper = document.getElementById("tableContent"); // Fields wrapper
 	var maxFields = 3; // Maximum input boxes allowed
 	var thead = null;
-	var tableWrapper = document.getElementById("tableContent"); // Fields wrapper
+
 	var mapMainAttr = new Map(); 
 	var arrSubAttr = [];
 	var resultTable;
