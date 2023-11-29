@@ -174,7 +174,7 @@
 	
 	function format(d) {
 	// `d` is the original data object for the row
-		console.log("d=" + d);
+		console.log("d=" + JSON.stringify(d));
 		let data =  d.educations;
 		for (let i = 0; i < data.length; i ++) {
 			const date = data[i].date;
@@ -351,22 +351,22 @@
 								"included_conditions": [],
 								"excluded_conditions": []
 							};
-							console.log("prevkey " + prevKey + " key " + key + "!!!!!!!!!!!!!!!!    " +　JSON.stringify(mainQueryData));
+							//console.log("prevkey " + prevKey + " key " + key + "!!!!!!!!!!!!!!!!    " +　JSON.stringify(mainQueryData));
 							if(prevKey !== key)
 							{
-								console.log("prevKey !== key prevCondition "+ prevCondition );
+								//console.log("prevKey !== key prevCondition "+ prevCondition );
 								if(prevCondition.includes("AND") || prevCondition.includes("OR")){
 									mainQueryData["united"]  = prevCondition.includes("AND")  ? false : true;
-									console.log("mainQueryData['united'] = " + mainQueryData["united"]  + " mainQueryData   " +　JSON.stringify(mainQueryData));
+									//console.log("mainQueryData['united'] = " + mainQueryData["united"]  + " mainQueryData   " +　JSON.stringify(mainQueryData));
 								}
 							}
 							//console.log(" queryData[key][type] " +queryData[key][type] + " " +  key + " "  +type+ "　"+condition );
 							queryData[key][type].push(condition);
-							console.log("queryData " +　JSON.stringify(queryData));
+							//console.log("queryData " +　JSON.stringify(queryData));
 							Object.assign(mainQueryData, queryData);
 							queryData = {};
 						}else{
-							console.log("mainQueryData[key] key " + key + " " + JSON.stringify(mainQueryData));
+							//console.log("mainQueryData[key] key " + key + " " + JSON.stringify(mainQueryData));
 							mainQueryData[key]["united"] = prevCondition.includes("AND")  ? false : true;
 							mainQueryData[key][type].push(condition);
 						}
@@ -374,7 +374,7 @@
 						  
 						
 
-						console.log("mainQueryData " +　JSON.stringify(mainQueryData));
+						//console.log("mainQueryData " +　JSON.stringify(mainQueryData));
 
 
 						if(nextButton){
@@ -384,12 +384,12 @@
 					} 
 				} 
 			}
-			console.log("pre-clean JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
+			//console.log("pre-clean JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
 			let elementsQueryData = 0;
 			for (var key in mainQueryData) {
 				elementsQueryData++;			
 				if(key !== "united"){
-					console.log("mainQueryData[key]['included_conditions'].length" + mainQueryData[key]["included_conditions"].length);
+					//console.log("mainQueryData[key]['included_conditions'].length" + mainQueryData[key]["included_conditions"].length);
 					if (mainQueryData[key]["included_conditions"].length === 0) {
 						delete mainQueryData[key]["included_conditions"];
 					}else if (mainQueryData[key]["included_conditions"].length === 1) {
@@ -406,7 +406,7 @@
 		 	if(elementsQueryData === 2){
 				delete mainQueryData["united"];
 			} 
-			console.log("mainQueryData elementsQueryData legnth " + elementsQueryData);
+			//console.log("mainQueryData elementsQueryData legnth " + elementsQueryData);
 			console.log("JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
 			
 			const response = await fetch( _config.api.queryUrl, {
@@ -430,7 +430,7 @@
 			
 			let queryResultTableElement = tableWrapper.querySelector('#queryResultTable');
 			if (queryResultTableElement) {
-				console.log('Element exists in the container!');
+				//console.log('Element exists in the container!');
 				
 				tableWrapper.lastChild.remove();
 				$('#queryResultTable').DataTable().clear();
@@ -438,7 +438,7 @@
 				
 				
 			} else {
-				console.log('Element does not exist in the container!');
+				//console.log('Element does not exist in the container!');
 			}
 					
 			let tableElement = document.createElement("p");
@@ -695,8 +695,6 @@
 	}
 	
 	window.addQueryBtnGrp = function( clickedElement) {
-
-		console.log("addButton!!!");
 	
 		if(x < maxFields) { // Add new input box
 			x++; // Text box increment
@@ -760,7 +758,7 @@
 					if(addBtn.id === 'addDelSearchGroup'+maxFields){
 						addBtn.style.visibility = "hidden";
 					}
-					console.log("addBtn=" + addBtn.id);							
+					//console.log("addBtn=" + addBtn.id);							
 				}
 				
 			}
