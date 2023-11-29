@@ -1,5 +1,14 @@
 /*global WildRydes _config*/
 
+let educations = null;
+let computer_skills = null;
+let certificates = null;
+let publications = null;
+let patents = null;
+let experiences = null;
+
+
+
 (function rideScopeWrapper($) {
 		
 	var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
@@ -175,7 +184,8 @@
 	
 	function format(d) {
 	// `d` is the original data object for the row
-		console.log("d=" + JSON.stringify(d));
+		//console.log("d=" + JSON.stringify(d));
+		let childTable = {};
 		let data =  d.educations;
 		for (let i = 0; i < data.length; i ++) {
 			const date = data[i].date;
@@ -190,7 +200,7 @@
 			console.log(`Responsibility: ${responsibility}`); */
 		}	                       
 								
-		let educations = d.educations.map(function (m_educations) {									
+		educations = d.educations.map(function (m_educations) {									
 			return '<p>' + m_educations.date + '<br>' + m_educations.degree + ' at ' + m_educations.school + '<br>' + m_educations.description + '</p>';
 		});
 		//////////////////////////////////////////////////
@@ -279,12 +289,81 @@
 								
 		let experiences = d.experiences.map(function (m_experiences) {									
 			return '<p>' + m_experiences.date + '<br>' + m_experiences.company + '<br>' + m_experiences.position + '<br>' + m_experiences.responsibility+ '</p>';
-		});															
-		//experiences.join('<br>');								
-	 
-								
-								
-							
+		});
+		//experiences.join('<br>');
+
+		childTable.educations = educations;
+		childTable.computer_skills = computer_skills;
+		childTable.certificates = certificates;
+		childTable.publications = publications;
+		childTable.patents = patents;
+		childTable.experiences = experiences;
+		
+										
+	 				
+		/* educations = educations.replace(regex, '<span style="background-color: yellow;">$&</span>');						 */
+	
+		let regex;
+		 
+		var inputLinks = document.getElementsByTagName('input');
+		console.log("inputLinks !!!!!　" +　inputLinks.length);
+		for(var i = 0; i < inputLinks.length; i++) {
+			console.log("inputLinks !!!!!　" + i + " "+　inputLinks[i].id);
+			if(inputLinks[i].id.indexOf("searchInput") !== -1){
+				console.log("inputLinks !!!!!　" +　inputLinks[i].id + " " +inputLinks[i].value);
+				if (inputLinks[i].value.length > 0) {
+				   // 尋找最近的前一個 button
+					var previousButton = inputLinks[i].previousElementSibling;
+					console.log("previousButton.tagName !!!!!　" +　previousButton.tagName);
+					if (previousButton && previousButton.tagName === 'DIV') {
+						// Find the button within the div
+						previousButton = previousButton.querySelector('button');
+						previousButtonName = previousButton.name;
+					}
+
+					
+
+					// Loop through previous siblings until a button is found or no more siblings exist
+					//while (previousButton && previousButton.tagName !== 'button') {
+					//	previousElement = previousElement.previousElementSibling;
+					//}  
+					console.log("previousButton.id !!!!!　" +　previousButton.id);
+					if (previousButton && previousButton.id.indexOf("mainAttrBtn") !== -1) {
+						console.log("previousButton.textContent !!!!!　" +　previousButton.textContent);
+						var colorValueForDynamicKey = conditions[previousButton.textContent.toLowerCase()] ? conditions[previousButton.textContent.toLowerCase()].color : conditions.default.color;
+						console.log("colorValueForDynamicKey " + colorValueForDynamicKey);
+						console.log("previousButton.textContent.toLowerCase() " + previousButton.textContent.toLowerCase());
+						regex = new RegExp(inputLinks[i].value, 'gi');  // 'g'表示全局匹配，'i'表示忽略大小寫
+						/* childTable[previousButton.textContent.toLowerCase()] = childTable[previousButton.textContent.toLowerCase()].join(', ').replace(regex, function(match) {
+						  //return `<span style="background-color: rgb(255, 255, 0); color: black;">${match}</span>`; 
+						  return `<mark>${match}</mark>`; 
+						}); */ 
+						//console.log("inputLinks[i].value " + inputLinks[i].value + " childTable " + );
+						for (let key in childTable[previousButton.textContent.toLowerCase()]) {
+						  if (typeof childTable[previousButton.textContent.toLowerCase()][key] === 'string') {
+							childTable[previousButton.textContent.toLowerCase()][key] = childTable[previousButton.textContent.toLowerCase()][key].replace(regex, function(match) {
+							  return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
+							});
+						  }
+						}
+						
+					}
+				}
+			}
+		} 
+		
+		
+						
+/* 		
+		let regex = new RegExp("taiwan", 'gi');
+		 for (let key in educations) {
+		  if (typeof educations[key] === 'string') {
+			educations[key] = educations[key].replace(regex, function(match) {
+			  return `<mark>${match}</mark>`;  // 使用<mark>標籤來反白匹配的字串
+			});
+		  }
+		} 
+ */							
 		return '<table id="childTable"  cellspacing="10" border="1" style="width:100%">' +
 			'<tr class="text-muted text-xs">'
 			+ '<td>Educations</td>'
@@ -611,7 +690,7 @@
                     }
 
 				],	
-				"drawCallback": function(settings) {
+				/* "drawCallback": function(settings) {
 					
 					
 					this.api().cells().every(function() {
@@ -638,7 +717,7 @@
 							}
 						});
 					}
-				}
+				} */
 				
 			});
 			
@@ -695,6 +774,17 @@
 		}
 	}
 	
+	window.handleKeyDown = function(event) {
+		// 檢查是否按下 enter 鍵
+		if (event.keyCode === 13) {
+			// 防止表單提交
+			event.preventDefault();
+			// 執行你的函數
+			handleSearchClick(event);
+		}
+	}
+
+	
 	window.addQueryBtnGrp = function( clickedElement) {
 	
 		if(x < maxFields) { // Add new input box
@@ -708,7 +798,7 @@
 									'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
 									'</ul>' +
 									'</div>' +
-									'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" +="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;">' +
+									'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" +="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;"  onkeydown="handleKeyDown(event)">' +
 									'<div class="dropdown2 mx-1">' +
 									'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown">OR' +
 									'<span class="caret"></span></button>' +
@@ -820,4 +910,6 @@
         $('#updates').append($('<li>' + text + '</li>'));
     }
 	
+	
+		
 }(jQuery));
