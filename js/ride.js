@@ -30,8 +30,10 @@ let experiences = null;
 	var queryDataStr;
 	
 	var conditions = {
-        'educations': { text: 'Educations', value: 'education', color: 'blue' }, //blue
-        'experiences': { text: 'Experiences', value: 'experience', color: 'rgb(100,0,255)' },
+        'educations': { text: 'Educations', value: 'education', color: 'rgb(255,220,200)' }, //blue
+        'experiences': { text: 'Experiences', value: 'experience', color: 'rgb(255,220,100)' },
+		'certificates': { text: 'Certificates', value: 'certificate', color: 'rgb(255,220,255)' },
+		'computer_skills': { text: 'Computer_Skills', value: 'computer_skill', color: 'blue' },
         'default': { text: 'Select',value: '', color: 'green' }
     };
 	
@@ -82,7 +84,7 @@ let experiences = null;
 
 		// 獲取 dropdown menu
 
-		var selectedIndex;
+		//var selectedIndex;
 		var selectedNextIndex;
 		var conditionData;
 		attrButton.textContent = conditions['default'];
@@ -97,7 +99,7 @@ let experiences = null;
 			// 建立一個新的 <a> 元素
 			var aMainTag = document.createElement("a");
 			aMainTag.setAttribute("role", "menuitem");
-			aMainTag.setAttribute("tabindex", value);
+			//aMainTag.setAttribute("tabindex", value);
 			aMainTag.setAttribute("display", "flex");
 			aMainTag.setAttribute("justifyContent", "center");
 			aMainTag.setAttribute("href", "#");
@@ -107,7 +109,7 @@ let experiences = null;
 			aMainTag.addEventListener("click", function(event) {
 				event.preventDefault(); // 防止默認的點擊事件行為
 				attrButton.textContent = this.textContent;
-				selectedIndex = this.getAttribute("tabindex");				
+				//selectedIndex = this.getAttribute("tabindex");				
 				attrButton.style.backgroundColor = conditions[this.textContent.toLowerCase()].color;
 			
 				//console.log(this.textContent); // 印出 menu item 的內容
@@ -137,29 +139,30 @@ let experiences = null;
 	function completeRequest(result) {		
 		var jsonData = JSON.stringify(result);
 		//jsonData = JSON.stringify(JSON.parse(jsonData));
+		
 		jsonData = jsonData.replace(/\\n/g, '').replace(/\\"/g, "\"").replace(/"{/g, "{").replace(/}"/g, "}");
 		//displayUpdate(jsonData);
-
+		//console.log(jsonData);
 		const jsonObject = jQuery.parseJSON(jsonData);
 		const properties = jsonObject.schema.properties;
 		let i = 0;
 		mapMainAttr.clear();
 		arrSubAttr.length = 0;
-
-		for (const attribute in properties) {
-
-		  if (attribute === 'experiences' || attribute === 'educations') {				
+console.log(properties);
+		for (const attribute in properties) {	
+			//console.log(attribute);
+			//if (attribute === 'experiences' || attribute === 'educations' || attribute === 'certificates' || attribute === 'computer_skills') {				
 			  mapMainAttr.set(attribute, i);	
-			  		
-			if (!Array.isArray(properties[attribute].items.properties)) {
-			  properties[attribute].items.properties = Object.keys(properties[attribute].items.properties);
-			}
-
-			for (const item of properties[attribute].items.properties) {
-				arrSubAttr.push(item);	
-				i=i+1;					
-			}
-		  }
+					console.log( properties[attribute].items.properties);
+				/* if (!Array.isArray(properties[attribute].items.properties)) {
+				  properties[attribute].items.properties = Object.keys(properties[attribute].items.properties);
+				} */
+				i=i+1;	
+				/* for (const item of properties[attribute].items.properties) {
+					arrSubAttr.push(item);	
+									
+				} */
+			//}
 		}
 		window.mapMainAttr = mapMainAttr;
 		window.arrSubAttr = arrSubAttr;
@@ -298,7 +301,8 @@ let experiences = null;
 		childTable.publications = publications;
 		childTable.patents = patents;
 		childTable.experiences = experiences;
-		
+		console.log("childTable.computer_skills !!!!!　" +　childTable.computer_skills);
+		console.log("childTable.educations !!!!!　" +　childTable.educations);
 										
 	 				
 		/* educations = educations.replace(regex, '<span style="background-color: yellow;">$&</span>');						 */
@@ -338,8 +342,9 @@ let experiences = null;
 						  //return `<span style="background-color: rgb(255, 255, 0); color: black;">${match}</span>`; 
 						  return `<mark>${match}</mark>`; 
 						}); */ 
-						//console.log("inputLinks[i].value " + inputLinks[i].value + " childTable " + );
+						
 						for (let key in childTable[previousButton.textContent.toLowerCase()]) {
+							console.log("key " + key );
 						  if (typeof childTable[previousButton.textContent.toLowerCase()][key] === 'string') {
 							childTable[previousButton.textContent.toLowerCase()][key] = childTable[previousButton.textContent.toLowerCase()][key].replace(regex, function(match) {
 							  return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
@@ -494,11 +499,11 @@ let experiences = null;
 				mode: 'cors',
 				body: JSON.stringify(mainQueryData)
 			});
-	  
+			
 			if (!response.ok) {
 				throw new Error(`HTTP error! status: ${response.status}`);
 			}
-	  
+			
 			const jsonResponse = await response.json();
 			//console.log("Type of jsonResponse:", typeof jsonResponse);
 			//console.log(JSON.stringify(jsonResponse)); 
@@ -761,7 +766,7 @@ let experiences = null;
 			});
 			
 
-
+			hideLoading();
 			//var newWindow = window.open('', '_blank', 'width=400,height=200');			
 			//newWindow.document.write('<html><body>');
             //newWindow.document.write(stringWithoutFirstAndLast);
@@ -771,6 +776,7 @@ let experiences = null;
 			//ResultTable = $('#queryResultTable').DataTable();
 		} catch (error) {
 			console.error("Error:", error);
+			hideLoading();
 		}
 	}
 	
@@ -901,15 +907,16 @@ let experiences = null;
 		*/
 		let mainAttr = dropDownMainBtn.textContent;
 		let searchStr = searchInput.value;
-
+		
+		tableWrapper.lastChild.remove();
+		$('#queryResultTable').DataTable().clear();
+		$('#queryResultTable').DataTable().destroy();
+				
+			
+		showLoading();
 		fetchAttrData();
 			
     }
-
-    function displayUpdate(text) {
-        $('#updates').append($('<li>' + text + '</li>'));
-    }
-	
 	
 		
 }(jQuery));
