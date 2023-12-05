@@ -65,7 +65,7 @@ function completeRequest(result) {
             options: {
                 title: {
                     display: true,
-                    text: 'Weather'
+                    text: "programming_languages"
                 }
             }
         });
