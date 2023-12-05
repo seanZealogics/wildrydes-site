@@ -4,32 +4,117 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ["Direct", "Referral", "Social"],
-    datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-      hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
-  },
-  options: {
-    maintainAspectRatio: false,
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-    },
-    legend: {
-      display: false
-    },
-    cutoutPercentage: 80,
-  },
+var loading = document.getElementById('loading');
+let programming_languages;
+let percentages;
+
+function showLoading() {
+  loading.style.display = 'block';
+}
+
+function hideLoading() {
+  loading.style.display = 'none';
+}
+
+function generateRandomColor() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  const alpha = 0.5; // 固定透明度為0.5
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function generateUniqueColors(count) {
+  const colors = [];
+  const usedColors = new Set();
+
+  // 生成不重複的顏色
+  while (colors.length < count) {
+    const color = generateRandomColor();
+    if (!usedColors.has(color)) {
+      usedColors.add(color);
+      colors.push(color);
+    }
+  }
+
+  return colors;
+}
+
+function completeRequest(result) {		
+	var jsonData = JSON.stringify(result);
+	console.log("completeRequest");
+	console.log(jsonData);
+	const jsonObject = jQuery.parseJSON(jsonData);
+	
+	programming_languages = jsonObject.response.programming_languages.map(item => item.programming_language);
+	percentages = jsonObject.response.programming_languages.map(item => item.percentage);
+	const uniqueColors = generateUniqueColors(percentages.length);
+	console.log(programming_languages); // 輸出所有的程式語言
+	console.log(percentages); // 輸出所有的百分比
+	
+ var ctx = $("#chart-line");
+        var myLineChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: programming_languages,
+                datasets: [{
+                    data: percentages,
+                    backgroundColor: uniqueColors
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Weather'
+                }
+            }
+        });
+
+
+	hideLoading();
+}
+
+function fetchChartSummary() {
+	console.log("fetchChartSummary");
+	showLoading();
+
+	const fetchChartData = async () => {
+	const controller = new AbortController();
+	const id = setTimeout(() => controller.abort(), 600000); // Set timeout to 600000ms (10 minutes)
+
+	  try {
+		const response = await fetch(_config.api.chartUrl, {
+		  method: "GET",
+		  mode: "cors",
+		  signal: controller.signal,
+		});
+
+		clearTimeout(id);
+
+		const data = await response.json();
+
+		console.log(data);
+		completeRequest(data);
+	  } catch (e) {
+		if (e.name === 'AbortError') {
+		  console.log('Fetch aborted');
+		} else {
+		  throw e;
+		}
+	  }
+	};
+
+	fetchChartData();
+}
+
+$(function onDocReady() {
+
+
+   console.log("chart.js onDocReady init!!" );
+   fetchChartSummary();
+
+
+
+
+
 });
