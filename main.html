@@ -22,6 +22,7 @@
     <link rel="stylesheet" type="text/css" href="css/sb-admin-2.min.css" >
 	
 	<!-- Custom styles for this page -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="vendor/datatables/dataTables.bootstrap4.min.css" >
 	<link rel="stylesheet" type="text/css" href="media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="resources/syntax/shCore.css">
@@ -108,6 +109,36 @@
 
 		.fixed-width-queryTxtInput {
 			width: 10em;
+		}
+		
+		.modal.right .modal-dialog {
+		  position: fixed;
+		  margin: auto;
+		  width: 600px;
+		  height: 100%;
+		  -webkit-transform: translate3d(0%, 0, 0);
+		  -ms-transform: translate3d(0%, 0, 0);
+		  -o-transform: translate3d(0%, 0, 0);
+		  transform: translate3d(0%, 0, 0);
+		}
+
+		.modal.right .modal-content {
+		  height: 100%;
+		  overflow-y: auto;
+		}
+
+		.modal.right .modal-body {
+		  padding: 15px 15px 80px;
+		}
+
+		/*Right*/
+		.modal.right.fade .modal-dialog{
+		  right: -320px;
+		  transition: opacity 0.3s linear, right 0.3s ease-out;
+		}
+		
+		.modal.right.fade.show .modal-dialog {
+		  right: 0;
 		}
 	</style>
 	
@@ -315,9 +346,29 @@
 								
 
 						
-						<!-- /.container-fluid -->
+					<!-- /.container-fluid -->
+					<td class="details-control" data-toggle="modal" data-target="#expandModal"></td>
 
-				
+					<!-- Modal -->
+					<div class="modal fade right" id="expandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+						  <div class="modal-content">
+							<div class="modal-header">
+							  <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+							  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							  </button>
+							</div>
+							<div class="modal-body">
+							  ...
+							</div>
+							<div class="modal-footer">
+							  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							  <button type="button" class="btn btn-primary">Save changes</button>
+							</div>
+						  </div>
+						</div>
+					</div>
 				<!-- End of Main Content -->
 
 				<!-- Footer -->
@@ -375,7 +426,9 @@
 		<script src="vendor/datatables/jquery.dataTables.js"></script>
 		<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 		<script src="js/jquery.mark.js"></script>
-
+		<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
+		
 		<!-- AWS scripts -->
 		<script src="js/vendor/aws-cognito-sdk.min.js"></script>
 		<script src="js/vendor/amazon-cognito-identity.min.js"></script>

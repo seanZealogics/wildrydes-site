@@ -733,18 +733,24 @@ console.log(properties);
 
                 var tr = $(this).closest('tr');
                 var row = resultTable.row(tr);
-
+				$(this).attr({
+					'data-toggle': 'modal',
+					'data-target': '#expandModal'
+				});
+							
                 if (row.child.isShown()) {
                     // This row is already open - close it
                     row.child.hide();
-                    tr.removeClass('shown');
+                    //tr.removeClass('shown');
                 }
                 else {
                     // Open this row
                     row.child(format(row.data())).show();
-                    tr.addClass('shown');
+                    //tr.addClass('shown');
                 }
             });
+			
+			
 			
 			resultTable.on('draw.dt', function() {
 				// clean last style
