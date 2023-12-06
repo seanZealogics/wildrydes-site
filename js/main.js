@@ -372,21 +372,29 @@ console.log(properties);
 		return '<table id="childTable"  cellspacing="10" border="1" style="width:100%">' +
 			'<tr class="text-muted text-xs">'
 			+ '<td>Educations</td>'
-			+ '<td>Computer Skills</td>'		
-			+ '<td>Certificates</td>'
-			+ '<td>Publications</td>' 
-			+ '<td>Patents</td>' 
-			+ '<td>Experiences</td>' 
-			+'</tr>'
-			+'<tr class="text-muted text-xs">'
 			+ '<td>' + educations + '</td>' 
-			+ '<td>' + computer_skills + '</td>'		
+			+ '</tr>'
+			+ '<tr class="text-muted text-xs">'
+			+ '<td>Computer Skills</td>'	
+			+ '<td>' + computer_skills + '</td>'
+			+ '</tr>'
+			+ '<tr class="text-muted text-xs">'
+			+ '<td>Certificates</td>'
 			+ '<td>' + certificates + '</td>'
+			+ '</tr>'
+			+ '<tr class="text-muted text-xs">'
+			+ '<td>Publications</td>' 
 			+ '<td>' + publications + '</td>' 
+			+ '</tr>'
+			+ '<tr class="text-muted text-xs">'
+			+ '<td>Patents</td>'
 			+ '<td>' + patents + '</td>'
+			+ '</tr>'
+			+ '<tr class="text-muted text-xs">'			
+			+ '<td>Experiences</td>' 
 			+ '<td>' + experiences + '</td>'
-			+'</tr>'
-			'</table>';
+			+ '</tr>'
+			+ '</table>';
 	}
 	
 	async function fetchAttrData() {
@@ -737,17 +745,19 @@ console.log(properties);
 					'data-toggle': 'modal',
 					'data-target': '#expandModal'
 				});
-							
-                if (row.child.isShown()) {
-                    // This row is already open - close it
-                    row.child.hide();
-                    //tr.removeClass('shown');
-                }
-                else {
-                    // Open this row
-                    row.child(format(row.data())).show();
-                    //tr.addClass('shown');
-                }
+						
+				if (row.child.isShown()) {
+					// This row is already open - close it
+					row.child.hide();
+					//tr.removeClass('shown');
+				}
+				else {
+					// Open this row
+					var childData = format(row.data());
+					$('#modalBody').html(childData); // Add the child table to the modal body
+					$('#expandModal').modal('show'); // Show the modal
+					//tr.addClass('shown');
+				}
             });
 			
 			
