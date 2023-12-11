@@ -14,6 +14,6 @@ window._config = {
 	//queryUrl: "https://2rsi3py4lk.execute-api.ap-northeast-1.amazonaws.com/lowercase_resume"
 	queryUrl: "https://qb9bzger6e.execute-api.ap-northeast-3.amazonaws.com/lowercase_resume",
 	//chartUrl: "https://uvfgitrxxk.execute-api.ap-northeast-3.amazonaws.com/resume_summary"
-	chartUrl: "https://f3gnl77ghjckne3obs4n24tyna0mgouj.lambda-url.ap-northeast-3.on.aws/"
+	chartUrl: "https://tyk5z6zocj.execute-api.ap-northeast-3.amazonaws.com/resume_statistics"
   }
 };

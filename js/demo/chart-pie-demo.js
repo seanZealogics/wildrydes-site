@@ -46,29 +46,40 @@ function completeRequest(result) {
 	console.log(jsonData);
 	const jsonObject = jQuery.parseJSON(jsonData);
 	
-	programming_languages = jsonObject.response.programming_languages.map(item => item.programming_language);
+	let degrees = jsonObject.item[0].degrees;
+	let degreeNames = [];
+	let degreePercentages = [];
+	let uniqueColors = [];
+
+	for(let i = 0; i < degrees.length; i++) {
+		degreeNames.push(degrees[i].degree);
+		degreePercentages.push(degrees[i].percentage);
+		uniqueColors = generateUniqueColors(degreePercentages.length);
+	}
+	
+/* 	programming_languages = jsonObject.response.programming_languages.map(item => item.programming_language);
 	percentages = jsonObject.response.programming_languages.map(item => item.percentage);
 	const uniqueColors = generateUniqueColors(percentages.length);
 	console.log(programming_languages); // 輸出所有的程式語言
-	console.log(percentages); // 輸出所有的百分比
+	console.log(percentages); // 輸出所有的百分比 */
 	
- var ctx = $("#chart-line");
-        var myLineChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: programming_languages,
-                datasets: [{
-                    data: percentages,
-                    backgroundColor: uniqueColors
-                }]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: "programming_languages"
-                }
-            }
-        });
+	var ctx = $("#chart-line");
+	var myLineChart = new Chart(ctx, {
+		type: 'doughnut',
+		data: {
+			labels: degreeNames,
+			datasets: [{
+				data: degreePercentages,
+				backgroundColor: uniqueColors
+			}]
+		},
+		options: {
+			title: {
+				display: true,
+				text: "Degrees"
+			}
+		}
+	});
 
 
 	hideLoading();
