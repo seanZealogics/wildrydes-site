@@ -148,12 +148,11 @@ let experiences = null;
 		let i = 0;
 		mapMainAttr.clear();
 		arrSubAttr.length = 0;
-console.log(properties);
+
 		for (const attribute in properties) {	
 			//console.log(attribute);
 			//if (attribute === 'experiences' || attribute === 'educations' || attribute === 'certificates' || attribute === 'computer_skills') {				
 			  mapMainAttr.set(attribute, i);	
-					console.log( properties[attribute].items.properties);
 				/* if (!Array.isArray(properties[attribute].items.properties)) {
 				  properties[attribute].items.properties = Object.keys(properties[attribute].items.properties);
 				} */
@@ -203,43 +202,50 @@ console.log(properties);
 			console.log(`Responsibility: ${responsibility}`); */
 		}	                       
 								
-		educations = d.educations.map(function (m_educations) {									
-			return '<p>' + m_educations.date + '<br>' + m_educations.degree + ' at ' + m_educations.school + '<br>' + m_educations.description + '</p>';
-		});
-		//////////////////////////////////////////////////
-		data =  d.computer_skills;
-		let computer_skills = "<p>";
-		//console.log("computer_skills.length = "+data.length);
-		for (let i = 0; i < data.length; i ++) {
-			computer_skills += data[i] + "<br><br>";
-			/* const date = data[i].date;
-			const degree = data[i].degree;
-			const description = data[i].description;
-			const school = data[i].school; */
-
+		educations = d.educations.map(function (m_educations) {
+			if(m_educations.detail !== null)
+			{	
+				return '<p>' + m_educations.date + '<br>' + m_educations.degree + ' at ' + m_educations.school + '<br>' + m_educations.detail + '</p>';
+			}else{
+				return '<p>' + m_educations.date + '<br>' + m_educations.degree + ' at ' + m_educations.school + '<br></p>';
+			}
 			
-			/* console.log(`Date: ${date}`);`
-			console.log(`Company: ${company}`);
-			console.log(`Position: ${position}`);
-			console.log(`Responsibility: ${responsibility}`); */
+		});
+		console.log("educations !!! = "+ Array.isArray( educations));
+		//////////////////////////////////////////////////
+		computer_skills =  d.computer_skills;
+		computer_skills[0] = '<p>' + computer_skills[0] + '<br>';
+
+		for(let i = 1; i < computer_skills.length; i++) {
+			if(i !== computer_skills.length - 1) {
+				computer_skills[i] += '<br>';
+			} else {
+				computer_skills[i] += '</p>';
+			}
 		}
-		computer_skills += "</p>";
+
+
+		console.log("computer_skills !!! = "+  Array.isArray( computer_skills));
+
 		//////////////////////////////////////////////////
 		data =  d.certificates;
-		for (let i = 0; i < data.length; i ++) {
+	/* 	for (let i = 0; i < data.length; i ++) {
 			
 			const date = data[i].date;
 			const title = data[i].title;
 			const certifying_authority = data[i].certifying_authority;
 
 			
-			/* console.log(`Date: ${date}`);
-			console.log(`Company: ${company}`);
-			console.log(`Position: ${position}`);
-			console.log(`Responsibility: ${responsibility}`); */
-		}	      
-		let certificates = d.certificates.map(function (m_certificates) {									
-			return '<p>' + m_certificates.date + '<br>' + m_certificates.title + '<br>' + m_certificates.certifying_authority + '</p>';
+	
+		}	 */      
+		let certificates = d.certificates.map(function (m_certificates) {					
+			if(m_certificates.certifying_authority !== null)
+			{	
+				return '<p>' + m_certificates.date + '<br>' + m_certificates.title + '<br>' + m_certificates.certifying_authority + '</p>';
+			}else{
+				return '<p>' + m_certificates.date + '<br>' + m_certificates.title + '<br></p>';
+			}		
+			
 		});	
 		//////////////////////////////////////////////////
 		data =  d.publications;
@@ -301,8 +307,7 @@ console.log(properties);
 		childTable.publications = publications;
 		childTable.patents = patents;
 		childTable.experiences = experiences;
-		console.log("childTable.computer_skills !!!!!　" +　childTable.computer_skills);
-		console.log("childTable.educations !!!!!　" +　childTable.educations);
+	
 										
 	 				
 		/* educations = educations.replace(regex, '<span style="background-color: yellow;">$&</span>');						 */
@@ -310,15 +315,15 @@ console.log(properties);
 		let regex;
 		 
 		var inputLinks = document.getElementsByTagName('input');
-		console.log("inputLinks !!!!!　" +　inputLinks.length);
+		//console.log("inputLinks !!!!!　" +　inputLinks.length);
 		for(var i = 0; i < inputLinks.length; i++) {
-			console.log("inputLinks !!!!!　" + i + " "+　inputLinks[i].id);
+			//console.log("inputLinks !!!!!　" + i + " "+　inputLinks[i].id);
 			if(inputLinks[i].id.indexOf("searchInput") !== -1){
-				console.log("inputLinks !!!!!　" +　inputLinks[i].id + " " +inputLinks[i].value);
+				//console.log("inputLinks !!!!!　" +　inputLinks[i].id + " " +inputLinks[i].value);
 				if (inputLinks[i].value.length > 0) {
 				   // 尋找最近的前一個 button
 					var previousButton = inputLinks[i].previousElementSibling;
-					console.log("previousButton.tagName !!!!!　" +　previousButton.tagName);
+					//console.log("previousButton.tagName !!!!!　" +　previousButton.tagName);
 					if (previousButton && previousButton.tagName === 'DIV') {
 						// Find the button within the div
 						previousButton = previousButton.querySelector('button');
@@ -331,12 +336,12 @@ console.log(properties);
 					//while (previousButton && previousButton.tagName !== 'button') {
 					//	previousElement = previousElement.previousElementSibling;
 					//}  
-					console.log("previousButton.id !!!!!　" +　previousButton.id);
+					//console.log("previousButton.id !!!!!　" +　previousButton.id);
 					if (previousButton && previousButton.id.indexOf("mainAttrBtn") !== -1) {
-						console.log("previousButton.textContent !!!!!　" +　previousButton.textContent);
+						//console.log("previousButton.textContent !!!!!　" +　previousButton.textContent);
 						var colorValueForDynamicKey = conditions[previousButton.textContent.toLowerCase()] ? conditions[previousButton.textContent.toLowerCase()].color : conditions.default.color;
-						console.log("colorValueForDynamicKey " + colorValueForDynamicKey);
-						console.log("previousButton.textContent.toLowerCase() " + previousButton.textContent.toLowerCase());
+						//console.log("colorValueForDynamicKey " + colorValueForDynamicKey);
+						//console.log("previousButton.textContent.toLowerCase() " + previousButton.textContent.toLowerCase());
 						regex = new RegExp(inputLinks[i].value, 'gi');  // 'g'表示全局匹配，'i'表示忽略大小寫
 						/* childTable[previousButton.textContent.toLowerCase()] = childTable[previousButton.textContent.toLowerCase()].join(', ').replace(regex, function(match) {
 						  //return `<span style="background-color: rgb(255, 255, 0); color: black;">${match}</span>`; 
@@ -344,10 +349,22 @@ console.log(properties);
 						}); */ 
 						
 						for (let key in childTable[previousButton.textContent.toLowerCase()]) {
-							console.log("key " + key );
-						  if (typeof childTable[previousButton.textContent.toLowerCase()][key] === 'string') {
+							console.log("childTable key" + key);
+							//console.log("childTable[previousButton.textContent.toLowerCase()] typeof " + typeof childTable[previousButton.textContent.toLowerCase()] + "\n" + childTable[previousButton.textContent.toLowerCase()]);
+						  /* if (typeof childTable[previousButton.textContent.toLowerCase()][key] === 'string') {
 							childTable[previousButton.textContent.toLowerCase()][key] = childTable[previousButton.textContent.toLowerCase()][key].replace(regex, function(match) {
 							  return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
+							});
+						  } */
+						  if (typeof childTable[previousButton.textContent.toLowerCase()] === 'object') {
+							console.log("object !!!!!　" +　childTable[previousButton.textContent.toLowerCase()][key]);
+							childTable[previousButton.textContent.toLowerCase()][key] = childTable[previousButton.textContent.toLowerCase()][key].replace(regex, function(match) {
+								return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
+							});
+						  }else if (typeof childTable[previousButton.textContent.toLowerCase()] === 'string') {
+							 //console.log("string !!!!!　" +　childTable[previousButton.textContent.toLowerCase()]);
+							 childTable[previousButton.textContent.toLowerCase()] = childTable[previousButton.textContent.toLowerCase()].replace(regex, function(match) {
+								return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
 							});
 						  }
 						}
@@ -500,7 +517,7 @@ console.log(properties);
 				delete mainQueryData["united"];
 			} 
 			//console.log("mainQueryData elementsQueryData legnth " + elementsQueryData);
-			console.log("JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
+			//console.log("JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
 			
 			const response = await fetch( _config.api.queryUrl, {
 				method: 'POST',
@@ -609,7 +626,7 @@ console.log(properties);
                             if (data && data.length) {
                                 if (type === 'display') {
 									var educations = data.map(function (education) {									
-										return education.date + ' - ' + education.degree + ' (' + education.school + ')';
+										return education.date + ' - ' + education.degree + ' (' + education.school + ')' +　education.detail;
                                 });				
 								educations.join('<br>');
                                 return educations.length + " Education Records";
@@ -617,8 +634,6 @@ console.log(properties);
                             } else { 
                                 return type === 'display' ? 'N / A' : '';
                             }
-                            
-							
                             return data; 
                         }
                     },                       
