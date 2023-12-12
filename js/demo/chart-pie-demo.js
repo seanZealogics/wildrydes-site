@@ -46,16 +46,25 @@ function completeRequest(result) {
 	console.log(jsonData);
 	const jsonObject = jQuery.parseJSON(jsonData);
 	
-	let degrees = jsonObject.item[0].degrees;
+	let degrees = jsonObject.item.degrees;
 	let degreeNames = [];
 	let degreePercentages = [];
 	let uniqueColors = [];
 
-	for(let i = 0; i < degrees.length; i++) {
+	for (let key in degrees) {
+		degreeNames.push(key);
+		degreePercentages.push(degrees[key]);
+		uniqueColors = generateUniqueColors(degreePercentages.length);
+	}
+	
+console.log(degreeNames); // 這將輸出 ["doctor", "bachelor", "master"]
+console.log(degreePercentages); // 這將輸出 ["6.25", "67.5", "26.25"]
+
+/* 	for(let i = 0; i < degrees.length; i++) {
 		degreeNames.push(degrees[i].degree);
 		degreePercentages.push(degrees[i].percentage);
 		uniqueColors = generateUniqueColors(degreePercentages.length);
-	}
+	} */
 	
 /* 	programming_languages = jsonObject.response.programming_languages.map(item => item.programming_language);
 	percentages = jsonObject.response.programming_languages.map(item => item.percentage);

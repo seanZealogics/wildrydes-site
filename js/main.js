@@ -211,7 +211,7 @@ let experiences = null;
 			}
 			
 		});
-		console.log("educations !!! = "+ Array.isArray( educations));
+		//console.log("educations !!! = "+ Array.isArray( educations));
 		//////////////////////////////////////////////////
 		computer_skills =  d.computer_skills;
 		computer_skills[0] = '<p>' + computer_skills[0] + '<br>';
@@ -225,7 +225,7 @@ let experiences = null;
 		}
 
 
-		console.log("computer_skills !!! = "+  Array.isArray( computer_skills));
+		//console.log("computer_skills !!! = "+  Array.isArray( computer_skills));
 
 		//////////////////////////////////////////////////
 		data =  d.certificates;
@@ -349,7 +349,7 @@ let experiences = null;
 						}); */ 
 						
 						for (let key in childTable[previousButton.textContent.toLowerCase()]) {
-							console.log("childTable key" + key);
+							//console.log("childTable key" + key);
 							//console.log("childTable[previousButton.textContent.toLowerCase()] typeof " + typeof childTable[previousButton.textContent.toLowerCase()] + "\n" + childTable[previousButton.textContent.toLowerCase()]);
 						  /* if (typeof childTable[previousButton.textContent.toLowerCase()][key] === 'string') {
 							childTable[previousButton.textContent.toLowerCase()][key] = childTable[previousButton.textContent.toLowerCase()][key].replace(regex, function(match) {
@@ -357,7 +357,7 @@ let experiences = null;
 							});
 						  } */
 						  if (typeof childTable[previousButton.textContent.toLowerCase()] === 'object') {
-							console.log("object !!!!!　" +　childTable[previousButton.textContent.toLowerCase()][key]);
+							//console.log("object !!!!!　" +　childTable[previousButton.textContent.toLowerCase()][key]);
 							childTable[previousButton.textContent.toLowerCase()][key] = childTable[previousButton.textContent.toLowerCase()][key].replace(regex, function(match) {
 								return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
 							});
