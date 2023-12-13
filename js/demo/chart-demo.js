@@ -7,6 +7,8 @@ var ctxDegreePie = document.getElementById("degreePieChart").getContext('2d');
 //var ctxIndustries = document.getElementById("industriesChart");
 var ctx = document.getElementById("myPieChart");
 var ctxFramework = document.getElementById('frameworkChart');
+var ctxLibrary = document.getElementById('librariesChart');
+var ctxCoding = document.getElementById('codingChart');
 var loading = document.getElementById('loading');
 let programming_languages;
 let percentages;
@@ -165,18 +167,6 @@ function completeRequest(result) {
 		bindto: "#seniorityChart",
 	});
 	
-	let industries = jsonObject.item.industries;
-	let industriesNames = industries.map(item => item.industry);
-	let industriesPercentages = industries.map(item => parseFloat(item.percentage));
-	
-	for (let key in industries) {
-		uniqueColors = generateUniqueColors(industriesPercentages.length);
-	}
-		
-	console.log(industriesNames); // 這將輸出 ["doctor", "bachelor", "master"]
-	console.log(industriesPercentages); // 這將輸出 ["6.25", "67.5", "26.25"]
-
-
 	//let resultIndustries = Object.entries(industries).map(([key, value]) => [key, parseFloat(value)]);
 /* 	var myBarChart = new Chart(ctxIndustries, {
 	  type: 'bar',
@@ -259,6 +249,18 @@ function completeRequest(result) {
 	  }
 	}); */
 	
+	let industries = jsonObject.item.industries;
+	let industriesNames = industries.map(item => item.industry);
+	let industriesPercentages = industries.map(item => parseFloat(item.percentage));
+	
+	for (let key in industries) {
+		uniqueColors = generateUniqueColors(industriesPercentages.length);
+	}
+		
+	console.log(industriesNames); // 這將輸出 ["doctor", "bachelor", "master"]
+	console.log(industriesPercentages); // 這將輸出 ["6.25", "67.5", "26.25"]
+
+
 	
 	new Chart(document.getElementById("horizontalBar"), {
 		"type": "horizontalBar",
@@ -322,6 +324,151 @@ function completeRequest(result) {
 
 
 
+	let libraries = jsonObject.item.libraries;
+	let librariesNames = libraries.map(item => item.library);
+	let librariesPercentages = libraries.map(item => parseFloat(item.percentage));
+	
+	for (let key in libraries) {
+		uniqueColors = generateUniqueColors(librariesPercentages.length);
+	}
+		
+	console.log(librariesNames); // 這將輸出 ["doctor", "bachelor", "master"]
+	console.log(librariesPercentages); // 這將輸出 ["6.25", "67.5", "26.25"]
+
+
+	new Chart(librariesChart, {
+		type: 'bar',
+		data: {
+		  labels: librariesNames,
+		  datasets: [{
+			data: librariesPercentages,
+			backgroundColor: uniqueColors,
+			borderColor: uniqueColors,
+			borderWidth: 1
+		  }]
+		},
+		options: {
+		  scales: {
+			y: {
+			  beginAtZero: true
+			}
+		  },
+		  legend: { display: false }
+		}
+	});
+
+
+
+
+	let databases = jsonObject.item.databases;
+	let databaseNames = databases.map(item => item.database);
+	let databasePercentages = databases.map(item => parseFloat(item.percentage));
+	
+	for (let key in databases) {
+		uniqueColors = generateUniqueColors(databasePercentages.length);
+	}
+		
+	console.log(databaseNames); // 這將輸出 ["doctor", "bachelor", "master"]
+	console.log(databasePercentages); // 這將輸出 ["6.25", "67.5", "26.25"]
+	
+	new Chart(document.getElementById("databasesBar"), {
+		"type": "horizontalBar",
+		"data": {
+		  "labels": databaseNames,
+		  "datasets": [{
+			"label": "My First Dataset",
+			"data": databasePercentages,
+			"fill": false,
+			"backgroundColor": uniqueColors,
+			"borderColor": uniqueColors,
+			"borderWidth": 1
+		  }]
+		},
+		"options": {
+		  "scales": {
+			"xAxes": [{
+			  "ticks": {
+				"beginAtZero": true
+			  }
+			}]
+		  },"legend": { "display": false }
+		}
+	  });
+	  
+	  
+	  
+	  
+	  
+	let programming_languages = jsonObject.item.programming_languages;
+	let programming_languageNames = programming_languages.map(item => item.programming_language);
+	let programming_languagePercentages = programming_languages.map(item => parseFloat(item.percentage));
+	
+	for (let key in programming_languages) {
+		uniqueColors = generateUniqueColors(programming_languagePercentages.length);
+	}
+		
+	console.log(programming_languageNames); // 這將輸出 ["doctor", "bachelor", "master"]
+	console.log(programming_languagePercentages); // 這將輸出 ["6.25", "67.5", "26.25"]
+
+
+	new Chart(document.getElementById("codingChart"), {
+		type: 'bar',
+		data: {
+		  labels: programming_languageNames,
+		  datasets: [{
+			data: programming_languagePercentages,
+			backgroundColor: uniqueColors,
+			borderColor: uniqueColors,
+			borderWidth: 1
+		  }]
+		},
+		options: {
+		  scales: {
+			y: {
+			  beginAtZero: true
+			}
+		  },
+		  legend: { display: false }
+		}
+	});
+
+
+
+
+	let cloud_platforms = jsonObject.item.cloud_platforms;
+	let cloud_platformNames = cloud_platforms.map(item => item.cloud_platform);
+	let cloud_platformPercentages = cloud_platforms.map(item => parseFloat(item.percentage));
+	
+	for (let key in cloud_platforms) {
+		uniqueColors = generateUniqueColors(cloud_platformPercentages.length);
+	}
+		
+	console.log(cloud_platformNames); // 這將輸出 ["doctor", "bachelor", "master"]
+	console.log(cloud_platformPercentages); // 這將輸出 ["6.25", "67.5", "26.25"]
+	
+	new Chart(document.getElementById("cloudPlatformChart"), {
+		"type": "horizontalBar",
+		"data": {
+		  "labels": cloud_platformNames,
+		  "datasets": [{
+			"label": "My First Dataset",
+			"data": cloud_platformPercentages,
+			"fill": false,
+			"backgroundColor": uniqueColors,
+			"borderColor": uniqueColors,
+			"borderWidth": 1
+		  }]
+		},
+		"options": {
+		  "scales": {
+			"xAxes": [{
+			  "ticks": {
+				"beginAtZero": true
+			  }
+			}]
+		  },"legend": { "display": false }
+		}
+	  });
 
 /* 	for(let i = 0; i < degrees.length; i++) {
 		degreeNames.push(degrees[i].degree);
