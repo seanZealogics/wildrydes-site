@@ -159,15 +159,22 @@
 						<div class="row" style="justify-content: center;">
 
 							<div class="col-xl-8 col-lg-7">
-							
 								<div class="col-xs-12 text-center">
-									<h2>Donut Chart</h2>
+									<h2>Degress</h2>
+								</div>
+								<canvas id="degreePieChart"></canvas>
+
+							
+								<!-- Label Donut Chart -->
+								<p>
+								<div class="col-xs-12 text-center">
+									<h2>Seniority</h2>
 								</div>
 
-								<div id="donut-chart"></div>
-								
+								<div id="seniorityChart"></div>
+								<p>
 								<!-- Donut Chart -->
-								
+								<!-- 
 								<div class="card shadow mb-4" >
 									<div class="card-header py-3">
 										<div class="card-header">Doughnut chart</div>
@@ -182,7 +189,7 @@
 											</div>
 										</div> <canvas id="chart-line" width="299" height="200" class="chartjs-render-monitor" style="display: block; width: 299px; height: 200px;"></canvas>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 							
@@ -197,31 +204,29 @@
 											<canvas id="myAreaChart"></canvas>
 										</div>
 										<hr>
-										Styling for the area chart can be found in the
-										<code>/js/demo/chart-area-demo.js</code> file.
+										
 									</div>
 								</div>
 
 								<!-- Bar Chart -->
-								<div class="card shadow mb-4">
+							<!-- 	<div class="card shadow mb-4">
 									<div class="card-header py-3">
-										<h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+										<h6 class="m-0 font-weight-bold text-primary">DEMO</h6>
 									</div>
 									<div class="card-body">
 										<div class="chart-bar">
-											<canvas id="myBarChart"></canvas>
+											<canvas id="industriesChart"></canvas>
 										</div>
 										<hr>
-										Styling for the bar chart can be found in the
-										<code>/js/demo/chart-bar-demo.js</code> file.
+										
 									</div>
-								</div>
+								</div> -->
 								
 								
 								<!-- Vertical Bar Chart -->
 								<div class="card shadow mb-4" >
 									<div class="card-header py-3">
-										<h6 class="m-0 font-weight-bold text-primary">Horizontal Bar Chart</h6>
+										<h6 class="m-0 font-weight-bold text-primary">Frameworks</h6>
 									</div>
 									<div class="card-body" style="height: 100%">
 										<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
@@ -231,7 +236,7 @@
 											<div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
 												<div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
 											</div>
-										</div> <canvas id="myChart" width="299" height="200" class="chartjs-render-monitor" style="display: block; width: 299px; height: 200px;"></canvas>
+										</div> <canvas id="frameworkChart" width="299" height="200" class="chartjs-render-monitor" style="display: block; width: 299px; height: 200px;"></canvas>
 									</div>
 								</div>
 								
@@ -240,7 +245,7 @@
 								<!-- Horizontal Bar Chart -->
 								<div class="card shadow mb-4" >
 									<div class="card-header py-3">
-										<h6 class="m-0 font-weight-bold text-primary">Horizontal Bar Chart</h6>
+										<h6 class="m-0 font-weight-bold text-primary">Industries</h6>
 									</div>
 									<div class="card-body" style="height: 100%">
 										<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
@@ -327,18 +332,14 @@
 		<script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@1.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script> -->
 
 
 		<!-- Page level custom scripts -->
 		<script src="js/config.js"></script>
-		<script src="js/demo/chart-pie-demo.js"></script>
+		<script src="js/demo/chart-demo.js"></script>
 		<script src="js/demo/chart-area-demo.js"></script>
-		<script src="js/demo/chart-bar-demo.js"></script>
-		<script src="js/demo/chart-test-demo.js"></script>
-		<script src="js/demo/chart-hBar-demo.js"></script>
-		<script src="js/demo/chart-donut-demo.js"></script>
-
 
 	</body>
 
