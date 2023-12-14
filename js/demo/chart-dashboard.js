@@ -1,9 +1,9 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+/* Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
-
+ */
 // Pie Chart Example
-var ctxDegreePie = document.getElementById("degreePieChart").getContext('2d');
+
 //var ctxIndustries = document.getElementById("industriesChart");
 var ctx = document.getElementById("myPieChart");
 var ctxFramework = document.getElementById('frameworkChart');
@@ -83,71 +83,26 @@ function completeRequest(result) {
 	console.log(jsonData);
 	const jsonObject = jQuery.parseJSON(jsonData);
 	
-	let degrees = jsonObject.item.degrees;
-	let degreeNames = [];
-	let degreePercentages = [];
-	let uniqueColors = [];
-
-	for (let key in degrees) {
-		degreeNames.push(key);
-		degreePercentages.push(degrees[key]);
-		uniqueColors = generateUniqueColors(degreePercentages.length);
-	}
 		
-	console.log(degreeNames); // 這將輸出 ["doctor", "bachelor", "master"]
-	console.log(degreePercentages); // 這將輸出 ["6.25", "67.5", "26.25"]
-	let floatArray = degreePercentages.map(function(item) {
-	  return parseFloat(item);
-	});
-	var myPieChart = new Chart(ctxDegreePie, {
-	  plugins: [ChartDataLabels],
-	  type: 'pie',
+	let degrees = jsonObject.item.degrees;
+	let resultdegrees = Object.entries(degrees).map(([key, value]) => [key, parseFloat(value)]);
+
+	var chartDegrees = bb.generate({
 	  data: {
-		labels: degreeNames,
-		datasets: [{
-		  data: floatArray,
-		  backgroundColor: uniqueColors,
-		  hoverBackgroundColor: uniqueColors
-		}]
+		columns: resultdegrees,
+		type: "pie", // for ESM specify as: pie()
 	  },
-	  options: {
-		responsive: true,
-		legend: {
-		  position: 'bottom',
-		  labels: {
-			padding: 10,
-			boxWidth: 10
-		  }
-		},
-		plugins: {
-		  datalabels: {
-			formatter: (value, ctx) => {
-			  let sum = 0;
-			  let dataArr = ctx.chart.data.datasets[0].data;
-			  dataArr.map(data => {
-				sum += data;
-			  });
-			  let percentage = (value * 100 / sum).toFixed(2) + "%";
-			  return percentage;
-			},
-			color: 'white',
-			labels: {
-			  title: {
-				font: {
-				  size: '16'
-				}
-			  }
-			}
-		  }
-		}
-	  }
+	  pie: {
+		startingAngle: 1
+	  },
+	  bindto: "#degreePieChart"
 	});
-	
+		
 
 	let seniority = jsonObject.item.seniority;
 	let resultSeniority = Object.entries(seniority).map(([key, value]) => [key, parseFloat(value)]);
 
-	let chart = bb.generate({
+	let chartSeniority = bb.generate({
 		data: {
 			columns: resultSeniority,
 			type: "donut",
@@ -166,7 +121,7 @@ function completeRequest(result) {
 		},
 		bindto: "#seniorityChart",
 	});
-	
+
 	//let resultIndustries = Object.entries(industries).map(([key, value]) => [key, parseFloat(value)]);
 /* 	var myBarChart = new Chart(ctxIndustries, {
 	  type: 'bar',

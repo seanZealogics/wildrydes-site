@@ -23,126 +23,12 @@
 	
 	<!-- Custom styles for this page -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="vendor/datatables/dataTables.bootstrap4.min.css" >
-	<link rel="stylesheet" type="text/css" href="media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="resources/demo.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/theme/insight.min.css">
 	<style type="text/css" class="init">
 	
-		img {			
-			object-fix: cover;
-			z-index: 99;			
-		}
-		
-		#loading {
-		  position: absolute;
-		  top: 50%;
-		  left: 60%;
-		  transform: translate(-50%, -50%);
-		  display: none;
-		}
-		
-		#loading img {
-		  width: 100%;
-		  height: 100%;
-		}		
 
-		td.details-control {
-			background: url('resources/details_open.png') no-repeat center top;
-			cursor: pointer;
-		}
-
-		tr.shown td.details-control {
-			background: url('resources/details_close.png') no-repeat center top;
-		}
-	
-		.input-group-append {
-			position: relative;
-		}
-		
-		#searchBtn {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-60%, 50%);
-		}
-		
-		#queryResultTable th,
-		#queryResultTable td {
-			vertical-align: top;
-		}
-		
-		#childTable th,
-		#childTable td {
-			vertical-align: top;
-		}
-		
-		li a {
-		  display: flex;
-		  justify-content: center;
-		}
-		
-		li a.fas {
-		  display: flex;
-		  justify-content: center;
-		  width: 100%;
-		}
-		
-		.highlight {
-			background-color: yellow;			
-		}
-		
-		.highlight2 {
-			background-color: lightblue;
-			color: black;			
-		}
-		
-		.highlight3 {
-			background-color: lightgreen; 
-			color: black;		
-		}
-		
-		.fixed-width-attrButton {
-			width: 10em;
-		}
-
-		.fixed-width-operButton {
-			width: 6.5em;
-		}
-
-		.fixed-width-queryTxtInput {
-			width: 10em;
-		}
-		
-		.modal.right .modal-dialog {
-		  position: fixed;
-		  margin: auto;
-		  width: 600px;
-		  height: 100%;
-		  -webkit-transform: translate3d(0%, 0, 0);
-		  -ms-transform: translate3d(0%, 0, 0);
-		  -o-transform: translate3d(0%, 0, 0);
-		  transform: translate3d(0%, 0, 0);
-		}
-
-		.modal.right .modal-content {
-		  height: 100%;
-		  overflow-y: auto;
-		}
-
-		.modal.right .modal-body {
-		  padding: 15px 15px 80px;
-		}
-
-		/*Right*/
-		.modal.right.fade .modal-dialog{
-		  right: -320px;
-		  transition: opacity 0.3s linear, right 0.3s ease-out;
-		}
-		
-		.modal.right.fade.show .modal-dialog {
-		  right: 0;
-		}
 	</style>
 	
 	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -380,14 +266,14 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                    
-									<canvas id="degreePieChart"></canvas>                                  
+									<div id="degreePieChart"></div>                             
                                    
                                 </div>
                             </div>
                         </div>
 
                         <!-- Area Chart -->
-                        <div class="col-xl-6 col-lg-6 mr-0">
+                        <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -636,15 +522,16 @@
 		<script src="js/sb-admin-2.min.js"></script>
 
 		<!-- Page level plugins -->
-		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.pkgd.min.js"></script>
+<!-- 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<script src="vendor/chart.js/Chart.min.js"></script>
 		<script src="https://d3js.org/d3.v6.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/billboard.js@3.10.3/dist/billboard.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@1.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script> -->
 
+ -->
 
 		<!-- Page level custom scripts -->
 		<script src="js/config.js"></script>
