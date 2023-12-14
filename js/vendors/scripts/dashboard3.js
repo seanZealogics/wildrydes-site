@@ -272,7 +272,7 @@ var chart4 = new ApexCharts(document.querySelector("#diseases-chart"), options4)
 chart4.render();
 
 // datatable init
-$('document').ready(function(){
+/* $('document').ready(function(){
 	$('.data-table').DataTable({
 		scrollCollapse: false,
 		autoWidth: false,
@@ -295,4 +295,4 @@ $('document').ready(function(){
 			}
 		},
 	});
-});
+}); */
