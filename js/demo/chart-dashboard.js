@@ -65,7 +65,6 @@ function generateUniqueColors(count) {
   const colors = [];
   const usedColors = new Set();
 
-  // 生成不重複的顏色
   while (colors.length < count) {
     const color = generateRandomColor();
     if (!usedColors.has(color)) {
@@ -97,8 +96,54 @@ function completeRequest(result) {
 	  },
 	  bindto: "#degreePieChart"
 	});
-		
+	
+	
+	let codingTools = jsonObject.item.programming_languages;	
+	let xTools = [];
+	let yTools = [];
+	xTools[0] = "x";
+	yTools[0] = "Usage";
+	codingTools.forEach((item) => {
+	   xTools.push(item.programming_language);
+	   yTools.push(item.percentage);
+	});
 
+	
+	/* console.log(xTools);
+	console.log(yTools); */
+
+	var chartCoding = bb.generate({
+	  data: {
+		x: "x",
+		columns: [
+			xTools,
+			yTools
+		],
+		type: "bar", // for ESM specify as: bar()
+        colors: {  
+            Usage: function(d) { return generateRandomColor(); },			
+        }
+	  },
+	  axis: {
+		x: {
+		  type: "category",
+		  tick: {
+			rotate: -70,
+			multiline: false,
+			tooltip: true
+		  }
+		}
+	  },
+	  legend: {
+		show: false  // 隱藏圖例
+	  },
+	  bindto: "#codingLang"
+	});
+	
+	
+	
+	
+	
 	let seniority = jsonObject.item.seniority;
 	let resultSeniority = Object.entries(seniority).map(([key, value]) => [key, parseFloat(value)]);
 
