@@ -84,8 +84,8 @@ function completeRequest(result) {
 	const jsonObject = jQuery.parseJSON(jsonData);
 	
 		
-	let degrees = jsonObject.item.degrees;
-	let resultdegrees = Object.entries(degrees).map(([key, value]) => [key, parseFloat(value)]);
+	let degrees = jsonObject.item.degrees;	
+	let resultdegrees = degrees.map(obj => [obj.degree, obj.percentage]);
 
 	var chartDegrees = bb.generate({
 	  data: {
