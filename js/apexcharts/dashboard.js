@@ -433,11 +433,11 @@ chart3.render();
 var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
 chart4.render();
 
-var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
-chart5.render();
+/* var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
+chart5.render(); */
 
-var chart6 = new ApexCharts(document.querySelector("#chart6"), options6);
-chart6.render();
+/* var chart6 = new ApexCharts(document.querySelector("#chart6"), options6);
+chart6.render(); */
 
 /* 
 // datatable init
