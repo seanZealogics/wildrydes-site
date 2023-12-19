@@ -79,7 +79,7 @@ function generateUniqueColors(count) {
 function completeRequest(result) {		
 	var jsonData = JSON.stringify(result);
 	console.log("completeRequest");
-	console.log(jsonData);
+	//console.log(jsonData);
 	const jsonObject = jQuery.parseJSON(jsonData);
 	
 		
@@ -504,6 +504,22 @@ function completeRequest(result) {
 	//hideLoading();
 }
 
+function handleRequest(result) {		
+	var jsonData = JSON.stringify(result);
+	console.log("handleRequest");
+	console.log(jsonData);
+	const jsonObject = jQuery.parseJSON(jsonData);
+	
+		
+	let number = jsonObject.number;	
+	console.log("employee numbers " + number);
+	
+	var element = document.getElementById('numbers');
+
+	// 改變元素的內容
+	element.textContent = number;
+}
+
 function fetchChartSummary() {
 	console.log("fetchChartSummary");
 	//showLoading();
@@ -513,7 +529,8 @@ function fetchChartSummary() {
 	const id = setTimeout(() => controller.abort(), 600000); // Set timeout to 600000ms (10 minutes)
 
 	  try {
-		const response = await fetch(_config.api.chartUrl, {
+		  
+		  const response = await fetch(_config.api.chartUrl, {
 		  method: "GET",
 		  mode: "cors",
 		  signal: controller.signal,
@@ -523,7 +540,7 @@ function fetchChartSummary() {
 
 		const data = await response.json();
 
-		console.log(data);
+		//console.log(data);
 		completeRequest(data);
 	  } catch (e) {
 		if (e.name === 'AbortError') {
@@ -535,6 +552,39 @@ function fetchChartSummary() {
 	};
 
 	fetchChartData();
+
+	
+}
+
+async function fetchCardSummary() {
+
+	console.log("fetchCardSummary");
+		
+	let mainQueryData ={"tag": {"included_conditions": ["employee"]}};
+
+	
+	try {
+			const resumesResponse = await fetch( _config.api.queryUrl, {
+			method: 'POST',
+			mode: 'cors',
+			body: JSON.stringify(mainQueryData)
+		});
+		if (!resumesResponse.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		const data = await resumesResponse.json();
+
+		console.log(data);
+		handleRequest(data);
+	} catch (e) {
+		if (e.name === 'AbortError') {
+		  console.log('Fetch aborted');
+		} else {
+		  throw e;
+		}
+	}
+	
 }
 
 $(function onDocReady() {
@@ -542,7 +592,7 @@ $(function onDocReady() {
 
    console.log("chart.js onDocReady init!!" );
    fetchChartSummary();
-
+   fetchCardSummary();
 
 
 
