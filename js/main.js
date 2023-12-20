@@ -209,9 +209,9 @@ let experiences = null;
 		educations = d.educations.map(function (m_educations) {
 			if(m_educations.detail !== null)
 			{	
-				return '<p>' + m_educations.date + '<br>' + m_educations.degree + ' at ' + m_educations.school + '<br>' + m_educations.detail + '</p>';
+				return '<p>' + m_educations.date + '<br>' + m_educations.degree + '<br>' + m_educations.major + '<br>' + m_educations.school + '<br>' + m_educations.detail + '</p>';
 			}else{
-				return '<p>' + m_educations.date + '<br>' + m_educations.degree + ' at ' + m_educations.school + '<br></p>';
+				return '<p>' + m_educations.date + '<br>' + m_educations.degree + '<br>' + m_educations.major + '<br>' + m_educations.school + '<br></p>';
 			}
 			
 		});
@@ -301,7 +301,7 @@ let experiences = null;
 		}	                       
 								
 		let experiences = d.experiences.map(function (m_experiences) {									
-			return '<p>' + m_experiences.date + '<br>' + m_experiences.company + '<br>' + m_experiences.position + '<br>' + m_experiences.responsibility+ '</p>';
+			return '<p>' + m_experiences.date + '<br>' + m_experiences.industry + '<br>' + m_experiences.company + '<br>' + m_experiences.position + '<br>' + m_experiences.responsibility+ '</p>';
 		});
 		//experiences.join('<br>');
 		
@@ -422,6 +422,35 @@ let experiences = null;
 			+ '<td>' + experiences + '</td>'
 			+ '</tr>'
 			+ '</table>';
+	}
+	
+	async function updateResumeTags(id, tags) {
+		console.log("id　" +　id+ " tags "+ tags);
+		try {
+			showLoading();
+			
+			let tagsArr = tags.split(",", 3);
+			let tagsQueryData ={"id": id, "tags": [tagsArr[0], tagsArr[1], tagsArr[2]]};
+			
+			const tagsQueryResponse = await fetch( _config.api.updateTagsUrl, {
+				method: 'POST',
+				mode: 'cors',
+				body: JSON.stringify(tagsQueryData)
+			});
+			if (!tagsQueryResponse.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			const data = await tagsQueryResponse.json();
+
+			console.log(data);
+				
+			hideLoading();
+		} catch (error) {
+			console.error("Error:", error);
+			hideLoading();
+		}
+		
 	}
 	
 	async function fetchAttrData() {
@@ -795,6 +824,7 @@ let experiences = null;
 					$(this).siblings('.cancel-edit').remove();
 					$(this).parent().text(this.value);
 					$(this).remove();
+					updateResumeTags(row.data().id,this.value);
 				}
 			});
             $('#queryResultTable tbody').on('click', 'td.details-control', function () {
