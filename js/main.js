@@ -625,7 +625,7 @@ let experiences = null;
                     { "data": "tags",
                         "render": function (data, type, row) {
                             if (type === 'display') {
-								return '<button class="details-edit"></button><span class="tags-value">' + data + '</span>';
+								return data;
 							} else {
 								return data && data.length ? data : 'N / A';
 							}
@@ -760,36 +760,40 @@ let experiences = null;
 			});
 			
 			var originalValue;
-			$('#queryResultTable').on('click', '.details-edit', function () {
+			
+			$('#queryResultTable').on('dblclick', 'td', function () {
 				var tr = $(this).closest('tr');
 				var row = resultTable.row(tr);
-				var tagsValue = row.data().tags;
-				originalValue = tagsValue;
-				var input = $('<input type="text" value="' + tagsValue + '">');
-				var cancel = $('<button class="cancel-edit">Cancel</button>');
-				$(this).hide().after(input).after(cancel);
-				input.focus();
-			});
+				var cellIndex = resultTable.cell(this).index().column;
+				var columnName = resultTable.settings().init().columns[cellIndex].data;
 
+				if (columnName === 'tags') {
+					var tagsValue = row.data().tags;
+					originalValue = tagsValue;
+					var input = $('<input type="text" value="' + tagsValue + '">');
+					var cancel = $('<button class="cancel-edit">Cancel</button>');
+					$(this).html(input).append(cancel);
+					input.focus();
+				}
+			});
+			
 			
 			$('#queryResultTable').on('click', '.cancel-edit', function () {
 				var tr = $(this).closest('tr');
 				var row = resultTable.row(tr);
 
 				$(this).siblings('input').remove();
-				$(this).siblings('.details-edit').show();
-				$(this).siblings('.tags-value').text(originalValue);
+				$(this).parent().text(originalValue);
 				$(this).remove();
 			});
 			
-			$('#queryResultTable').on('keypress', 'input', function () {
+			$('#queryResultTable').on('keypress', 'input', function (event) {
 				if (event.which == 13) {
 					var tr = $(this).closest('tr');
 					var row = resultTable.row(tr);
 					row.data().tags = this.value;
-					$(this).siblings('.details-edit').show();
 					$(this).siblings('.cancel-edit').remove();
-					$(this).siblings('.tags-value').text(this.value);
+					$(this).parent().text(this.value);
 					$(this).remove();
 				}
 			});
