@@ -1,5 +1,5 @@
 /*global WildRydes _config*/
-
+let personal_urls = null;
 let educations = null;
 let computer_skills = null;
 let certificates = null;
@@ -187,7 +187,11 @@ let experiences = null;
 	function format(d) {
 	// `d` is the original data object for the row
 		//console.log("d=" + JSON.stringify(d));
+		//console.log("personal_urls=" + d.profile.personal_urls);
 		let childTable = {};
+		
+		personal_urls = d.profile.personal_urls;
+		
 		let data =  d.educations;
 		for (let i = 0; i < data.length; i ++) {
 			const date = data[i].date;
@@ -300,7 +304,9 @@ let experiences = null;
 			return '<p>' + m_experiences.date + '<br>' + m_experiences.company + '<br>' + m_experiences.position + '<br>' + m_experiences.responsibility+ '</p>';
 		});
 		//experiences.join('<br>');
-
+		
+		
+		//childTable.personal_urls = d.personal_urls;
 		childTable.educations = educations;
 		childTable.computer_skills = computer_skills;
 		childTable.certificates = certificates;
@@ -386,8 +392,12 @@ let experiences = null;
 		  }
 		} 
  */							
-		return '<table id="childTable"  cellspacing="10" border="1" style="width:100%">' +
-			'<tr class="text-muted text-xs">'
+		return '<table id="childTable"  cellspacing="10" border="1" style="width:100%">'
+			+ '<tr class="text-muted text-xs">'
+			+ '<td>Personal URL</td>'
+			+ '<td>' + personal_urls + '</td>' 
+			+ '</tr>'
+			+ '<tr class="text-muted text-xs">'
 			+ '<td>Educations</td>'
 			+ '<td>' + educations + '</td>' 
 			+ '</tr>'
@@ -531,7 +541,7 @@ let experiences = null;
 			
 			const jsonResponse = await response.json();
 			//console.log("Type of jsonResponse:", typeof jsonResponse);
-			//console.log(JSON.stringify(jsonResponse)); 
+			console.log(JSON.stringify(jsonResponse)); 
 		              var allData = [];
             for (var item of jsonResponse.items) //dummyData.items
             {
@@ -553,7 +563,7 @@ let experiences = null;
 					
 			let tableElement = document.createElement("p");
 			tableElement.className = 'dynamic-control-group';
-			tableElement.innerHTML = '<div class="demo-html "></div><table id="queryResultTable" class="table-responsive display " style="width:100%"><thead class="text-muted text-xs" ><tr><th></th><th>Name</th><th>Location</th><th>Phone</th><th>Email</th><th>Personal URLs</th><th>Educations</th><th>Computer Skills</th><th>Certificates</th><th>Publications</th><th>Patents</th><th>Experiences</th></tr></thead></table>';
+			tableElement.innerHTML = '<div class="demo-html "></div><table id="queryResultTable" class="table-responsive display " style="width:100%"><thead class="text-muted text-xs" ><tr><th></th><th>Name</th><th>Location</th><th>Phone</th><th>Email</th><th>Tags</th><th>Educations</th><th>Computer Skills</th><th>Certificates</th><th>Publications</th><th>Patents</th><th>Experiences</th></tr></thead></table>';
 			
 			tableWrapper.appendChild(tableElement);
 			thead = document.querySelector("table thead");
@@ -606,20 +616,20 @@ let experiences = null;
                     { "data": "profile.email",
                         "render": function (data, type, row) {
                             if (data && data.length) {
-                                return data; 
+                                return data;
                             } else {
                                 return type === 'display' ? 'N / A' : '';  
                             }
                         }
                     },
-                    { "data": "profile.personal_urls",
+                    { "data": "tags",
                         "render": function (data, type, row) {
-                            if (data && data.length) {
-                                return data.join(', ');
-                            } else { 
-                                return type === 'display' ? 'N / A' : '';
-                            }
-                        } 
+                            if (type === 'display') {
+								return '<button class="details-edit"></button><span class="tags-value">' + data + '</span>';
+							} else {
+								return data && data.length ? data : 'N / A';
+							}
+                        }                        
 					},
                     { "data": "educations",
                       "render": function (data, type, row) {
@@ -749,9 +759,40 @@ let experiences = null;
 				
 			});
 			
-			
-			
+			var originalValue;
+			$('#queryResultTable').on('click', '.details-edit', function () {
+				var tr = $(this).closest('tr');
+				var row = resultTable.row(tr);
+				var tagsValue = row.data().tags;
+				originalValue = tagsValue;
+				var input = $('<input type="text" value="' + tagsValue + '">');
+				var cancel = $('<button class="cancel-edit">Cancel</button>');
+				$(this).hide().after(input).after(cancel);
+				input.focus();
+			});
 
+			
+			$('#queryResultTable').on('click', '.cancel-edit', function () {
+				var tr = $(this).closest('tr');
+				var row = resultTable.row(tr);
+
+				$(this).siblings('input').remove();
+				$(this).siblings('.details-edit').show();
+				$(this).siblings('.tags-value').text(originalValue);
+				$(this).remove();
+			});
+			
+			$('#queryResultTable').on('keypress', 'input', function () {
+				if (event.which == 13) {
+					var tr = $(this).closest('tr');
+					var row = resultTable.row(tr);
+					row.data().tags = this.value;
+					$(this).siblings('.details-edit').show();
+					$(this).siblings('.cancel-edit').remove();
+					$(this).siblings('.tags-value').text(this.value);
+					$(this).remove();
+				}
+			});
             $('#queryResultTable tbody').on('click', 'td.details-control', function () {
 
                 var tr = $(this).closest('tr');
@@ -812,11 +853,9 @@ let experiences = null;
 	}
 	
 	window.handleKeyDown = function(event) {
-		// 檢查是否按下 enter 鍵
-		if (event.keyCode === 13) {
-			// 防止表單提交
-			event.preventDefault();
-			// 執行你的函數
+		
+		if (event.keyCode === 13) {			
+			event.preventDefault();			
 			handleSearchClick(event);
 		}
 	}
