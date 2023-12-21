@@ -425,7 +425,7 @@ let experiences = null;
 	}
 	
 	async function updateResumeTags(id, tags) {
-		console.log("id　" +　id+ " tags "+ tags);
+		//console.log("id　" +　id+ " tags "+ tags);
 		try {
 			showLoading();
 			
@@ -443,7 +443,7 @@ let experiences = null;
 
 			const data = await tagsQueryResponse.json();
 
-			console.log(data);
+			//console.log(data);
 				
 			hideLoading();
 		} catch (error) {

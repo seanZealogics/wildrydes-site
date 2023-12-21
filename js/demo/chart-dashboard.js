@@ -507,7 +507,7 @@ function completeRequest(result) {
 function handleRequest(result) {		
 	var jsonData = JSON.stringify(result);
 	console.log("handleRequest");
-	console.log(jsonData);
+	//console.log(jsonData);
 	const jsonObject = jQuery.parseJSON(jsonData);
 	
 		
@@ -528,7 +528,7 @@ function fetchChartSummary() {
 	const controller = new AbortController();
 	const id = setTimeout(() => controller.abort(), 600000); // Set timeout to 600000ms (10 minutes)
 
-	  try {
+	try {
 		  
 		  const response = await fetch(_config.api.chartUrl, {
 		  method: "GET",
@@ -542,7 +542,7 @@ function fetchChartSummary() {
 
 		//console.log(data);
 		completeRequest(data);
-	  } catch (e) {
+	} catch (e) {
 		if (e.name === 'AbortError') {
 		  console.log('Fetch aborted');
 		} else {
@@ -575,7 +575,7 @@ async function fetchCardSummary() {
 
 		const data = await resumesResponse.json();
 
-		console.log(data);
+		//console.log(data);
 		handleRequest(data);
 	} catch (e) {
 		if (e.name === 'AbortError') {
