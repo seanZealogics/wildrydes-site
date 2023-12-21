@@ -261,7 +261,7 @@
 								  <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h5 class="m-0 font-weight-bold text-primary">Programming Languages</h5>
+                                    <h5 id="chartHeader" class="m-0 font-weight-bold text-primary">Programming Languages</h5>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -270,9 +270,10 @@
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Select Charts:</div>
-                                            <a class="dropdown-item" href="#">Industries</a>
-                                            <a class="dropdown-item" href="#">Cloud Platforms</a>                                            
-                                            <a class="dropdown-item" href="#">frameworks_or_libraries</a>
+											<a id="codingChart" class="dropdown-item" href="#">Programming Languages</a>
+                                            <a id="industriesChart" class="dropdown-item" href="#">Industries</a>
+                                            <a id="platformsChart"  class="dropdown-item" href="#">Cloud Platforms</a>                                            
+                                            <a id="frameworksChart" class="dropdown-item" href="#">Frameworks or Libraries</a>
 											<!-- <div class="dropdown-divider"></div> -->
                                         </div>
                                     </div>
@@ -280,7 +281,7 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                       <div id="codingLang"></div>
+                                       <div id="areaChart"></div>
                                     </div>
                                 </div>
                             </div>
@@ -438,7 +439,7 @@
 
 		<!-- Page level plugins -->
 		<script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.pkgd.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 		
 
 <!-- 		<script src="vendor/chart.js/Chart.min.js"></script>

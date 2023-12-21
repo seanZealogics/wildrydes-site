@@ -12,7 +12,7 @@ var ctxCoding = document.getElementById('codingChart');
 var loading = document.getElementById('loading');
 let programming_languages;
 let percentages;
-
+let jObjItem;
 
 
 function number_format(number, decimals, dec_point, thousands_sep) {
@@ -82,6 +82,8 @@ function completeRequest(result) {
 	//console.log(jsonData);
 	const jsonObject = jQuery.parseJSON(jsonData);
 	
+	jObjItem = jsonObject.item;
+
 		
 	let degrees = jsonObject.item.degrees;	
 	let resultdegrees = degrees.map(obj => [obj.degree, obj.percentage]);
@@ -96,52 +98,6 @@ function completeRequest(result) {
 	  },
 	  bindto: "#degreePieChart"
 	});
-	
-	
-	let codingTools = jsonObject.item.programming_languages;	
-	let xTools = [];
-	let yTools = [];
-	xTools[0] = "x";
-	yTools[0] = "Usage";
-	codingTools.forEach((item) => {
-	   xTools.push(item.programming_language);
-	   yTools.push(item.percentage);
-	});
-
-	
-	/* console.log(xTools);
-	console.log(yTools); */
-
-	var chartCoding = bb.generate({
-	  data: {
-		x: "x",
-		columns: [
-			xTools,
-			yTools
-		],
-		type: "bar", // for ESM specify as: bar()
-        colors: {  
-            Usage: function(d) { return generateRandomColor(); },			
-        }
-	  },
-	  axis: {
-		x: {
-		  type: "category",
-		  tick: {
-			rotate: -70,
-			multiline: false,
-			tooltip: true
-		  }
-		}
-	  },
-	  legend: {
-		show: false  // 隱藏圖例
-	  },
-	  bindto: "#codingLang"
-	});
-	
-	
-	
 	
 	
 	let seniority = jsonObject.item.seniority;
@@ -166,6 +122,9 @@ function completeRequest(result) {
 		},
 		bindto: "#seniorityChart",
 	});
+	
+	
+	showCodingChart();
 
 	//let resultIndustries = Object.entries(industries).map(([key, value]) => [key, parseFloat(value)]);
 /* 	var myBarChart = new Chart(ctxIndustries, {
@@ -248,46 +207,9 @@ function completeRequest(result) {
 		},
 	  }
 	}); */
-	/* 
-	let industries = jsonObject.item.industries;
-	let industriesNames = industries.map(item => item.industry);
-	let industriesPercentages = industries.map(item => parseFloat(item.percentage));
 	
-	for (let key in industries) {
-		uniqueColors = generateUniqueColors(industriesPercentages.length);
-	}
-		
-	console.log(industriesNames); // 這將輸出 ["doctor", "bachelor", "master"]
-	console.log(industriesPercentages); // 這將輸出 ["6.25", "67.5", "26.25"]
 
-
-	
-	new Chart(document.getElementById("horizontalBar"), {
-		"type": "horizontalBar",
-		"data": {
-		  "labels": industriesNames,
-		  "datasets": [{
-			"label": "My First Dataset",
-			"data": industriesPercentages,
-			"fill": false,
-			"backgroundColor": uniqueColors,
-			"borderColor": uniqueColors,
-			"borderWidth": 1
-		  }]
-		},
-		"options": {
-		  "scales": {
-			"xAxes": [{
-			  "ticks": {
-				"beginAtZero": true
-			  }
-			}]
-		  },"legend": { "display": false }
-		}
-	  });
-
-
-
+/* 
 	let frameworks = jsonObject.item.frameworks;
 	let frameworkNames = frameworks.map(item => item.framework);
 	let frameworkPercentages = frameworks.map(item => parseFloat(item.percentage));
@@ -556,6 +478,181 @@ function fetchChartSummary() {
 	
 }
 
+function showIndustriesChart()
+{
+	let industries = jObjItem.industries;
+	let xTools = [];
+	let yTools = [];
+	xTools[0] = "x";
+	yTools[0] = "Usage";
+	industries.forEach((item) => {
+	   xTools.push(item.industry);
+	   yTools.push(item.percentage);
+	});
+
+	
+	var chartIndustries = bb.generate({
+	  data: {
+		x: "x",
+		columns: [
+			xTools,
+			yTools
+		],
+		type: "bar", // for ESM specify as: bar()
+        colors: {  
+            Usage: function(d) { return generateRandomColor(); },			
+        }
+	  },
+	  axis: {
+		x: {
+		  type: "category",
+		  tick: {
+			rotate: -70,
+			multiline: false,
+			tooltip: true
+		  }
+		}
+	  },
+	  legend: {
+		show: false  // 隱藏圖例
+	  },
+	  bindto: "#areaChart"
+	});
+	document.getElementById("chartHeader").textContent = "Industries";
+
+}
+
+function showPlatformsChart()
+{
+	let platforms = jObjItem.cloud_platforms;	
+	let xTools = [];
+	let yTools = [];
+	xTools[0] = "x";
+	yTools[0] = "Usage";
+	platforms.forEach((item) => {
+	   xTools.push(item.cloud_platform);
+	   yTools.push(item.percentage);
+	});
+
+	
+	var chartIndustries = bb.generate({
+	  data: {
+		x: "x",
+		columns: [
+			xTools,
+			yTools
+		],
+		type: "bar", // for ESM specify as: bar()
+        colors: {  
+            Usage: function(d) { return generateRandomColor(); },			
+        }
+	  },
+	  axis: {
+		x: {
+		  type: "category",
+		  tick: {
+			rotate: -70,
+			multiline: false,
+			tooltip: true
+		  }
+		}
+	  },
+	  legend: {
+		show: false  // 隱藏圖例
+	  },
+	  bindto: "#areaChart"
+	});
+	document.getElementById("chartHeader").textContent = "Cloud Platforms";
+}
+
+
+function showFrameworksChart()
+{
+	let frameworks = jObjItem.frameworks_or_libraries;	
+	let xTools = [];
+	let yTools = [];
+	xTools[0] = "x";
+	yTools[0] = "Usage";
+	frameworks.forEach((item) => {
+	   xTools.push(item.framework_or_library);
+	   yTools.push(item.percentage);
+	});
+
+	
+	var chartIndustries = bb.generate({
+	  data: {
+		x: "x",
+		columns: [
+			xTools,
+			yTools
+		],
+		type: "bar", // for ESM specify as: bar()
+        colors: {  
+            Usage: function(d) { return generateRandomColor(); },			
+        }
+	  },
+	  axis: {
+		x: {
+		  type: "category",
+		  tick: {
+			rotate: -70,
+			multiline: false,
+			tooltip: true
+		  }
+		}
+	  },
+	  legend: {
+		show: false  // 隱藏圖例
+	  },
+	  bindto: "#areaChart"
+	});
+	document.getElementById("chartHeader").textContent = "Frameworks Or Libraries";
+}
+
+
+function showCodingChart()
+{
+	let codingTools = jObjItem.programming_languages;
+	let xTools = [];
+	let yTools = [];
+	xTools[0] = "x";
+	yTools[0] = "Usage";
+	codingTools.forEach((item) => {
+	   xTools.push(item.programming_language);
+	   yTools.push(item.percentage);
+	});
+	
+	
+	var chartIndustries = bb.generate({
+	  data: {
+		x: "x",
+		columns: [
+			xTools,
+			yTools
+		],
+		type: "bar", // for ESM specify as: bar()
+        colors: {  
+            Usage: function(d) { return generateRandomColor(); },			
+        }
+	  },
+	  axis: {
+		x: {
+		  type: "category",
+		  tick: {
+			rotate: -70,
+			multiline: false,
+			tooltip: true
+		  }
+		}
+	  },
+	  legend: {
+		show: false  // 隱藏圖例
+	  },
+	  bindto: "#areaChart"
+	});
+	document.getElementById("chartHeader").textContent = "Programming Languages";
+}
+
 async function fetchCardSummary() {
 
 	console.log("fetchCardSummary");
@@ -594,7 +691,23 @@ $(function onDocReady() {
    fetchChartSummary();
    fetchCardSummary();
 
+	$('#industriesChart').click(function() {
+        console.log("industriesChart init!!" );
+		showIndustriesChart();
+    });
 
+    $('#platformsChart').click(function() {
+        console.log("platformsChart init!!" );
+		showPlatformsChart();
+    });
 
+    $('#frameworksChart').click(function() {
+        console.log("frameworksChart init!!" );
+		showFrameworksChart();
+    });
 
+	$('#codingChart').click(function() {
+        console.log("frameworksChart init!!" );
+		showCodingChart();
+    });
 });
