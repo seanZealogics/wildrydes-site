@@ -6,7 +6,7 @@ let certificates = null;
 let publications = null;
 let patents = null;
 let experiences = null;
-
+let changedCells = null;
 
 
 (function rideScopeWrapper($) {
@@ -424,6 +424,25 @@ let experiences = null;
 			+ '</table>';
 	}
 	
+	async function updateChangedResmues(updateData)
+	{
+		console.log(JSON.stringify(updateData)); 
+		const response = await fetch( _config.api.queryUrl, {
+			method: 'POST',
+			mode: 'cors',
+			body: JSON.stringify(updateData)
+		});
+		
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		
+		const jsonResponse = await response.json();
+		console.log(JSON.stringify(jsonResponse)); 
+		    
+		
+	}
+	
 	async function updateResumeTags(id, tags) {
 		//console.log("id　" +　id+ " tags "+ tags);
 		try {
@@ -571,7 +590,8 @@ let experiences = null;
 			const jsonResponse = await response.json();
 			//console.log("Type of jsonResponse:", typeof jsonResponse);
 			console.log(JSON.stringify(jsonResponse)); 
-		              var allData = [];
+		    
+			var allData = [];
             for (var item of jsonResponse.items) //dummyData.items
             {
                 allData.push(item);
@@ -596,6 +616,38 @@ let experiences = null;
 			
 			tableWrapper.appendChild(tableElement);
 			thead = document.querySelector("table thead");
+			let tableCard = document.getElementById("tableCard");		
+			tableCard.querySelectorAll("div").forEach((child) => {
+			  tableCard.removeChild(child);
+			});		
+			let btnContainer = document.createElement("div");
+			btnContainer.className = " d-flex justify-content-end";
+			
+			
+			let tableEditBtn = document.createElement("button");
+			tableEditBtn.innerHTML = "Edit";  // 設置按鈕的文字
+			tableEditBtn.id = "tableEditBtn";  // 給按鈕一個唯一的ID
+			tableEditBtn.className = "btn btn-primary mr-1";  // 給按鈕一個類，以便於樣式設置
+			
+			let tableApplyBtn = document.createElement("button");
+			tableApplyBtn.innerHTML = "Apply";  // 設置按鈕的文字
+			tableApplyBtn.id = "tableApplyBtn";  // 給按鈕一個唯一的ID
+			tableApplyBtn.className = "btn btn-primary mr-1";  // 給按鈕一個類，以便於樣式設置
+			tableApplyBtn.disabled = true;
+			
+			let tableCancelBtn = document.createElement("button");
+			tableCancelBtn.innerHTML = "Cancel";  // 設置按鈕的文字
+			tableCancelBtn.id = "tableCancelBtn";  // 給按鈕一個唯一的ID
+			tableCancelBtn.className = "btn btn-primary mr-1";  // 給按鈕一個類，以便於樣式設置
+			tableCancelBtn.disabled = true;
+
+			// 將按鈕添加到表格中
+			tableCard.appendChild(btnContainer);
+			btnContainer.appendChild(tableEditBtn);
+			btnContainer.appendChild(tableApplyBtn);
+			btnContainer.appendChild(tableCancelBtn);			
+						
+		
 
 			resultTable = $('#queryResultTable').DataTable({
                 "data": allData,
@@ -788,7 +840,64 @@ let experiences = null;
 				
 			});
 			
-			var originalValue;
+			changedCells = new Map();
+			
+			tableEditBtn.addEventListener("click", function() {
+				tableEditBtn.disabled = true;
+				tableApplyBtn.disabled = false;
+				tableCancelBtn.disabled = false;				
+				$('#queryResultTable td').each(function() {
+					this.contentEditable = true;
+					
+					
+					   // add all cells event listener
+					this.addEventListener('input', function() {
+						let rowData = resultTable.row(this.parentNode).data();
+
+						// 將已更改的單元格及其對應的 id 值添加到映射中
+						changedCells.set(this, rowData);
+					});
+				});
+			});
+			
+			tableApplyBtn.addEventListener("click", function() {
+				let updateData = {
+					"resumes": []
+				};
+				
+				tableEditBtn.disabled = false;
+				tableApplyBtn.disabled = true;
+				tableCancelBtn.disabled = true;				
+				
+				for (let [cell, rowData] of changedCells) {
+					// 收集已更改的資料及其對應的 id 值
+					rowData.tags =  cell.textContent.split(',').slice(0, 3);
+					updateData.resumes.push(rowData);
+					console.log('已更改的資料：', cell.textContent, '對應的行的資料：', rowData);
+				}
+				console.log('updateData： ', updateData);
+				updateChangedResmues(updateData);
+
+				// 清空映射以便於下次使用
+				changedCells.clear();	
+				
+				$('#queryResultTable td').each(function() {
+					this.contentEditable = false;
+				});
+			});
+			
+			tableCancelBtn.addEventListener("click", function() {
+				tableEditBtn.disabled = false;
+				tableApplyBtn.disabled = true;
+				tableCancelBtn.disabled = true;
+				
+				resultTable.clear().rows.add(allData).draw();
+				$('#queryResultTable td').each(function() {
+					this.contentEditable = false;
+				});
+			});
+			
+			/* var originalValue;
 			
 			$('#queryResultTable').on('dblclick', 'td', function () {
 				var tr = $(this).closest('tr');
@@ -826,7 +935,7 @@ let experiences = null;
 					$(this).remove();
 					updateResumeTags(row.data().id,this.value);
 				}
-			});
+			}); */
             $('#queryResultTable tbody').on('click', 'td.details-control', function () {
 
                 var tr = $(this).closest('tr');
