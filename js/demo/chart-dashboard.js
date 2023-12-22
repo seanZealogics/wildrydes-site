@@ -606,7 +606,7 @@ function showFrameworksChart()
 	  },
 	  bindto: "#areaChart"
 	});
-	document.getElementById("chartHeader").textContent = "Frameworks Or Libraries";
+	document.getElementById("chartHeader").textContent = "Frameworks or Libraries";
 }
 
 

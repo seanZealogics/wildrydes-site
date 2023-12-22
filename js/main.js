@@ -33,7 +33,7 @@ let experiences = null;
         'educations': { text: 'Educations', value: 'education', color: 'rgb(21,189,255)' }, //blue
         'experiences': { text: 'Experiences', value: 'experience', color: 'rgb(66,185,224)' },
 		'certificates': { text: 'Certificates', value: 'certificate', color: 'rgb(170,189,255)' },
-		'computer_skills': { text: 'Computer_Skills', value: 'computer_skill', color: 'blue' },
+		'computer_skills': { text: 'Computer Skills', value: 'computer_skill', color: 'blue' },
         'default': { text: 'Select',value: '', color: 'green' }
     };
 	
@@ -489,7 +489,7 @@ let experiences = null;
 						 */
 							
  
-						var key = conditions[previousButton.innerText.toLowerCase()].value;
+						var key = conditions[previousButton.innerText.toLowerCase().replace(/ /g, "_")].value;
 						var condition = inputLinks[i].value;
 
 						var type = prevCondition === "WITHOUT" ? "excluded_conditions" : "included_conditions";
