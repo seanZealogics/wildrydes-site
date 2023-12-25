@@ -427,8 +427,8 @@ let changedCells = null;
 	async function updateChangedResmues(updateData)
 	{
 		console.log(JSON.stringify(updateData)); 
-		const response = await fetch( _config.api.queryUrl, {
-			method: 'POST',
+		const response = await fetch( _config.api.updateTagsUrl, {
+			method: 'PUT',
 			mode: 'cors',
 			body: JSON.stringify(updateData)
 		});
@@ -452,7 +452,7 @@ let changedCells = null;
 			let tagsQueryData ={"id": id, "tags": [tagsArr[0], tagsArr[1], tagsArr[2]]};
 			
 			const tagsQueryResponse = await fetch( _config.api.updateTagsUrl, {
-				method: 'POST',
+				method: 'PUT',
 				mode: 'cors',
 				body: JSON.stringify(tagsQueryData)
 			});
@@ -874,6 +874,8 @@ let changedCells = null;
 					rowData.tags =  cell.textContent.split(',').slice(0, 3);
 					updateData.resumes.push(rowData);
 					console.log('已更改的資料：', cell.textContent, '對應的行的資料：', rowData);
+					
+					cell.textContent = rowData.tags.join(',');
 				}
 				console.log('updateData： ', updateData);
 				updateChangedResmues(updateData);
