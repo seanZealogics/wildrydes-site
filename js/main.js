@@ -207,13 +207,14 @@ let changedCells = null;
 		}	                       
 								
 		educations = d.educations.map(function (m_educations) {
-			if(m_educations.detail !== null)
-			{	
-				return '<p>' + m_educations.date + '<br>' + m_educations.degree + '<br>' + m_educations.major + '<br>' + m_educations.school + '<br>' + m_educations.detail + '</p>';
-			}else{
-				return '<p>' + m_educations.date + '<br>' + m_educations.degree + '<br>' + m_educations.major + '<br>' + m_educations.school + '<br></p>';
-			}
-			
+			let date = m_educations.date || '';
+			let degree = m_educations.degree || '';
+			let major = m_educations.major || '';
+			let school = m_educations.school || '';
+			let detail = m_educations.detail || '';
+
+			return '<p>' + date + '<br>' + degree + '<br>' + major + '<br>' + school + (detail ? '<br>' + detail : '') + '</p>';
+					
 		});
 		//console.log("educations !!! = "+ Array.isArray( educations));
 		//////////////////////////////////////////////////
@@ -242,13 +243,13 @@ let changedCells = null;
 			
 	
 		}	 */      
-		let certificates = d.certificates.map(function (m_certificates) {					
-			if(m_certificates.certifying_authority !== null)
-			{	
-				return '<p>' + m_certificates.date + '<br>' + m_certificates.title + '<br>' + m_certificates.certifying_authority + '</p>';
-			}else{
-				return '<p>' + m_certificates.date + '<br>' + m_certificates.title + '<br></p>';
-			}		
+		let certificates = d.certificates.map(function (m_certificates) {
+			let date = m_certificates.date || '';
+			let title = m_certificates.title || '';
+			let certifying_authority = m_certificates.certifying_authority || '';			
+			
+			return '<p>' + date + '<br>' + title + '<br>' + certifying_authority + '</p>';
+				
 			
 		});	
 		//////////////////////////////////////////////////
@@ -265,7 +266,10 @@ let changedCells = null;
 			console.log(`Responsibility: ${responsibility}`); */
 		}	      
 		let publications = d.publications.map(function (m_publications) {									
-			return '<p>' + m_publications.date + '<br>' + m_publications.title + '</p>';
+			let date = m_publications.date || '';
+			let title = m_publications.title || '';
+
+			return '<p>' + date + (title ? '<br>' + title : '') + '</p>';
 		});	
 		//////////////////////////////////////////////////
 		data =  d.patents;
@@ -281,7 +285,10 @@ let changedCells = null;
 			console.log(`Responsibility: ${responsibility}`); */
 		}	      
 		let patents = d.patents.map(function (m_patents) {									
-			return '<p>' + m_patents.date + '<br>' + m_patents.title + '</p>';
+			let date = m_patents.date || '';
+			let title = m_patents.title || '';
+
+			return '<p>' + date + (title ? '<br>' + title : '') + '</p>';
 		});	
 		
 		//////////////////////////////////////////////////
@@ -301,7 +308,13 @@ let changedCells = null;
 		}	                       
 								
 		let experiences = d.experiences.map(function (m_experiences) {									
-			return '<p>' + m_experiences.date + '<br>' + m_experiences.industry + '<br>' + m_experiences.company + '<br>' + m_experiences.position + '<br>' + m_experiences.responsibility+ '</p>';
+			let date = m_experiences.date || '';
+			let industry = m_experiences.industry || '';
+			let company = m_experiences.company || '';
+			let position = m_experiences.position || '';
+			let responsibility = m_experiences.responsibility || '';
+
+			return '<p>' + date + (industry ? '<br>' + industry : '') + (company ? '<br>' + company : '') + (position ? '<br>' + position : '') + (responsibility ? '<br>' + responsibility : '') + '</p>';
 		});
 		//experiences.join('<br>');
 		
@@ -336,16 +349,15 @@ let changedCells = null;
 						previousButtonName = previousButton.name;
 					}
 
-					
-
 					// Loop through previous siblings until a button is found or no more siblings exist
 					//while (previousButton && previousButton.tagName !== 'button') {
 					//	previousElement = previousElement.previousElementSibling;
 					//}  
 					//console.log("previousButton.id !!!!!　" +　previousButton.id);
-					if (previousButton && previousButton.id.indexOf("mainAttrBtn") !== -1) {
-						//console.log("previousButton.textContent !!!!!　" +　previousButton.textContent);
-						var colorValueForDynamicKey = conditions[previousButton.textContent.toLowerCase()] ? conditions[previousButton.textContent.toLowerCase()].color : conditions.default.color;
+					if (previousButton && previousButton.id.indexOf("mainAttrBtn") !== -1) {						
+						//console.log("previousButton.textContent !!!!!　" +　previousButton.textContent + " prevKey " + prevKey);
+						var prevKey = previousButton.textContent.toLowerCase().replace(/ /g, "_");
+						var colorValueForDynamicKey = conditions[prevKey] ? conditions[prevKey].color : conditions.default.color;
 						//console.log("colorValueForDynamicKey " + colorValueForDynamicKey);
 						//console.log("previousButton.textContent.toLowerCase() " + previousButton.textContent.toLowerCase());
 						regex = new RegExp(inputLinks[i].value, 'gi');  // 'g'表示全局匹配，'i'表示忽略大小寫
@@ -354,7 +366,7 @@ let changedCells = null;
 						  return `<mark>${match}</mark>`; 
 						}); */ 
 						
-						for (let key in childTable[previousButton.textContent.toLowerCase()]) {
+						for (let key in childTable[prevKey]) {
 							//console.log("childTable key" + key);
 							//console.log("childTable[previousButton.textContent.toLowerCase()] typeof " + typeof childTable[previousButton.textContent.toLowerCase()] + "\n" + childTable[previousButton.textContent.toLowerCase()]);
 						  /* if (typeof childTable[previousButton.textContent.toLowerCase()][key] === 'string') {
@@ -362,14 +374,14 @@ let changedCells = null;
 							  return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
 							});
 						  } */
-						  if (typeof childTable[previousButton.textContent.toLowerCase()] === 'object') {
+						  if (typeof childTable[prevKey] === 'object') {
 							//console.log("object !!!!!　" +　childTable[previousButton.textContent.toLowerCase()][key]);
-							childTable[previousButton.textContent.toLowerCase()][key] = childTable[previousButton.textContent.toLowerCase()][key].replace(regex, function(match) {
+							childTable[prevKey][key] = childTable[prevKey][key].replace(regex, function(match) {
 								return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
 							});
-						  }else if (typeof childTable[previousButton.textContent.toLowerCase()] === 'string') {
+						  }else if (typeof childTable[prevKey] === 'string') {
 							 //console.log("string !!!!!　" +　childTable[previousButton.textContent.toLowerCase()]);
-							 childTable[previousButton.textContent.toLowerCase()] = childTable[previousButton.textContent.toLowerCase()].replace(regex, function(match) {
+							 childTable[prevKey] = childTable[prevKey].replace(regex, function(match) {
 								return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
 							});
 						  }
