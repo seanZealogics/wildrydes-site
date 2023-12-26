@@ -88,6 +88,7 @@ function completeRequest(result) {
 	let degrees = jsonObject.item.degrees;	
 	let resultdegrees = degrees.map(obj => [obj.degree, obj.percentage]);
 
+	resultdegrees.sort((a, b) => a[0].localeCompare(b[0]));
 	var chartDegrees = bb.generate({
 	  data: {
 		columns: resultdegrees,
@@ -103,6 +104,7 @@ function completeRequest(result) {
 	let seniority = jsonObject.item.seniority;
 	let resultSeniority = Object.entries(seniority).map(([key, value]) => [key, parseFloat(value)]);
 
+	resultSeniority.sort((a, b) => a[0].localeCompare(b[0]));
 	let chartSeniority = bb.generate({
 		data: {
 			columns: resultSeniority,
