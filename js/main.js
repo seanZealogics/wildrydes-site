@@ -967,8 +967,9 @@ let changedCells = null;
 				else {
 					// Open this row
 					var childData = format(row.data());
-					$('#modalBody').html(childData); // Add the child table to the modal body
+					$('#modalBody').html(childData); // Add the child table to the modal body										
 					$('#expandModal').modal('show'); // Show the modal
+					$('#resumeModalLabel').text(row.data().profile.name);
 					//tr.addClass('shown');
 				}
             });
