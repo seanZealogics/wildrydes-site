@@ -25,9 +25,9 @@ var WildRydes = window.WildRydes || {};
         AWSCognito.config.region = _config.cognito.region;
     }
 
-    WildRydes.signOut = function signOut() {
+/*     WildRydes.signOut = function signOut() {
         userPool.getCurrentUser().signOut();
-    };
+    }; */
 
     WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
         var cognitoUser = userPool.getCurrentUser();
@@ -40,6 +40,23 @@ var WildRydes = window.WildRydes || {};
                     resolve(null);
                 } else {
                     resolve(session.getIdToken().getJwtToken());
+					cognitoUser.getUserAttributes(function(err, attributes) {
+						if (err) {
+							// Handle error
+							console.log('err');
+						} else {
+							// For each attribute
+							for (i = 0; i < attributes.length; i++) {
+								if (attributes[i].getName() === 'email') {
+									var userDropdown = document.getElementById('userDropdown');
+									userDropdown.querySelector('.mr-2.d-none.d-lg-inline.text-gray-600.small').textContent =  attributes[i].getValue();
+									var name = attributes[i].getValue().split('@')[0];
+									var topTitle = document.getElementById('topTitle');
+									topTitle.textContent = "Good Day! " + name;
+								}
+							}
+						}
+					});
                 }
             });
         } else {
