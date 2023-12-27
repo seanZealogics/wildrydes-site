@@ -859,16 +859,32 @@ let changedCells = null;
 				tableApplyBtn.disabled = false;
 				tableCancelBtn.disabled = false;				
 				$('#queryResultTable td').each(function() {
-					this.contentEditable = true;
+				    var cellText = $(this).text();
 					
 					
-					   // add all cells event listener
-					this.addEventListener('input', function() {
+					console.log($(this).closest('table').find('th').eq($(this).index()).text());
+					if($(this).closest('table').find('th').eq($(this).index()).text() === 'Tags')
+					{
+						let changedRow = this;
 						let rowData = resultTable.row(this.parentNode).data();
+						$(this).empty().append($('<input>', {
+							type: 'text',
+							value: cellText
+						}));
 
-						// 將已更改的單元格及其對應的 id 值添加到映射中
-						changedCells.set(this, rowData);
-					});
+						// add all cells event listener
+						$(this).find('input').on('input', function() {
+							//let rowData = $(this).val();
+							
+//console.log('rowData： ', rowData, " this " + JSON.stringify(this));
+							// 將已更改的單元格及其對應的 id 值添加到映射中							
+							
+							rowData.tags = $(this).val();
+							changedCells.set(changedRow, rowData);
+							console.log('rowData.tags： ', rowData.tags);
+						});
+						
+					}
 				});
 			});
 			
@@ -882,21 +898,25 @@ let changedCells = null;
 				tableCancelBtn.disabled = true;				
 				
 				for (let [cell, rowData] of changedCells) {
-					// 收集已更改的資料及其對應的 id 值
-					rowData.tags =  cell.textContent.split(',').slice(0, 3);
-					updateData.resumes.push(rowData);
-					console.log('已更改的資料：', cell.textContent, '對應的行的資料：', rowData);
 					
-					cell.textContent = rowData.tags.join(',');
+					rowData.tags =  rowData.tags.split(',').slice(0, 3);
+					updateData.resumes.push(rowData);
+					//console.log('已更改的資料：', cell.textContent, '對應的行的資料：', rowData);
+					
+					$(this).find('input').val(rowData.tags.slice(0, 3).join(','));
 				}
 				console.log('updateData： ', updateData);
 				updateChangedResmues(updateData);
 
-				// 清空映射以便於下次使用
 				changedCells.clear();	
-				
+
 				$('#queryResultTable td').each(function() {
-					this.contentEditable = false;
+					if($(this).closest('table').find('th').eq($(this).index()).text() === 'Tags')
+					{
+						var inputValue = $(this).find('input[type="text"]').val().split(',').slice(0, 3).join(','); // 取得 input 的 value
+						console.log(inputValue);
+						$(this).empty().text(inputValue);
+					}
 				});
 			});
 			
@@ -906,9 +926,9 @@ let changedCells = null;
 				tableCancelBtn.disabled = true;
 				
 				resultTable.clear().rows.add(allData).draw();
-				$('#queryResultTable td').each(function() {
+				/* $('#queryResultTable td').each(function() {
 					this.contentEditable = false;
-				});
+				}); */
 			});
 			
 			/* var originalValue;
