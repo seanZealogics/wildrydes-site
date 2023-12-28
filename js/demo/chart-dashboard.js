@@ -503,6 +503,9 @@ function showIndustriesChart()
 		type: "bar", // for ESM specify as: bar()
         colors: {  
             Usage: function(d) { return generateRandomColor(); },			
+        },
+		names: {
+            Usage: ""  // set "Usage" lable to empty
         }
 	  },
 	  axis: {
@@ -513,10 +516,16 @@ function showIndustriesChart()
 			multiline: false,
 			tooltip: true
 		  }
+		},
+		y: {
+			label: {
+				text: '%',
+				position: 'outer-middle'  // y lable poistion
+			}
 		}
 	  },
 	  legend: {
-		show: false  // 隱藏圖例
+		show: false 
 	  },
 	  bindto: "#areaChart"
 	});
@@ -547,6 +556,9 @@ function showPlatformsChart()
 		type: "bar", // for ESM specify as: bar()
         colors: {  
             Usage: function(d) { return generateRandomColor(); },			
+        },
+		names: {
+            Usage: ""  // set "Usage" lable to empty
         }
 	  },
 	  axis: {
@@ -557,10 +569,16 @@ function showPlatformsChart()
 			multiline: false,
 			tooltip: true
 		  }
+		},
+		y: {
+			label: {
+				text: '%',
+				position: 'outer-middle'  // y lable poistion
+			}
 		}
 	  },
 	  legend: {
-		show: false  // 隱藏圖例
+		show: false
 	  },
 	  bindto: "#areaChart"
 	});
@@ -591,6 +609,9 @@ function showFrameworksChart()
 		type: "bar", // for ESM specify as: bar()
         colors: {  
             Usage: function(d) { return generateRandomColor(); },			
+        },
+		names: {
+            Usage: ""  // set "Usage" lable to empty
         }
 	  },
 	  axis: {
@@ -601,10 +622,16 @@ function showFrameworksChart()
 			multiline: false,
 			tooltip: true
 		  }
+		},
+		y: {
+			label: {
+				text: '%',
+				position: 'outer-middle'  // y lable poistion
+			}
 		}
 	  },
 	  legend: {
-		show: false  // 隱藏圖例
+		show: false
 	  },
 	  bindto: "#areaChart"
 	});
@@ -635,6 +662,9 @@ function showCodingChart()
 		type: "bar", // for ESM specify as: bar()
         colors: {  
             Usage: function(d) { return generateRandomColor(); },			
+        },
+		names: {
+            Usage: ""  // set "Usage" lable to empty
         }
 	  },
 	  axis: {
@@ -645,10 +675,16 @@ function showCodingChart()
 			multiline: false,
 			tooltip: true
 		  }
+		},
+		y: {
+			label: {
+				text: '%',
+				position: 'outer-middle'  // y lable poistion
+			}
 		}
 	  },
 	  legend: {
-		show: false  // 隱藏圖例
+		show: false  // hide bar lable
 	  },
 	  bindto: "#areaChart"
 	});
