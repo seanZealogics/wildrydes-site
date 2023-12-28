@@ -628,38 +628,69 @@ let changedCells = null;
 			
 			tableWrapper.appendChild(tableElement);
 			thead = document.querySelector("table thead");
-			let tableCard = document.getElementById("tableCard");		
+			let tableCard = document.getElementById("tableCard");
+
 			tableCard.querySelectorAll("div").forEach((child) => {
-			  tableCard.removeChild(child);
-			});		
+				try {
+					child.remove();
+				} catch (error) {
+					console.error("Error:", error);
+				}
+			});
+
 			let btnContainer = document.createElement("div");
 			btnContainer.className = " d-flex justify-content-end";
+ 
+		
+			var editLable = document.createElement("label");
+			editLable.textContent = "Edit Mode:";
+			editLable.style.fontSize = "15px";
+		
+			var label = document.createElement("label");
+			label.classList.add("switch");
+
+			var tableEditBtn = document.createElement("input");
+			tableEditBtn.type = "checkbox";
+			tableEditBtn.id = "tableEditBtn";
+			tableEditBtn.classList.add("primary");
 			
+			var span = document.createElement("span");
+			span.classList.add("slider");
+
+			label.appendChild(editLable);
+			label.appendChild(tableEditBtn);
+			label.appendChild(span);
+			label.style.boxShadow = "none";
 			
-			let tableEditBtn = document.createElement("button");
-			tableEditBtn.innerHTML = "Edit";  // 設置按鈕的文字
-			tableEditBtn.id = "tableEditBtn";  // 給按鈕一個唯一的ID
-			tableEditBtn.className = "btn btn-primary mr-1";  // 給按鈕一個類，以便於樣式設置
 			
 			let tableApplyBtn = document.createElement("button");
-			tableApplyBtn.innerHTML = "Save";  // 設置按鈕的文字
-			tableApplyBtn.id = "tableApplyBtn";  // 給按鈕一個唯一的ID
-			tableApplyBtn.className = "btn btn-primary mr-1";  // 給按鈕一個類，以便於樣式設置
+			tableApplyBtn.innerHTML = "Save"; 
+			tableApplyBtn.id = "tableApplyBtn";  
+			tableApplyBtn.className = "btn btn-primary";  
 			tableApplyBtn.disabled = true;
+			tableApplyBtn.style.marginLeft = "10px";
 			
 			let tableCancelBtn = document.createElement("button");
-			tableCancelBtn.innerHTML = "Cancel";  // 設置按鈕的文字
-			tableCancelBtn.id = "tableCancelBtn";  // 給按鈕一個唯一的ID
-			tableCancelBtn.className = "btn btn-primary mr-1";  // 給按鈕一個類，以便於樣式設置
+			tableCancelBtn.innerHTML = "Cancel";  
+			tableCancelBtn.id = "tableCancelBtn"; 
+			tableCancelBtn.className = "btn btn-primary";  
 			tableCancelBtn.disabled = true;
+			tableApplyBtn.style.lineHeight = "20px";
+			tableCancelBtn.style.lineHeight = "20px";
+			tableCancelBtn.style.marginLeft = "10px";
+			editLable.style.marginRight = "10px";
 
 			// 將按鈕添加到表格中
 			tableCard.appendChild(btnContainer);
-			btnContainer.appendChild(tableEditBtn);
+			btnContainer.appendChild(label);
 			btnContainer.appendChild(tableApplyBtn);
 			btnContainer.appendChild(tableCancelBtn);			
-						
-		
+			$('#tableEditBtn').bootstrapSwitch();
+			
+    
+				
+			tableApplyBtn.style.height = '33px';
+			tableCancelBtn.style.height = '33px';
 
 			resultTable = $('#queryResultTable').DataTable({
                 "data": allData,
@@ -854,38 +885,46 @@ let changedCells = null;
 			
 			changedCells = new Map();
 			
-			tableEditBtn.addEventListener("click", function() {
-				tableEditBtn.disabled = true;
-				tableApplyBtn.disabled = false;
-				tableCancelBtn.disabled = false;				
-				$('#queryResultTable td').each(function() {
-				    var cellText = $(this).text();
+			$('#tableEditBtn').on('switchChange.bootstrapSwitch', function (event, state) {
+				if (state) {
+					console.log('Switch is ON');
+				
+					$('#tableEditBtn').bootstrapSwitch('disabled', true);
+					tableApplyBtn.disabled = false;
+					tableCancelBtn.disabled = false;			
+					label.style.boxShadow = "none";
 					
-					
-					console.log($(this).closest('table').find('th').eq($(this).index()).text());
-					if($(this).closest('table').find('th').eq($(this).index()).text() === 'Tags')
-					{
-						let changedRow = this;
-						let rowData = resultTable.row(this.parentNode).data();
-						$(this).empty().append($('<input>', {
-							type: 'text',
-							value: cellText
-						}));
-
-						// add all cells event listener
-						$(this).find('input').on('input', function() {
-							//let rowData = $(this).val();
-							
-//console.log('rowData： ', rowData, " this " + JSON.stringify(this));
-							// 將已更改的單元格及其對應的 id 值添加到映射中							
-							
-							rowData.tags = $(this).val();
-							changedCells.set(changedRow, rowData);
-							console.log('rowData.tags： ', rowData.tags);
-						});
+					$('#queryResultTable td').each(function() {
+						var cellText = $(this).text();
 						
-					}
-				});
+						
+						//console.log($(this).closest('table').find('th').eq($(this).index()).text());
+						if($(this).closest('table').find('th').eq($(this).index()).text() === 'Tags')
+						{
+							let changedRow = this;
+							let rowData = resultTable.row(this.parentNode).data();
+							$(this).empty().append($('<input>', {
+								type: 'text',
+								value: cellText
+							}));
+
+							// add all cells event listener
+							$(this).find('input').on('input', function() {
+								//let rowData = $(this).val();
+								
+	//console.log('rowData： ', rowData, " this " + JSON.stringify(this));
+								// 將已更改的單元格及其對應的 id 值添加到映射中							
+								let rowDataChanged = { ...rowData };
+								rowDataChanged.tags = $(this).val();
+								changedCells.set(changedRow, rowDataChanged);
+								//console.log('rowData.tags： ', rowData.tags);
+							});
+							
+						}
+					});
+				} else {
+					console.log('Switch is OFF');
+				}
 			});
 			
 			tableApplyBtn.addEventListener("click", function() {
@@ -893,9 +932,12 @@ let changedCells = null;
 					"resumes": []
 				};
 				
-				tableEditBtn.disabled = false;
+				$('#tableEditBtn').bootstrapSwitch('disabled', false);
+				$('#tableEditBtn').bootstrapSwitch('toggleState');
 				tableApplyBtn.disabled = true;
-				tableCancelBtn.disabled = true;				
+				tableCancelBtn.disabled = true;
+				label.style.boxShadow = "none";
+				
 				
 				for (let [cell, rowData] of changedCells) {
 					
@@ -920,11 +962,14 @@ let changedCells = null;
 				});
 			});
 			
-			tableCancelBtn.addEventListener("click", function() {
-				tableEditBtn.disabled = false;
+			tableCancelBtn.addEventListener("click", function() {				
+				
+				$('#tableEditBtn').bootstrapSwitch('disabled', false);
+				$('#tableEditBtn').bootstrapSwitch('toggleState');
 				tableApplyBtn.disabled = true;
 				tableCancelBtn.disabled = true;
-				
+				label.style.boxShadow = "none";
+				console.log(allData);
 				resultTable.clear().rows.add(allData).draw();
 				/* $('#queryResultTable td').each(function() {
 					this.contentEditable = false;
