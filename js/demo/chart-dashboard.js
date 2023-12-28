@@ -102,7 +102,7 @@ function completeRequest(result) {
 	
 	
 	let seniority = jsonObject.item.seniority;
-	let resultSeniority = Object.entries(seniority).map(([key, value]) => [key, parseFloat(value)]);
+	let resultSeniority = Object.entries(seniority).map(([key, value]) => [key+ ' years', parseFloat(value)]);
 
 	resultSeniority.sort((a, b) => a[0].localeCompare(b[0]));
 	let chartSeniority = bb.generate({

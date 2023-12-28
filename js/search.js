@@ -642,7 +642,7 @@ let changedCells = null;
 			tableEditBtn.className = "btn btn-primary mr-1";  // 給按鈕一個類，以便於樣式設置
 			
 			let tableApplyBtn = document.createElement("button");
-			tableApplyBtn.innerHTML = "Apply";  // 設置按鈕的文字
+			tableApplyBtn.innerHTML = "Save";  // 設置按鈕的文字
 			tableApplyBtn.id = "tableApplyBtn";  // 給按鈕一個唯一的ID
 			tableApplyBtn.className = "btn btn-primary mr-1";  // 給按鈕一個類，以便於樣式設置
 			tableApplyBtn.disabled = true;
