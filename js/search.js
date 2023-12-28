@@ -110,7 +110,7 @@ let changedCells = null;
 				event.preventDefault(); // 防止默認的點擊事件行為
 				attrButton.textContent = this.textContent;
 				//selectedIndex = this.getAttribute("tabindex");				
-				attrButton.style.backgroundColor = conditions[this.textContent.toLowerCase()].color;
+				attrButton.style.backgroundColor = conditions[this.textContent.toLowerCase().replace(/ /g, "_")].color;
 			
 				//console.log(this.textContent); // 印出 menu item 的內容
 			});
@@ -377,12 +377,12 @@ let changedCells = null;
 						  if (typeof childTable[prevKey] === 'object') {
 							//console.log("object !!!!!　" +　childTable[previousButton.textContent.toLowerCase()][key]);
 							childTable[prevKey][key] = childTable[prevKey][key].replace(regex, function(match) {
-								return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
+								return `<span style='background-color: yellow; color: black;'>${match}</span>`; 
 							});
 						  }else if (typeof childTable[prevKey] === 'string') {
 							 //console.log("string !!!!!　" +　childTable[previousButton.textContent.toLowerCase()]);
 							 childTable[prevKey] = childTable[prevKey].replace(regex, function(match) {
-								return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
+								return `<span style='background-color: yellow; color: black;'>${match}</span>`; 
 							});
 						  }
 						}
