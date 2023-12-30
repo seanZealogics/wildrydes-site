@@ -7,7 +7,7 @@ let publications = null;
 let patents = null;
 let experiences = null;
 let changedCells = null;
-
+let originalAllData = null;
 
 (function rideScopeWrapper($) {
 		
@@ -349,11 +349,6 @@ let changedCells = null;
 						previousButtonName = previousButton.name;
 					}
 
-					// Loop through previous siblings until a button is found or no more siblings exist
-					//while (previousButton && previousButton.tagName !== 'button') {
-					//	previousElement = previousElement.previousElementSibling;
-					//}  
-					//console.log("previousButton.id !!!!!　" +　previousButton.id);
 					if (previousButton && previousButton.id.indexOf("mainAttrBtn") !== -1) {						
 						//console.log("previousButton.textContent !!!!!　" +　previousButton.textContent + " prevKey " + prevKey);
 						var prevKey = previousButton.textContent.toLowerCase().replace(/ /g, "_");
@@ -361,28 +356,19 @@ let changedCells = null;
 						//console.log("colorValueForDynamicKey " + colorValueForDynamicKey);
 						//console.log("previousButton.textContent.toLowerCase() " + previousButton.textContent.toLowerCase());
 						regex = new RegExp(inputLinks[i].value, 'gi');  // 'g'表示全局匹配，'i'表示忽略大小寫
-						/* childTable[previousButton.textContent.toLowerCase()] = childTable[previousButton.textContent.toLowerCase()].join(', ').replace(regex, function(match) {
-						  //return `<span style="background-color: rgb(255, 255, 0); color: black;">${match}</span>`; 
-						  return `<mark>${match}</mark>`; 
-						}); */ 
+						
 						
 						for (let key in childTable[prevKey]) {
-							//console.log("childTable key" + key);
-							//console.log("childTable[previousButton.textContent.toLowerCase()] typeof " + typeof childTable[previousButton.textContent.toLowerCase()] + "\n" + childTable[previousButton.textContent.toLowerCase()]);
-						  /* if (typeof childTable[previousButton.textContent.toLowerCase()][key] === 'string') {
-							childTable[previousButton.textContent.toLowerCase()][key] = childTable[previousButton.textContent.toLowerCase()][key].replace(regex, function(match) {
-							  return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
-							});
-						  } */
+							
 						  if (typeof childTable[prevKey] === 'object') {
 							//console.log("object !!!!!　" +　childTable[previousButton.textContent.toLowerCase()][key]);
 							childTable[prevKey][key] = childTable[prevKey][key].replace(regex, function(match) {
-								return `<span style='background-color: yellow; color: black;'>${match}</span>`; 
+								return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
 							});
 						  }else if (typeof childTable[prevKey] === 'string') {
 							 //console.log("string !!!!!　" +　childTable[previousButton.textContent.toLowerCase()]);
 							 childTable[prevKey] = childTable[prevKey].replace(regex, function(match) {
-								return `<span style='background-color: yellow; color: black;'>${match}</span>`; 
+								return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
 							});
 						  }
 						}
@@ -883,10 +869,10 @@ let changedCells = null;
 				
 			});
 			
-			changedCells = new Map();
-			
+			changedCells = new Map();			
 			$('#tableEditBtn').on('switchChange.bootstrapSwitch', function (event, state) {
 				if (state) {
+					originalAllData = JSON.parse(JSON.stringify(allData));
 					console.log('Switch is ON');
 				
 					$('#tableEditBtn').bootstrapSwitch('disabled', true);
@@ -914,9 +900,9 @@ let changedCells = null;
 								
 	//console.log('rowData： ', rowData, " this " + JSON.stringify(this));
 								// 將已更改的單元格及其對應的 id 值添加到映射中							
-								let rowDataChanged = { ...rowData };
-								rowDataChanged.tags = $(this).val();
-								changedCells.set(changedRow, rowDataChanged);
+								rowData.tags = $(this).val();
+								changedCells.set(changedRow, rowData);
+								console.log('rowData.tags： ', rowData.tags);
 								//console.log('rowData.tags： ', rowData.tags);
 							});
 							
@@ -963,13 +949,14 @@ let changedCells = null;
 			});
 			
 			tableCancelBtn.addEventListener("click", function() {				
-				
+				//allData = { ...originalAllData };
+				allData = JSON.parse(JSON.stringify(originalAllData));
 				$('#tableEditBtn').bootstrapSwitch('disabled', false);
 				$('#tableEditBtn').bootstrapSwitch('toggleState');
 				tableApplyBtn.disabled = true;
 				tableCancelBtn.disabled = true;
 				label.style.boxShadow = "none";
-				console.log(allData);
+				console.log(JSON.stringify(allData));
 				resultTable.clear().rows.add(allData).draw();
 				/* $('#queryResultTable td').each(function() {
 					this.contentEditable = false;
