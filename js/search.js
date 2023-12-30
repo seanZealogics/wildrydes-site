@@ -188,7 +188,7 @@ let originalAllData = null;
 	// `d` is the original data object for the row
 		//console.log("d=" + JSON.stringify(d));
 		//console.log("personal_urls=" + d.profile.personal_urls);
-		let childTable = {};
+		let modalTable = {};
 		
 		personal_urls = d.profile.personal_urls;
 		
@@ -319,13 +319,13 @@ let originalAllData = null;
 		//experiences.join('<br>');
 		
 		
-		//childTable.personal_urls = d.personal_urls;
-		childTable.educations = educations;
-		childTable.computer_skills = computer_skills;
-		childTable.certificates = certificates;
-		childTable.publications = publications;
-		childTable.patents = patents;
-		childTable.experiences = experiences;
+		//modalTable.personal_urls = d.personal_urls;
+		modalTable.educations = educations;
+		modalTable.computer_skills = computer_skills;
+		modalTable.certificates = certificates;
+		modalTable.publications = publications;
+		modalTable.patents = patents;
+		modalTable.experiences = experiences;
 	
 										
 	 				
@@ -358,16 +358,16 @@ let originalAllData = null;
 						regex = new RegExp(inputLinks[i].value, 'gi');  // 'g'表示全局匹配，'i'表示忽略大小寫
 						
 						
-						for (let key in childTable[prevKey]) {
+						for (let key in modalTable[prevKey]) {
 							
-						  if (typeof childTable[prevKey] === 'object') {
-							//console.log("object !!!!!　" +　childTable[previousButton.textContent.toLowerCase()][key]);
-							childTable[prevKey][key] = childTable[prevKey][key].replace(regex, function(match) {
+						  if (typeof modalTable[prevKey] === 'object') {
+							//console.log("object !!!!!　" +　modalTable[previousButton.textContent.toLowerCase()][key]);
+							modalTable[prevKey][key] = modalTable[prevKey][key].replace(regex, function(match) {
 								return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
 							});
-						  }else if (typeof childTable[prevKey] === 'string') {
-							 //console.log("string !!!!!　" +　childTable[previousButton.textContent.toLowerCase()]);
-							 childTable[prevKey] = childTable[prevKey].replace(regex, function(match) {
+						  }else if (typeof modalTable[prevKey] === 'string') {
+							 //console.log("string !!!!!　" +　modalTable[previousButton.textContent.toLowerCase()]);
+							 modalTable[prevKey] = modalTable[prevKey].replace(regex, function(match) {
 								return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
 							});
 						  }
@@ -390,7 +390,7 @@ let originalAllData = null;
 		  }
 		} 
  */							
-		return '<table id="childTable"  cellspacing="10" border="1" style="width:100%">'
+		return '<table id="modalTable"  cellspacing="10" border="1" style="width:100%">'
 			+ '<tr class="text-muted text-xs">'
 			+ '<td>Personal URL</td>'
 			+ '<td>' + personal_urls + '</td>' 
