@@ -424,7 +424,7 @@ let originalAllData = null;
 	
 	async function updateChangedResmues(updateData)
 	{
-		console.log(JSON.stringify(updateData)); 
+		//console.log(JSON.stringify(updateData)); 
 		const response = await fetch( _config.api.updateTagsUrl, {
 			method: 'PUT',
 			mode: 'cors',
@@ -436,7 +436,7 @@ let originalAllData = null;
 		}
 		
 		const jsonResponse = await response.json();
-		console.log(JSON.stringify(jsonResponse)); 
+		//console.log(JSON.stringify(jsonResponse)); 
 		    
 		
 	}
@@ -573,7 +573,7 @@ let originalAllData = null;
 				delete mainQueryData["united"];
 			} 
 			//console.log("mainQueryData elementsQueryData legnth " + elementsQueryData);
-			//console.log("JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
+			console.log("JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
 			
 			const response = await fetch( _config.api.queryUrl, {
 				method: 'POST',
@@ -587,7 +587,7 @@ let originalAllData = null;
 			
 			const jsonResponse = await response.json();
 			//console.log("Type of jsonResponse:", typeof jsonResponse);
-			console.log(JSON.stringify(jsonResponse)); 
+			//console.log(JSON.stringify(jsonResponse)); 
 		    
 			var allData = [];
             for (var item of jsonResponse.items) //dummyData.items
@@ -1062,11 +1062,27 @@ let originalAllData = null;
 		}
 	}
 	
-	window.handleKeyDown = function(event) {
-		
+	window.handleKeyDown = function(event) {		
 		if (event.keyCode === 13) {			
 			event.preventDefault();			
 			handleSearchClick(event);
+		}
+	}
+	window.delQueryBtnGrp = function( clickedElement) {
+		wrapper.lastChild.remove();
+		console.log('11add width: ' + $('#searchInput1').width() + " width2 " +$('#searchInput2').width());
+		x--;
+		if(x == 2)
+		{console.log('11del x: ' + x);
+			$('#operatorBtn2').hide();
+			$('#delSearchGroup2').hide();
+			$('#addSearchGroup2').show();
+			
+		}else if(x == 1)
+		{console.log('11del x: ' + x);
+			$('#addSearchGroup1').show();
+			$('#delSearchGroup1').hide();
+			$('#operatorBtn1').hide();
 		}
 	}
 
@@ -1076,25 +1092,6 @@ let originalAllData = null;
 			
 		if(x < maxFields) { // Add new input box
 			x++; // Text box increment
-			
-			if(x == 2)
-			{console.log('11add x: ' + x);
-				$('#operatorBtn1').show();
-				$('#delSearchGroup1').show();
-				$('#addSearchGroup1').hide();
-				
-			}else if(x == 3)
-			{console.log('22add x: ' + x);
-				$('#operatorBtn2').show();
-				$('#delSearchGroup2').show();
-				$('#addSearchGroup2').hide();
-			}else if(x == 1)
-			{console.log('22add x: ' + x);
-				$('#addSearchGroup1').show();
-				$('#delSearchGroup1').hide();
-				$('#operatorBtn1').hide();
-			}
-	
 			
 			var newElement = document.createElement("p");
 			
@@ -1106,7 +1103,7 @@ let originalAllData = null;
 									'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
 									'</ul>' +
 									'</div>' +
-									'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" +="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;"  onkeydown="handleKeyDown(event)">' +
+									'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" placeholder="" aria-label="Search" aria-describedby="basic-addon2"  onkeydown="handleKeyDown(event)">' +
 									'<div class="dropdown2 mx-1">' +
 									'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown" style="display: none;">OR' +
 									'<span class="caret"></span></button>' +
@@ -1125,8 +1122,23 @@ let originalAllData = null;
 									
 						
 			wrapper.appendChild(newElement);
-	
-			
+	console.log('11add width: ' + $('#searchInput1').width() + " width2 " +$('#searchInput2').width());
+			if(x == 2)
+			{console.log('11add width: ' + $('#searchInput1').width() + " width2 " +$('#searchInput2').width());
+				$('#operatorBtn1').show();
+				$('#delSearchGroup1').show();
+				$('#addSearchGroup1').hide();
+				
+ 
+				//$('#searchInput2').width($('#searchInput1').width());
+			}else if(x == 3)
+			{console.log('22add x: ' + x);
+				$('#operatorBtn2').show();
+				$('#delSearchGroup2').show();
+				$('#addSearchGroup2').hide();
+				//$('#searchInput3').width($('#searchInput1').width());
+				
+			}
 			
 			var mainMenuLinks = newElement.getElementsByTagName('ul');
 			for(var i = 0; i < mainMenuLinks.length; i++) {
@@ -1139,6 +1151,7 @@ let originalAllData = null;
 			var mainBtnLinks = newElement.getElementsByTagName('button');
 			let operatorBtn = undefined;
 			let addBtn = undefined;
+			
 			for(var i = 0; i < mainBtnLinks.length; i++) {
 				console.log("mainBtnLinks !!!!!　" +　mainBtnLinks[i].id);
 				//mainBtnLinks[i].id = 'newId' + x + '_' + i; // Set new id
@@ -1168,10 +1181,10 @@ let originalAllData = null;
 			var operationLinks = newElement.getElementsByTagName('a');
 			
 			for(var i = 0; i < operationLinks.length; i++) {
-				//console.log('operationLinks: ' + operationLinks[i].id);
-				operationLinks[i].id = 'newId' + x + '_' + i; // Set new id
+				console.log('operationLinks: ' + operationLinks[i].id);
+				//operationLinks[i].id = 'newId' + x + '_' + i; // Set new id
 				operationLinks[i].addEventListener('click', function() { // Register click event listener
-					//console.log('Clicked: ' + this.id + ', Text: ' + this.textContent);
+					console.log('Clicked: ' + this.id + ', Text: ' + this.textContent);
 					if(operatorBtn !== undefined){
 						if(this.textContent === 'AND' || this.textContent === 'OR' || this.textContent === 'WITHOUT'){
 							operatorBtn.textContent = this.textContent;
