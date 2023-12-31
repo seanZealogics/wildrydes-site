@@ -1095,30 +1095,35 @@ let originalAllData = null;
 			
 			var newElement = document.createElement("p");
 			
-			newElement.className = 'dynamic-control-group';
-			newElement.innerHTML = '<div id="controlContainer'+x+'"" class="input-group container">' +
-									'<div id="group'+x+'" class="dropdown1">' +
-									'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown">' +
-									'<span class="caret"></span></button>' +
-									'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
-									'</ul>' +
-									'</div>' +
-									'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" placeholder="" aria-label="Search" aria-describedby="basic-addon2"  onkeydown="handleKeyDown(event)">' +
-									'<div class="dropdown2 mx-1">' +
-									'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown" style="display: none;">OR' +
-									'<span class="caret"></span></button>' +
-									'<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
-									'<li><a href="#" onclick="changeButtonColor(\'AND\', this)">AND</a></li>' +
-									'<li><a href="#" onclick="changeButtonColor(\'OR\', this)">OR</a></li>' +
-									'<li><a href="#" onclick="changeButtonColor(\'WITHOUT\', this)">WITHOUT</a></li>' +
-									'</ul>' +
-									'</div>'+
-									'<div class="dropdown2">' +
-									'<button id="addSearchGroup'+x+'" class="btn btn-primary" width="100px" type="button" onclick="addQueryBtnGrp(this)"  >+'+
-									'</button>'+
-									'<button id="delSearchGroup'+x+'" class="btn btn-danger" width="100px" type="button" onclick="delQueryBtnGrp(this)" style="display: none;">-'+
-									'</button>'+
-									'</div></div>';// Add field html
+			newElement.className = 'container-fluid';
+			newElement.innerHTML = 
+									'<div class="row">' +
+										'<div id="group'+x+'" class="dropdown1 col-auto">' +
+											'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown">' +
+											'<span class="caret"></span></button>' +
+											'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
+											'</ul>' +
+										'</div>' +
+										
+										'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary w-100 col-7" placeholder="" aria-label="Search" aria-describedby="basic-addon2"  onkeydown="handleKeyDown(event)" >' +
+										
+										'<div class="dropdown2 col-auto">' +
+											'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown" style="display: none;">OR' +
+											'<span class="caret"></span></button>' +
+											'<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
+											'<li><a href="#" onclick="changeButtonColor(\'AND\', this)">AND</a></li>' +
+											'<li><a href="#" onclick="changeButtonColor(\'OR\', this)">OR</a></li>' +
+											'<li><a href="#" onclick="changeButtonColor(\'WITHOUT\', this)">WITHOUT</a></li>' +
+											'</ul>' +
+										'</div>'+
+										
+										'<div class="dropdown2 col-auto">' +
+											'<button id="addSearchGroup'+x+'" class="btn btn-primary" width="100px" type="button" onclick="addQueryBtnGrp(this)" >+'+
+											'</button>'+
+											'<button id="delSearchGroup'+x+'" class="btn btn-danger" width="100px" type="button" onclick="delQueryBtnGrp(this)" style="display: none;">-'+
+											'</button>'+
+										'</div>'+
+									'</div>';// Add field html
 									
 						
 			wrapper.appendChild(newElement);
