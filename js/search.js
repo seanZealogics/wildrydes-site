@@ -1105,7 +1105,7 @@ let originalAllData = null;
 											'</ul>' +
 										'</div>' +
 										
-										'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary w-100 col-7" placeholder="" aria-label="Search" aria-describedby="basic-addon2"  onkeydown="handleKeyDown(event)" >' +
+										'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary w-100 col-auto w-60" placeholder="" aria-label="Search" aria-describedby="basic-addon2"  onkeydown="handleKeyDown(event)" >' +
 										
 										'<div class="dropdown2 col-auto">' +
 											'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown" style="display: none;">OR' +
