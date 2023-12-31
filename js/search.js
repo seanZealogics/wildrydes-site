@@ -12,10 +12,10 @@ let originalAllData = null;
 (function rideScopeWrapper($) {
 		
 	var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
-	var dropDownMainBtn = document.querySelector("#mainAttrBtn0");
-	var dropDownOperatorBtn = document.querySelector("#operatorBtn0");
-	var dropDownOperatorMenuBtn = document.querySelector("#operatorMenu0");
-	var searchInput = document.querySelector("#searchInput0");	
+	var dropDownMainBtn = document.querySelector("#mainAttrBtn1");
+	var dropDownOperatorBtn = document.querySelector("#operatorBtn1");
+	var dropDownOperatorMenuBtn = document.querySelector("#operatorMenu1");
+	var searchInput = document.querySelector("#searchInput1");	
 	var wrapper = document.getElementById("newbelow"); // Fields wrapper		
 	var tableWrapper = document.getElementById("tableContent"); // Fields wrapper
 	var maxFields = 3; // Maximum input boxes allowed
@@ -1072,12 +1072,34 @@ let originalAllData = null;
 
 	
 	window.addQueryBtnGrp = function( clickedElement) {
-	
+			
+			
 		if(x < maxFields) { // Add new input box
 			x++; // Text box increment
+			
+			if(x == 2)
+			{console.log('11add x: ' + x);
+				$('#operatorBtn1').show();
+				$('#delSearchGroup1').show();
+				$('#addSearchGroup1').hide();
+				
+			}else if(x == 3)
+			{console.log('22add x: ' + x);
+				$('#operatorBtn2').show();
+				$('#delSearchGroup2').show();
+				$('#addSearchGroup2').hide();
+			}else if(x == 1)
+			{console.log('22add x: ' + x);
+				$('#addSearchGroup1').show();
+				$('#delSearchGroup1').hide();
+				$('#operatorBtn1').hide();
+			}
+	
+			
 			var newElement = document.createElement("p");
-			 newElement.className = 'dynamic-control-group';
-			 newElement.innerHTML = '<div id="controlContainer'+x+'"" class="input-group container">' +
+			
+			newElement.className = 'dynamic-control-group';
+			newElement.innerHTML = '<div id="controlContainer'+x+'"" class="input-group container">' +
 									'<div id="group'+x+'" class="dropdown1">' +
 									'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown">' +
 									'<span class="caret"></span></button>' +
@@ -1086,7 +1108,7 @@ let originalAllData = null;
 									'</div>' +
 									'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" +="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;"  onkeydown="handleKeyDown(event)">' +
 									'<div class="dropdown2 mx-1">' +
-									'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown">OR' +
+									'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown" style="display: none;">OR' +
 									'<span class="caret"></span></button>' +
 									'<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
 									'<li><a href="#" onclick="changeButtonColor(\'AND\', this)">AND</a></li>' +
@@ -1095,12 +1117,15 @@ let originalAllData = null;
 									'</ul>' +
 									'</div>'+
 									'<div class="dropdown2">' +
-							 '<button id="addDelSearchGroup'+x+'" class="btn btn-primary" width="100px" type="button" onclick="addQueryBtnGrp(this)"  >+'+
-							  '</button>'+								 
-							'</div></div>';// Add field html
+									'<button id="addSearchGroup'+x+'" class="btn btn-primary" width="100px" type="button" onclick="addQueryBtnGrp(this)"  >+'+
+									'</button>'+
+									'<button id="delSearchGroup'+x+'" class="btn btn-danger" width="100px" type="button" onclick="delQueryBtnGrp(this)" style="display: none;">-'+
+									'</button>'+
+									'</div></div>';// Add field html
 									
 						
 			wrapper.appendChild(newElement);
+	
 			
 			
 			var mainMenuLinks = newElement.getElementsByTagName('ul');
@@ -1115,7 +1140,7 @@ let originalAllData = null;
 			let operatorBtn = undefined;
 			let addBtn = undefined;
 			for(var i = 0; i < mainBtnLinks.length; i++) {
-				//console.log("mainBtnLinks !!!!!　" +　mainBtnLinks[i].id);
+				console.log("mainBtnLinks !!!!!　" +　mainBtnLinks[i].id);
 				//mainBtnLinks[i].id = 'newId' + x + '_' + i; // Set new id
 				if(mainBtnLinks[i].id.indexOf("mainAttrBtn") != -1){
 					refreshAttrBtn(mainBtnLinks[i], mainMenuLinks[i]);
@@ -1129,17 +1154,16 @@ let originalAllData = null;
 					if(operatorBtn.id === 'operatorBtn'+maxFields){
 						operatorBtn.style.visibility = "hidden";
 					}
-					//console.log("operatorBtn=" + operatorBtn.id);							
-				}else if(mainBtnLinks[i].id.indexOf("addDelSearchGroup") != -1){
+					console.log("operatorBtn=" + operatorBtn.id);							
+				}else if(mainBtnLinks[i].id.indexOf("addSearchGroup") != -1){
 					addBtn = mainBtnLinks[i];	
-					if(addBtn.id === 'addDelSearchGroup'+maxFields){
+					if(addBtn.id === 'addSearchGroup'+maxFields){
 						addBtn.style.visibility = "hidden";
 					}
 					//console.log("addBtn=" + addBtn.id);							
 				}
 				
 			}
-			
 			
 			var operationLinks = newElement.getElementsByTagName('a');
 			
