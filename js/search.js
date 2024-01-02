@@ -7,15 +7,15 @@ let publications = null;
 let patents = null;
 let experiences = null;
 let changedCells = null;
-
+let originalAllData = null;
 
 (function rideScopeWrapper($) {
 		
 	var dropdownMainMenu = document.querySelector(".dropdown1 .dropdown-menu");
-	var dropDownMainBtn = document.querySelector("#mainAttrBtn0");
-	var dropDownOperatorBtn = document.querySelector("#operatorBtn0");
-	var dropDownOperatorMenuBtn = document.querySelector("#operatorMenu0");
-	var searchInput = document.querySelector("#searchInput0");	
+	var dropDownMainBtn = document.querySelector("#mainAttrBtn1");
+	var dropDownOperatorBtn = document.querySelector("#operatorBtn1");
+	var dropDownOperatorMenuBtn = document.querySelector("#operatorMenu1");
+	var searchInput = document.querySelector("#searchInput1");	
 	var wrapper = document.getElementById("newbelow"); // Fields wrapper		
 	var tableWrapper = document.getElementById("tableContent"); // Fields wrapper
 	var maxFields = 3; // Maximum input boxes allowed
@@ -188,7 +188,7 @@ let changedCells = null;
 	// `d` is the original data object for the row
 		//console.log("d=" + JSON.stringify(d));
 		//console.log("personal_urls=" + d.profile.personal_urls);
-		let childTable = {};
+		let modalTable = {};
 		
 		personal_urls = d.profile.personal_urls;
 		
@@ -319,13 +319,13 @@ let changedCells = null;
 		//experiences.join('<br>');
 		
 		
-		//childTable.personal_urls = d.personal_urls;
-		childTable.educations = educations;
-		childTable.computer_skills = computer_skills;
-		childTable.certificates = certificates;
-		childTable.publications = publications;
-		childTable.patents = patents;
-		childTable.experiences = experiences;
+		//modalTable.personal_urls = d.personal_urls;
+		modalTable.educations = educations;
+		modalTable.computer_skills = computer_skills;
+		modalTable.certificates = certificates;
+		modalTable.publications = publications;
+		modalTable.patents = patents;
+		modalTable.experiences = experiences;
 	
 										
 	 				
@@ -349,11 +349,6 @@ let changedCells = null;
 						previousButtonName = previousButton.name;
 					}
 
-					// Loop through previous siblings until a button is found or no more siblings exist
-					//while (previousButton && previousButton.tagName !== 'button') {
-					//	previousElement = previousElement.previousElementSibling;
-					//}  
-					//console.log("previousButton.id !!!!!　" +　previousButton.id);
 					if (previousButton && previousButton.id.indexOf("mainAttrBtn") !== -1) {						
 						//console.log("previousButton.textContent !!!!!　" +　previousButton.textContent + " prevKey " + prevKey);
 						var prevKey = previousButton.textContent.toLowerCase().replace(/ /g, "_");
@@ -361,28 +356,19 @@ let changedCells = null;
 						//console.log("colorValueForDynamicKey " + colorValueForDynamicKey);
 						//console.log("previousButton.textContent.toLowerCase() " + previousButton.textContent.toLowerCase());
 						regex = new RegExp(inputLinks[i].value, 'gi');  // 'g'表示全局匹配，'i'表示忽略大小寫
-						/* childTable[previousButton.textContent.toLowerCase()] = childTable[previousButton.textContent.toLowerCase()].join(', ').replace(regex, function(match) {
-						  //return `<span style="background-color: rgb(255, 255, 0); color: black;">${match}</span>`; 
-						  return `<mark>${match}</mark>`; 
-						}); */ 
 						
-						for (let key in childTable[prevKey]) {
-							//console.log("childTable key" + key);
-							//console.log("childTable[previousButton.textContent.toLowerCase()] typeof " + typeof childTable[previousButton.textContent.toLowerCase()] + "\n" + childTable[previousButton.textContent.toLowerCase()]);
-						  /* if (typeof childTable[previousButton.textContent.toLowerCase()][key] === 'string') {
-							childTable[previousButton.textContent.toLowerCase()][key] = childTable[previousButton.textContent.toLowerCase()][key].replace(regex, function(match) {
-							  return `<span style='background-color: ${colorValueForDynamicKey}; color: black;'>${match}</span>`; 
+						
+						for (let key in modalTable[prevKey]) {
+							
+						  if (typeof modalTable[prevKey] === 'object') {
+							//console.log("object !!!!!　" +　modalTable[previousButton.textContent.toLowerCase()][key]);
+							modalTable[prevKey][key] = modalTable[prevKey][key].replace(regex, function(match) {
+								return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
 							});
-						  } */
-						  if (typeof childTable[prevKey] === 'object') {
-							//console.log("object !!!!!　" +　childTable[previousButton.textContent.toLowerCase()][key]);
-							childTable[prevKey][key] = childTable[prevKey][key].replace(regex, function(match) {
-								return `<span style='background-color: yellow; color: black;'>${match}</span>`; 
-							});
-						  }else if (typeof childTable[prevKey] === 'string') {
-							 //console.log("string !!!!!　" +　childTable[previousButton.textContent.toLowerCase()]);
-							 childTable[prevKey] = childTable[prevKey].replace(regex, function(match) {
-								return `<span style='background-color: yellow; color: black;'>${match}</span>`; 
+						  }else if (typeof modalTable[prevKey] === 'string') {
+							 //console.log("string !!!!!　" +　modalTable[previousButton.textContent.toLowerCase()]);
+							 modalTable[prevKey] = modalTable[prevKey].replace(regex, function(match) {
+								return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
 							});
 						  }
 						}
@@ -404,7 +390,7 @@ let changedCells = null;
 		  }
 		} 
  */							
-		return '<table id="childTable"  cellspacing="10" border="1" style="width:100%">'
+		return '<table id="modalTable"  cellspacing="10" border="1" style="width:100%">'
 			+ '<tr class="text-muted text-xs">'
 			+ '<td>Personal URL</td>'
 			+ '<td>' + personal_urls + '</td>' 
@@ -438,7 +424,7 @@ let changedCells = null;
 	
 	async function updateChangedResmues(updateData)
 	{
-		console.log(JSON.stringify(updateData)); 
+		//console.log(JSON.stringify(updateData)); 
 		const response = await fetch( _config.api.updateTagsUrl, {
 			method: 'PUT',
 			mode: 'cors',
@@ -450,7 +436,7 @@ let changedCells = null;
 		}
 		
 		const jsonResponse = await response.json();
-		console.log(JSON.stringify(jsonResponse)); 
+		//console.log(JSON.stringify(jsonResponse)); 
 		    
 		
 	}
@@ -587,7 +573,7 @@ let changedCells = null;
 				delete mainQueryData["united"];
 			} 
 			//console.log("mainQueryData elementsQueryData legnth " + elementsQueryData);
-			//console.log("JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
+			console.log("JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
 			
 			const response = await fetch( _config.api.queryUrl, {
 				method: 'POST',
@@ -601,7 +587,7 @@ let changedCells = null;
 			
 			const jsonResponse = await response.json();
 			//console.log("Type of jsonResponse:", typeof jsonResponse);
-			console.log(JSON.stringify(jsonResponse)); 
+			//console.log(JSON.stringify(jsonResponse)); 
 		    
 			var allData = [];
             for (var item of jsonResponse.items) //dummyData.items
@@ -883,10 +869,10 @@ let changedCells = null;
 				
 			});
 			
-			changedCells = new Map();
-			
+			changedCells = new Map();			
 			$('#tableEditBtn').on('switchChange.bootstrapSwitch', function (event, state) {
 				if (state) {
+					originalAllData = JSON.parse(JSON.stringify(allData));
 					console.log('Switch is ON');
 				
 					$('#tableEditBtn').bootstrapSwitch('disabled', true);
@@ -914,9 +900,9 @@ let changedCells = null;
 								
 	//console.log('rowData： ', rowData, " this " + JSON.stringify(this));
 								// 將已更改的單元格及其對應的 id 值添加到映射中							
-								let rowDataChanged = { ...rowData };
-								rowDataChanged.tags = $(this).val();
-								changedCells.set(changedRow, rowDataChanged);
+								rowData.tags = $(this).val();
+								changedCells.set(changedRow, rowData);
+								console.log('rowData.tags： ', rowData.tags);
 								//console.log('rowData.tags： ', rowData.tags);
 							});
 							
@@ -963,13 +949,14 @@ let changedCells = null;
 			});
 			
 			tableCancelBtn.addEventListener("click", function() {				
-				
+				//allData = { ...originalAllData };
+				allData = JSON.parse(JSON.stringify(originalAllData));
 				$('#tableEditBtn').bootstrapSwitch('disabled', false);
 				$('#tableEditBtn').bootstrapSwitch('toggleState');
 				tableApplyBtn.disabled = true;
 				tableCancelBtn.disabled = true;
 				label.style.boxShadow = "none";
-				console.log(allData);
+				console.log(JSON.stringify(allData));
 				resultTable.clear().rows.add(allData).draw();
 				/* $('#queryResultTable td').each(function() {
 					this.contentEditable = false;
@@ -1075,46 +1062,88 @@ let changedCells = null;
 		}
 	}
 	
-	window.handleKeyDown = function(event) {
-		
+	window.handleKeyDown = function(event) {		
 		if (event.keyCode === 13) {			
 			event.preventDefault();			
 			handleSearchClick(event);
 		}
 	}
+	window.delQueryBtnGrp = function( clickedElement) {
+		wrapper.lastChild.remove();
+		console.log('11add width: ' + $('#searchInput1').width() + " width2 " +$('#searchInput2').width());
+		x--;
+		if(x == 2)
+		{console.log('11del x: ' + x);
+			$('#operatorBtn2').hide();
+			$('#delSearchGroup2').hide();
+			$('#addSearchGroup2').show();
+			
+		}else if(x == 1)
+		{console.log('11del x: ' + x);
+			$('#addSearchGroup1').show();
+			$('#delSearchGroup1').hide();
+			$('#operatorBtn1').hide();
+		}
+	}
 
 	
 	window.addQueryBtnGrp = function( clickedElement) {
-	
+			
+			
 		if(x < maxFields) { // Add new input box
 			x++; // Text box increment
+			
 			var newElement = document.createElement("p");
-			 newElement.className = 'dynamic-control-group';
-			 newElement.innerHTML = '<div id="controlContainer'+x+'"" class="input-group container">' +
-									'<div id="group'+x+'" class="dropdown1">' +
-									'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown">' +
-									'<span class="caret"></span></button>' +
-									'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
-									'</ul>' +
-									'</div>' +
-									'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" +="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;"  onkeydown="handleKeyDown(event)">' +
-									'<div class="dropdown2 mx-1">' +
-									'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown">OR' +
-									'<span class="caret"></span></button>' +
-									'<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
-									'<li><a href="#" onclick="changeButtonColor(\'AND\', this)">AND</a></li>' +
-									'<li><a href="#" onclick="changeButtonColor(\'OR\', this)">OR</a></li>' +
-									'<li><a href="#" onclick="changeButtonColor(\'WITHOUT\', this)">WITHOUT</a></li>' +
-									'</ul>' +
-									'</div>'+
-									'<div class="dropdown2">' +
-							 '<button id="addDelSearchGroup'+x+'" class="btn btn-primary" width="100px" type="button" onclick="addQueryBtnGrp(this)"  >+'+
-							  '</button>'+								 
-							'</div></div>';// Add field html
+			
+			newElement.className = 'container-fluid';
+			newElement.innerHTML = 
+									'<div class="row">' +
+										'<div id="group'+x+'" class="dropdown1 col-auto">' +
+											'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown">' +
+											'<span class="caret"></span></button>' +
+											'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
+											'</ul>' +
+										'</div>' +
+										
+										'<input id="searchInput'+x+'" type="text" class="form-control bg-light border-primary w-100 col-auto w-60" placeholder="" aria-label="Search" aria-describedby="basic-addon2"  onkeydown="handleKeyDown(event)" >' +
+										
+										'<div class="dropdown2 col-auto">' +
+											'<button id="operatorBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown" style="display: none;">OR' +
+											'<span class="caret"></span></button>' +
+											'<ul id="operatorMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
+											'<li><a href="#" onclick="changeButtonColor(\'AND\', this)">AND</a></li>' +
+											'<li><a href="#" onclick="changeButtonColor(\'OR\', this)">OR</a></li>' +
+											'<li><a href="#" onclick="changeButtonColor(\'WITHOUT\', this)">WITHOUT</a></li>' +
+											'</ul>' +
+										'</div>'+
+										
+										'<div class="dropdown2 col-auto">' +
+											'<button id="addSearchGroup'+x+'" class="btn btn-primary" width="100px" type="button" onclick="addQueryBtnGrp(this)" >+'+
+											'</button>'+
+											'<button id="delSearchGroup'+x+'" class="btn btn-danger" width="100px" type="button" onclick="delQueryBtnGrp(this)" style="display: none;">-'+
+											'</button>'+
+										'</div>'+
+									'</div>';// Add field html
 									
 						
 			wrapper.appendChild(newElement);
-			
+	console.log('11add width: ' + $('#searchInput1').width() + " width2 " +$('#searchInput2').width());
+			if(x == 2)
+			{console.log('11add width: ' + $('#searchInput1').width() + " width2 " +$('#searchInput2').width());
+				$('#operatorBtn1').show();
+				$('#delSearchGroup1').show();
+				$('#addSearchGroup1').hide();
+				
+ 
+				//$('#searchInput2').width($('#searchInput1').width());
+			}else if(x == 3)
+			{console.log('22add x: ' + x);
+				$('#operatorBtn2').show();
+				$('#delSearchGroup2').show();
+				$('#addSearchGroup2').hide();
+				//$('#searchInput3').width($('#searchInput1').width());
+				
+			}
 			
 			var mainMenuLinks = newElement.getElementsByTagName('ul');
 			for(var i = 0; i < mainMenuLinks.length; i++) {
@@ -1127,8 +1156,9 @@ let changedCells = null;
 			var mainBtnLinks = newElement.getElementsByTagName('button');
 			let operatorBtn = undefined;
 			let addBtn = undefined;
+			
 			for(var i = 0; i < mainBtnLinks.length; i++) {
-				//console.log("mainBtnLinks !!!!!　" +　mainBtnLinks[i].id);
+				console.log("mainBtnLinks !!!!!　" +　mainBtnLinks[i].id);
 				//mainBtnLinks[i].id = 'newId' + x + '_' + i; // Set new id
 				if(mainBtnLinks[i].id.indexOf("mainAttrBtn") != -1){
 					refreshAttrBtn(mainBtnLinks[i], mainMenuLinks[i]);
@@ -1142,10 +1172,10 @@ let changedCells = null;
 					if(operatorBtn.id === 'operatorBtn'+maxFields){
 						operatorBtn.style.visibility = "hidden";
 					}
-					//console.log("operatorBtn=" + operatorBtn.id);							
-				}else if(mainBtnLinks[i].id.indexOf("addDelSearchGroup") != -1){
+					console.log("operatorBtn=" + operatorBtn.id);							
+				}else if(mainBtnLinks[i].id.indexOf("addSearchGroup") != -1){
 					addBtn = mainBtnLinks[i];	
-					if(addBtn.id === 'addDelSearchGroup'+maxFields){
+					if(addBtn.id === 'addSearchGroup'+maxFields){
 						addBtn.style.visibility = "hidden";
 					}
 					//console.log("addBtn=" + addBtn.id);							
@@ -1153,14 +1183,13 @@ let changedCells = null;
 				
 			}
 			
-			
 			var operationLinks = newElement.getElementsByTagName('a');
 			
 			for(var i = 0; i < operationLinks.length; i++) {
-				//console.log('operationLinks: ' + operationLinks[i].id);
-				operationLinks[i].id = 'newId' + x + '_' + i; // Set new id
+				console.log('operationLinks: ' + operationLinks[i].id);
+				//operationLinks[i].id = 'newId' + x + '_' + i; // Set new id
 				operationLinks[i].addEventListener('click', function() { // Register click event listener
-					//console.log('Clicked: ' + this.id + ', Text: ' + this.textContent);
+					console.log('Clicked: ' + this.id + ', Text: ' + this.textContent);
 					if(operatorBtn !== undefined){
 						if(this.textContent === 'AND' || this.textContent === 'OR' || this.textContent === 'WITHOUT'){
 							operatorBtn.textContent = this.textContent;

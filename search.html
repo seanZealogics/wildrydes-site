@@ -146,9 +146,14 @@
 		  right: 0;
 		}
 		
-
+		.w-60 {
+		  width: 60% !important;
+		}
+		
 	</style>
-	
+	<!-- .col ,.col-1, .col-2, .col-2, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-12, .col-auto {
+		  border: 1px solid black;
+		} -->
 
 
 
@@ -266,43 +271,50 @@
 							<!--Search -->
 							
 							<form id="newbelow" class="shadow d-sm-inline-block form-inline mr-auto my-md-0 w-100">
-								<div class="card-header py-3">
+								<br>
+								<div class="card-header py-3 col-12">
 									<h5 class="m-0 font-weight-bold text-primary">Search</h5>
-								</div><p>
-
-								<div id="controlContainer0" class="input-group container">
-									<div id="first-group" class="dropdown1">
-									  <button id="mainAttrBtn0" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown">
+								</div>
+								</br>
+								
+								<div id="controlContainer0" class="container-fluid">
+								  <div class="row">
+									<div id="first-group" class="dropdown1 col-auto">
+										
+									  <button id="mainAttrBtn1" class="btn btn-primary dropdown-toggle fixed-width-attrButton" type="button" data-toggle="dropdown">
 									  <span class="caret"></span></button>
 									  <ul id="mainDropMenu0" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
 									
 									  </ul>
 									</div>
-								
-									<input id="searchInput0" type="text" class="form-control bg-light border-primary mx-2" width="100px" placeholder="" aria-label="Search" aria-describedby="basic-addon2" style="width: 200px;" onkeydown="handleKeyDown(event)">
-									<div class="dropdown2 mx-1">
-									  <button id="operatorBtn0" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown">OR
+									
+									
+									<input id="searchInput1" type="text" class="form-control bg-light border-primary  col-auto w-60" placeholder="" aria-label="Search" aria-describedby="basic-addon2" onkeydown="handleKeyDown(event)">
+										
+									
+									<div class="dropdown2 col-auto">
+									  <button id="operatorBtn1" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown" style="display: none;">OR
 									  <span class="caret"></span></button>
-									  <ul id="operatorMenu0" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
+									  <ul id="operatorMenu1" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
 										<li><a href="#" onclick="changeButtonColor('AND', this)">AND</a></li>
 										<li><a href="#" onclick="changeButtonColor('OR', this)">OR</a></li>
 										<li><a href="#" onclick="changeButtonColor('WITHOUT', this)">WITHOUT</a></li>
 									  </ul>
 									</div>
-									<div class="dropdown2">
+									<div class="dropdown2 col-auto">
 									
-									  <button id="addDelSearchGroup0" class="btn btn-primary" width="100px" type="button" onclick="addQueryBtnGrp(this)" >+
+									  <button id="addSearchGroup1" class="btn btn-primary" width="100px" type="button" onclick="addQueryBtnGrp(this)" >+
 									  </button>	
-									  
+									  <button id="delSearchGroup1" class="btn btn-danger" width="100px" type="button" onclick="delQueryBtnGrp(this)" style="display: none;">-
+									  </button>	
 									</div>
-									
-									
+									 </div>
+								  </div>
+								  <p>
 								</div>
 							
 								
-								
-								<p>
-											
+									
 									
 
 							</form>                            
