@@ -92,10 +92,21 @@ function completeRequest(result) {
 	var chartDegrees = bb.generate({
 	  data: {
 		columns: resultdegrees,
-		type: "pie", // for ESM specify as: pie()
+		type: "pie",
 	  },
 	  pie: {
-		startingAngle: 1
+		label: {
+		  format: function (value, ratio, id) {
+			return value;
+		  }
+		}
+	  },
+	  tooltip: {
+		format: {
+		  value: function (value, ratio, id, index) { 
+			return value; // 顯示實際數值
+		  }
+		}
 	  },
 	  bindto: "#degreePieChart"
 	});
