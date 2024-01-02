@@ -79,7 +79,7 @@ function generateUniqueColors(count) {
 function completeRequest(result) {		
 	var jsonData = JSON.stringify(result);
 	console.log("completeRequest");
-	//console.log(jsonData);
+	console.log(jsonData);
 	const jsonObject = jQuery.parseJSON(jsonData);
 	
 	jObjItem = jsonObject.item;
@@ -89,17 +89,28 @@ function completeRequest(result) {
 	let resultdegrees = degrees.map(obj => [obj.degree, obj.percentage]);
 
 	resultdegrees.sort((a, b) => a[0].localeCompare(b[0]));
+	console.log("resultdegrees " + resultdegrees);
 	var chartDegrees = bb.generate({
 	  data: {
 		columns: resultdegrees,
-		type: "pie", // for ESM specify as: pie()
+		type: "pie",
 	  },
 	  pie: {
-		startingAngle: 1
+		label: {
+		  format: function (value, ratio, id) {
+			return value;
+		  }
+		}
+	  },
+	  tooltip: {
+		format: {
+		  value: function (value, ratio, id, index) { 
+			return value; // 顯示實際數值
+		  }
+		}
 	  },
 	  bindto: "#degreePieChart"
 	});
-	
 	
 	let seniority = jsonObject.item.seniority;
 	let resultSeniority = Object.entries(seniority).map(([key, value]) => [key+ ' years', parseFloat(value)]);
