@@ -147,7 +147,8 @@ var WildRydes = window.WildRydes || {};
                 window.location.href = 'main.html';
             },
             function signinError(err) {
-                alert(err);
+                //alert(err);
+				$('#debugWindow').html(err);
             }
         );
     }
@@ -166,14 +167,17 @@ var WildRydes = window.WildRydes || {};
             }
         };
         var onFailure = function registerFailure(err) {
-            alert(err);
+            //alert(err);
+			$('#debugWindow').html(err);
         };
         event.preventDefault();
 
         if (password === password2) {
             register(email, password, onSuccess, onFailure);
         } else {
-            alert('Passwords do not match');
+            //alert('Passwords do not match');
+			$('#debugWindow').html('Passwords do not match');
+
         }
     }
 
@@ -185,12 +189,13 @@ var WildRydes = window.WildRydes || {};
             function verifySuccess(result) {
                 console.log('call result: ' + result);
                 console.log('Successfully verified');
-                alert('Verification successful. You will now be redirected to the login page.');
+                //alert('Verification successful. You will now be redirected to the login page.');
+				$('#debugWindow').html('Verification successful. You will now be redirected to the login page.');
 				signinUrl = '/index.html';
                 window.location.href = signinUrl;
             },
             function verifyError(err) {
-                alert(err);
+                $('#debugWindow').html(err);
             }
         );
     }
