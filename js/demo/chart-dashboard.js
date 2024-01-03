@@ -88,29 +88,40 @@ function completeRequest(result) {
 	let degrees = jsonObject.item.degrees;	
 	let resultdegrees = degrees.map(obj => [obj.degree, obj.percentage]);
 
-	resultdegrees.sort((a, b) => a[0].localeCompare(b[0]));
-	console.log("resultdegrees " + resultdegrees);
+	resultdegrees.sort((a, b) => {
+		const order = ["bachelor", "master", "doctor"];
+		return order.indexOf(a[0]) - order.indexOf(b[0]);
+	});
+	
 	var chartDegrees = bb.generate({
 	  data: {
 		columns: resultdegrees,
-		type: "pie",
+		type: "bar",
+		labels: false,
 	  },
-	  pie: {
-		label: {
-		  format: function (value, ratio, id) {
-			return value;
-		  }
-		}
+	  bar: {
+		width: 50,
+		height: 200,
+		colors: ["#ff0000", "#00ff00", "#0000ff"],
 	  },
-	  tooltip: {
-		format: {
-		  value: function (value, ratio, id, index) { 
-			return value; // 顯示實際數值
-		  }
-		}
+	  axis: {
+		rotated: true,
+		x: {
+		  type: "category",
+		  categories: [""],
+		},
+		/* y: {
+		  tick: {
+			format: function (d) {
+			  return d + "%"; // 添加%符号
+			},
+		  },
+		}, */
 	  },
-	  bindto: "#degreePieChart"
+	  bindto: "#degreePieChart",
 	});
+
+
 	
 	let seniority = jsonObject.item.seniority;
 	let resultSeniority = Object.entries(seniority).map(([key, value]) => [key+ ' years', parseFloat(value)]);
@@ -649,58 +660,62 @@ function showFrameworksChart()
 	document.getElementById("chartHeader").textContent = "Frameworks or Libraries";
 }
 
+function showCodingChart() {
+	
+    let codingTools = jObjItem.programming_languages;
+    let xTools = [];
+    let yTools = [];
+	
+    xTools[0] = "x";
+    yTools[0] = "Usage";
+	
+    codingTools.forEach((item) => {
+        xTools.push(item.programming_language);
+        yTools.push(item.percentage);
+    });
 
-function showCodingChart()
-{
-	let codingTools = jObjItem.programming_languages;
-	let xTools = [];
-	let yTools = [];
-	xTools[0] = "x";
-	yTools[0] = "Usage";
-	codingTools.forEach((item) => {
-	   xTools.push(item.programming_language);
-	   yTools.push(item.percentage);
-	});
-	
-	
-	var chartIndustries = bb.generate({
-	  data: {
-		x: "x",
-		columns: [
-			xTools,
-			yTools
-		],
-		type: "bar", // for ESM specify as: bar()
-        colors: {  
-            Usage: function(d) { return generateRandomColor(); },			
+    var chartIndustries = bb.generate({
+        data: {
+            x: "x",
+            columns: [
+                xTools,
+                yTools
+            ],
+            type: "bar", // for ESM specify as: bar()
+            colors: {  
+                Usage: function(d) { return generateRandomColor(); },			
+            },
+            names: {
+                Usage: ""  // set "Usage" lable to empty
+            },
+            /* labels: {
+                format: function (v, id, i, j) { return v + '%'; },  // 在這裡添加這行
+            } */
         },
-		names: {
-            Usage: ""  // set "Usage" lable to empty
-        }
-	  },
-	  axis: {
-		x: {
-		  type: "category",
-		  tick: {
-			rotate: -70,
-			multiline: false,
-			tooltip: true
-		  }
-		},
-		y: {
-			label: {
-				text: '%',
-				position: 'outer-middle'  // y lable poistion
-			}
-		}
-	  },
-	  legend: {
-		show: false  // hide bar lable
-	  },
-	  bindto: "#areaChart"
-	});
-	document.getElementById("chartHeader").textContent = "Programming Languages";
+        axis: {
+            x: {
+                type: "category",
+                tick: {
+                    rotate: -70,
+                    multiline: false,
+                    tooltip: true
+                }
+            },
+            y: {
+                label: {
+                    text: '%',
+                    position: 'outer-middle'  // y lable poistion
+                }
+            }
+        },
+        legend: {
+            show: false  // hide bar lable
+        },
+        bindto: "#areaChart"
+    });
+    document.getElementById("chartHeader").textContent = "Programming Languages";
 }
+
 
 async function fetchCardSummary() {
 
