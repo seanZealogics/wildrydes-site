@@ -76,11 +76,17 @@ function generateUniqueColors(count) {
   return colors;
 }
 
-function completeRequest(result) {		
+function completeRequest(result) {
+	
+	
+	
+	
 	var jsonData = JSON.stringify(result);
-	console.log("completeRequest");
+	console.log("completeRequest ");
 	console.log(jsonData);
 	const jsonObject = jQuery.parseJSON(jsonData);
+	
+
 	
 	jObjItem = jsonObject.item;
 
@@ -92,38 +98,73 @@ function completeRequest(result) {
 		const order = ["bachelor", "master", "doctor"];
 		return order.indexOf(a[0]) - order.indexOf(b[0]);
 	});
-	var chartDegrees = bb.generate({
-	  data: {
-		columns: resultdegrees,
-		type: "bar",
-		labels: {
-			format: function (v, id, i, j) { return v + '%'; },  // 在這裡添加這行
-		},
-	  },
-	  bar: {
-		width: 50,
-		height: 200,
-		colors: ["#ff0000", "#00ff00", "#0000ff"],
-	  },
-	  axis: {
-		rotated: true,
-		x: {
-		  type: "category",
-		  categories: [""],
-		},
-		y: {
-		  tick: {
-			format: function (d) {
-			  return d + "%"; // 添加%符号
-			},
-		  },
-		},
-	  },
-	  legend: {
-		show: false 
-	  },
-	  bindto: "#degreePieChart",
+	
+	
+	console.log("completeRequest " + resultdegrees);
+	
+	let xTools = [];
+	let yTools = [];
+		xTools[0] = "x";
+	yTools[0] = "Usage";
+ degrees = ['x']; // 將 'x' 添加到 degrees 陣列的開頭
+ percentages = ['Usage']; // 將 'Usage' 添加到 percentages 陣列的開頭
+
+degrees.length = 0;
+percentages.length = 0;
+
+// 將 resultdegrees 中的 key 和 value 分別存到陣列
+resultdegrees.forEach(([degree, percentage]) => {
+  xTools.push(degree);
+  yTools.push(percentage);
+});
+
+console.log("degrees: " + degrees);
+console.log("percentages: " + percentages);
+
+	console.log("xTools " + xTools);
+	console.log("yTools " + yTools);
+	var chartDegrees= bb.generate({
+	   data: {
+            x: "x",
+            columns: [
+                xTools,
+                yTools
+            ],
+            type: "bar", // for ESM specify as: bar()
+            colors: {  
+                Usage: function(d) { return generateRandomColor(); },			
+            },
+            names: {
+                Usage: ""  // set "Usage" lable to empty
+            },
+            labels: {
+                format: function (v, id, i, j) { return v + '%'; },  // 在這裡添加這行
+            }
+        },
+        axis: {
+            x: {
+                type: "category",
+                tick: {
+                    rotate: -70,
+                    multiline: false,
+                    tooltip: true
+                }
+            },
+            y: {
+                label: {
+                    text: '%',
+                    position: 'outer-middle'  // y lable poistion
+                }
+            }
+        },
+        legend: {
+            show: false  // hide bar lable
+        },
+	  bindto: "#degreePieChart"
 	});
+	document.getElementById("chartHeader").textContent = "Degree";
+
+
 
 
 	
