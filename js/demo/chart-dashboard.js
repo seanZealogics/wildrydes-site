@@ -92,12 +92,13 @@ function completeRequest(result) {
 		const order = ["bachelor", "master", "doctor"];
 		return order.indexOf(a[0]) - order.indexOf(b[0]);
 	});
-	
 	var chartDegrees = bb.generate({
 	  data: {
 		columns: resultdegrees,
 		type: "bar",
-		labels: false,
+		labels: {
+			format: function (v, id, i, j) { return v + '%'; },  // 在這裡添加這行
+		},
 	  },
 	  bar: {
 		width: 50,
@@ -110,13 +111,16 @@ function completeRequest(result) {
 		  type: "category",
 		  categories: [""],
 		},
-		/* y: {
+		y: {
 		  tick: {
 			format: function (d) {
 			  return d + "%"; // 添加%符号
 			},
 		  },
-		}, */
+		},
+	  },
+	  legend: {
+		show: false 
 	  },
 	  bindto: "#degreePieChart",
 	});
@@ -661,14 +665,11 @@ function showFrameworksChart()
 }
 
 function showCodingChart() {
-	
     let codingTools = jObjItem.programming_languages;
     let xTools = [];
     let yTools = [];
-	
     xTools[0] = "x";
     yTools[0] = "Usage";
-	
     codingTools.forEach((item) => {
         xTools.push(item.programming_language);
         yTools.push(item.percentage);
@@ -688,9 +689,9 @@ function showCodingChart() {
             names: {
                 Usage: ""  // set "Usage" lable to empty
             },
-            /* labels: {
+            labels: {
                 format: function (v, id, i, j) { return v + '%'; },  // 在這裡添加這行
-            } */
+            }
         },
         axis: {
             x: {
