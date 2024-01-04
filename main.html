@@ -30,7 +30,20 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css">
+	<style type="text/css" class="init">
 
+		#loading {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 30%;
+			height: 30%;
+			margin-left: -50px; /* half of width */
+			margin-top: -50px; /* half of height */
+			transform: translate(-10%, -50%);
+		}
+		
+	</style>
 </head>
 
 	<body id="page-top" class="dt-example">
@@ -302,6 +315,10 @@
                             </div>
                         </div>
                     </div>
+					
+					<div>
+						<img id="loading" src="images/loading.gif" alt="Loading..." >										
+					</div>
 					
 					<!-- 
 		<div class="main-container">
