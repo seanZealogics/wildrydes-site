@@ -424,6 +424,7 @@ let originalAllData = null;
 	
 	async function updateChangedResmues(updateData)
 	{
+		showLoading();
 		//console.log(JSON.stringify(updateData)); 
 		const response = await fetch( _config.api.updateTagsUrl, {
 			method: 'PUT',
@@ -437,7 +438,7 @@ let originalAllData = null;
 		
 		const jsonResponse = await response.json();
 		//console.log(JSON.stringify(jsonResponse)); 
-		    
+		hideLoading();
 		
 	}
 	
