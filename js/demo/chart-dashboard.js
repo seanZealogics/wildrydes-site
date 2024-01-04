@@ -767,44 +767,51 @@ function showCodingChart() {
     document.getElementById("chartHeader").textContent = "Programming Languages";
 }
 
-
 async function fetchCardSummary() {
+    console.log("fetchCardSummary");
+    
+    let mainQueryData = {"tag": {"included_conditions": ["employee"]}};
+    let controller = new AbortController();
+    let signal = controller.signal;
 
-	console.log("fetchCardSummary");
-		
-	let mainQueryData ={"tag": {"included_conditions": ["employee"]}};
+    setTimeout(() => controller.abort(), 5000); // 5000 milliseconds = 5 seconds
 
-	
-	try {
-			const resumesResponse = await fetch( _config.api.queryUrl, {
-			method: 'POST',
-			mode: 'cors',
-			body: JSON.stringify(mainQueryData)
-		});
-		if (!resumesResponse.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`);
-		}
+    try {
+        const resumesResponse = await fetch(_config.api.queryUrl, {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify(mainQueryData),
+            signal
+        });
 
-		const data = await resumesResponse.json();
+        if (!resumesResponse.ok) {
+            throw new Error(`HTTP error! status: ${resumesResponse.status}`);
+        }
 
-		//console.log(data);
-		handleRequest(data);
-	} catch (e) {
-		if (e.name === 'AbortError') {
-		  console.log('Fetch aborted');
-		} else {
-		  throw e;
-		}
-	}
-	
+        const data = await resumesResponse.json();
+
+        //console.log(data);
+        handleRequest(data);
+        document.getElementById('loading').style.display = 'none';
+    } catch (e) {
+        if (e.name === 'AbortError') {
+            console.log('Fetch aborted');
+        } else {
+            throw e;
+        }
+        document.getElementById('loading').style.display = 'none';
+    }
 }
+
 
 $(function onDocReady() {
 
 
    console.log("chart.js onDocReady init!!" );
-   fetchChartSummary();
+   showLoading();
    fetchCardSummary();
+   fetchChartSummary();
+   
 
 	$('#industriesChart').click(function() {
         console.log("industriesChart init!!" );
