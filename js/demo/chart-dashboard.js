@@ -573,7 +573,10 @@ function showIndustriesChart()
         },
 		names: {
             Usage: ""  // set "Usage" lable to empty
-        }
+        },
+		labels: {
+			format: function (v, id, i, j) { return v + '%'; },
+		}			
 	  },
 	  axis: {
 		x: {
@@ -626,7 +629,10 @@ function showPlatformsChart()
         },
 		names: {
             Usage: ""  // set "Usage" lable to empty
-        }
+        },
+		labels: {
+			format: function (v, id, i, j) { return v + '%'; },  // 在這裡添加這行
+		}
 	  },
 	  axis: {
 		x: {
@@ -679,7 +685,10 @@ function showFrameworksChart()
         },
 		names: {
             Usage: ""  // set "Usage" lable to empty
-        }
+        },
+		labels: {
+			format: function (v, id, i, j) { return v + '%'; },  // 在這裡添加這行
+		}
 	  },
 	  axis: {
 		x: {
