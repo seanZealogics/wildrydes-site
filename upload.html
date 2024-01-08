@@ -254,75 +254,76 @@
 
 		<script>
 		
-	document.getElementById('selectResumesBtn').addEventListener('click', function() {
-    var input = document.createElement('input');
-    input.type = 'file';
-    input.multiple = true;
-    input.onchange = function() {
-        var files = Array.from(this.files);
-        files.forEach(function(file) {
-            // 检查文件名是否已经存在于文件列表中
-            var existingFiles = document.getElementById('fileList').getElementsByTagName('input');
-            for (var i = 0; i < existingFiles.length; i++) {
-                if (existingFiles[i].value === file.name) {
-                    return; // 如果文件已经存在，就跳过
-                }
-            }
-            var rowDiv = document.createElement('div'); // 创建一个新的 div 来包装每一行
-            var div = document.createElement('div');
-            div.className = 'row justify-content-center';
-            var checkboxDiv = document.createElement('div');
-            checkboxDiv.className = 'col-1';
-            var checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.className = 'form-check-input';
-            checkboxDiv.align = 'center';
-            checkbox.style.width = '70%';
-            checkbox.style.height = '70%'; 
-            checkboxDiv.appendChild(checkbox);
-            var selectDiv = document.createElement('div');
-            selectDiv.className = 'col-2';
-            var select = document.createElement('select');
-            select.className = 'form-control';
-            var options = ['tag1', 'tag2', 'tag3'];
-            options.forEach(function(option) {
-                var opt = document.createElement('option');
-                opt.value = option;
-                opt.innerHTML = option;
-                select.appendChild(opt);
-            });
-            selectDiv.appendChild(select);
-            var fileInputDiv = document.createElement('div');
-            fileInputDiv.className = 'col-7';
-            var fileInput = document.createElement('input');
-            fileInput.value = file.name;
-            fileInput.className = 'form-control';
-            fileInputDiv.appendChild(fileInput);
-            var deleteBtnDiv = document.createElement('div');
-            deleteBtnDiv.className = 'col-2';
-            var deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'delete';
-            deleteBtn.className = 'btn btn-danger';
-            deleteBtn.addEventListener('click', function() {
-                this.parentElement.parentElement.parentElement.remove();
-                if (document.getElementById('fileList').children.length === 0) {
-                    document.getElementById('uploadResumeBtn').style.display = 'none';
-                }
-            });
-            deleteBtnDiv.appendChild(deleteBtn);
-            div.appendChild(checkboxDiv);
-            div.appendChild(selectDiv);
-            div.appendChild(fileInputDiv);
-            div.appendChild(deleteBtnDiv);
-            var br = document.createElement('br');
-            rowDiv.appendChild(div); // 将 div 添加到包装 div 中
-            rowDiv.appendChild(br); // 将 <br> 添加到包装 div 中
-            document.getElementById('fileList').appendChild(rowDiv);
-            document.getElementById('uploadResumeBtn').style.display = 'block';
-        });
-    };
-    input.click();
-});
+			document.getElementById('selectResumesBtn').addEventListener('click', function() {
+				var input = document.createElement('input');
+				input.type = 'file';
+				input.accept = '.pdf';
+				input.multiple = true;
+				input.onchange = function() {
+					var files = Array.from(this.files);
+					files.forEach(function(file) {
+						
+						var existingFiles = document.getElementById('fileList').getElementsByTagName('input');
+						for (var i = 0; i < existingFiles.length; i++) {
+							if (existingFiles[i].value === file.name) {
+								return; 
+							}
+						}
+						var rowDiv = document.createElement('div');
+						var div = document.createElement('div');
+						div.className = 'row justify-content-center';
+						var checkboxDiv = document.createElement('div');
+						checkboxDiv.className = 'col-1';
+						var checkbox = document.createElement('input');
+						checkbox.type = 'checkbox';
+						checkbox.className = 'form-check-input';
+						checkboxDiv.align = 'center';
+						checkbox.style.width = '70%';
+						checkbox.style.height = '70%'; 
+						checkboxDiv.appendChild(checkbox);
+						var selectDiv = document.createElement('div');
+						selectDiv.className = 'col-2';
+						var select = document.createElement('select');
+						select.className = 'form-control';
+						var options = ['tag1', 'tag2', 'tag3'];
+						options.forEach(function(option) {
+							var opt = document.createElement('option');
+							opt.value = option;
+							opt.innerHTML = option;
+							select.appendChild(opt);
+						});
+						selectDiv.appendChild(select);
+						var fileInputDiv = document.createElement('div');
+						fileInputDiv.className = 'col-7';
+						var fileInput = document.createElement('input');
+						fileInput.value = file.name;
+						fileInput.className = 'form-control';
+						fileInputDiv.appendChild(fileInput);
+						var deleteBtnDiv = document.createElement('div');
+						deleteBtnDiv.className = 'col-2';
+						var deleteBtn = document.createElement('button');
+						deleteBtn.textContent = 'delete';
+						deleteBtn.className = 'btn btn-danger';
+						deleteBtn.addEventListener('click', function() {
+							this.parentElement.parentElement.parentElement.remove();
+							if (document.getElementById('fileList').children.length === 0) {
+								document.getElementById('uploadResumeBtn').style.display = 'none';
+							}
+						});
+						deleteBtnDiv.appendChild(deleteBtn);
+						div.appendChild(checkboxDiv);
+						div.appendChild(selectDiv);
+						div.appendChild(fileInputDiv);
+						div.appendChild(deleteBtnDiv);
+						var br = document.createElement('br');
+						rowDiv.appendChild(div);
+						rowDiv.appendChild(br);
+						document.getElementById('fileList').appendChild(rowDiv);
+						document.getElementById('uploadResumeBtn').style.display = 'block';
+					});
+				};
+				input.click();
+			});
 
 		</script>
 
