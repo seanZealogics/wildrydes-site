@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html> 
+   
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Zealogics AI Website</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" type="text/css" href="css/sb-admin-2.min.css" >
+	
+	<!-- Custom styles for this page -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="resources/syntax/shCore.css">
+	<link rel="stylesheet" type="text/css" href="resources/demo.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/theme/insight.min.css">
+	<link rel="stylesheet" type="text/css" href="js/vendors/styles/core.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css">
+	<style type="text/css" class="init">
+
+		#loading {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 30%;
+			height: 30%;
+			margin-left: -50px; /* half of width */
+			margin-top: -50px; /* half of height */
+			transform: translate(-10%, -50%);
+		}
+		
+		
+		
+	</style>
+</head>
+<!-- .col ,.col-1, .col-2, .col-2, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-12, .col-auto {
+		  border: 1px solid black;
+		} -->
+	<body id="page-top" class="dt-example">
+
+		<!-- Page Wrapper -->
+		<div id="wrapper">
+
+			<!-- Sidebar -->
+			<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+				<!-- Sidebar - Brand -->
+				<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+					<div >
+						<img src="img/zealogics_logo.png" alt="This is an image" class="img-fluid">
+					</div>
+					<div class="sidebar-brand-text mx-3">AI Resume</div>
+				</a>
+
+				<!-- Nav Item - Charts -->
+				<li class="nav-item">
+					<a class="nav-link" href="main.html">
+						<i class="fas fa-fw fa-chart-area"></i>
+						<span>Employee Statistics</span></a>
+				</li>
+
+				
+				<li class="nav-item">
+					<a class="nav-link" href="search.html">
+						<i class="fas fa-fw fa-search"></i>
+						<span>Search</span></a>
+				</li>
+
+
+				<li class="nav-item active">
+					<a class="nav-link" href="main.html">
+						<i class="fas fa-fw fa-file-archive"></i>
+						<span>Upload Resumes</span></a>
+				</li>
+
+
+				<!-- Divider -->
+				<hr class="sidebar-divider">
+
+
+
+				<!-- Sidebar Toggler (Sidebar) -->
+				<div class="text-center d-none d-md-inline">
+					<button class="rounded-circle border-0" id="sidebarToggle"></button>
+				</div>
+
+
+
+			</ul>
+			<!-- End of Sidebar -->
+
+			<!-- Content Wrapper -->
+			<div id="content-wrapper" class="d-flex flex-column">
+
+				<!-- Main Content -->
+				<div id="content">
+
+					<!-- Topbar -->
+					<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+						<div id="topTitle" class="h5 mb-0 font-weight-bold text-gray-800"></div>
+
+						<!-- Topbar Navbar -->
+						<ul class="navbar-nav ml-auto">
+
+							
+							<div class="topbar-divider d-none d-sm-block"></div>
+
+							<!-- Nav Item - User Information -->
+							<li class="nav-item dropdown no-arrow">
+								<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+									<img class="img-profile rounded-circle"
+										src="img/undraw_profile.svg">
+								</a>
+								<!-- Dropdown - User Information -->
+								<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+									aria-labelledby="userDropdown">
+									<!-- <a class="dropdown-item" href="#">
+										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+										Profile
+									</a>
+									<a class="dropdown-item" href="#">
+										<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+										Settings
+									</a>
+									<a class="dropdown-item" href="#">
+										<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+										Activity Log
+									</a>
+									<div class="dropdown-divider"></div> -->
+									<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+										<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+										Logout
+									</a>
+								</div>
+							</li>
+
+						</ul>
+
+					</nav>
+					<!-- End of Topbar -->
+					
+					<!-- Begin Page Content -->
+					<div class="container">
+						<br>
+							<div class="row justify-content-center">
+								<button id="selectResumesBtn" class="btn btn-primary">Select Resumes</button>
+							</div>
+						</br>
+						
+						<div id="fileList"></div>
+						
+						<br>
+							<div class="row justify-content-center">							
+								<button id="uploadResumeBtn" class="btn btn-success" style="display: none;">Upload Resumes</button>
+							</div>
+						</br>
+					</div>
+					<!-- /.container-fluid -->
+				</div>
+		<!-- <div>
+						<img id="loading" src="images/loading.gif" alt="Loading..." >										
+					</div> -->
+            <!-- End of Main Content -->
+
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright &copy; Zealogics Co. 2023</span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+		
+		
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top">
+			<i class="fas fa-angle-up"></i>
+		</a>
+
+		<!-- Logout Modal-->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+						<a class="btn btn-primary" href="index.html">Logout</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+		<!-- <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script> -->
+		<script type="text/javascript" language="javascript" src="resources/syntax/shCore.js"></script>
+		<script type="text/javascript" language="javascript" src="resources/demo.js"></script>
+
+		<!-- Bootstrap core JavaScript-->
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+		<!-- Core plugin JavaScript-->
+		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+		<!-- Custom scripts for all pages-->
+		<script src="js/sb-admin-2.min.js"></script>
+
+		<!-- Page level plugins -->
+		<script src="https://d3js.org/d3.v7.min.js"></script>
+
+
+		<script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.pkgd.min.js"></script>
+
+		
+
+		<!-- Page level custom scripts -->
+		<script src="js/vendor/aws-cognito-sdk.min.js"></script>
+		<script src="js/vendor/amazon-cognito-identity.min.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/cognito-auth.js"></script>
+		<script src="js/demo/chart-dashboard.js"></script>
+		 
+
+		<script>
+		
+	document.getElementById('selectResumesBtn').addEventListener('click', function() {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.multiple = true;
+    input.onchange = function() {
+        var files = Array.from(this.files);
+        files.forEach(function(file) {
+            // 检查文件名是否已经存在于文件列表中
+            var existingFiles = document.getElementById('fileList').getElementsByTagName('input');
+            for (var i = 0; i < existingFiles.length; i++) {
+                if (existingFiles[i].value === file.name) {
+                    return; // 如果文件已经存在，就跳过
+                }
+            }
+            var rowDiv = document.createElement('div'); // 创建一个新的 div 来包装每一行
+            var div = document.createElement('div');
+            div.className = 'row justify-content-center';
+            var checkboxDiv = document.createElement('div');
+            checkboxDiv.className = 'col-1';
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'form-check-input';
+            checkboxDiv.align = 'center';
+            checkbox.style.width = '70%';
+            checkbox.style.height = '70%'; 
+            checkboxDiv.appendChild(checkbox);
+            var selectDiv = document.createElement('div');
+            selectDiv.className = 'col-2';
+            var select = document.createElement('select');
+            select.className = 'form-control';
+            var options = ['tag1', 'tag2', 'tag3'];
+            options.forEach(function(option) {
+                var opt = document.createElement('option');
+                opt.value = option;
+                opt.innerHTML = option;
+                select.appendChild(opt);
+            });
+            selectDiv.appendChild(select);
+            var fileInputDiv = document.createElement('div');
+            fileInputDiv.className = 'col-7';
+            var fileInput = document.createElement('input');
+            fileInput.value = file.name;
+            fileInput.className = 'form-control';
+            fileInputDiv.appendChild(fileInput);
+            var deleteBtnDiv = document.createElement('div');
+            deleteBtnDiv.className = 'col-2';
+            var deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'delete';
+            deleteBtn.className = 'btn btn-danger';
+            deleteBtn.addEventListener('click', function() {
+                this.parentElement.parentElement.parentElement.remove();
+                if (document.getElementById('fileList').children.length === 0) {
+                    document.getElementById('uploadResumeBtn').style.display = 'none';
+                }
+            });
+            deleteBtnDiv.appendChild(deleteBtn);
+            div.appendChild(checkboxDiv);
+            div.appendChild(selectDiv);
+            div.appendChild(fileInputDiv);
+            div.appendChild(deleteBtnDiv);
+            var br = document.createElement('br');
+            rowDiv.appendChild(div); // 将 div 添加到包装 div 中
+            rowDiv.appendChild(br); // 将 <br> 添加到包装 div 中
+            document.getElementById('fileList').appendChild(rowDiv);
+            document.getElementById('uploadResumeBtn').style.display = 'block';
+        });
+    };
+    input.click();
+});
+
+		</script>
+
+	</body>
+</html>
