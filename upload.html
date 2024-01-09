@@ -248,9 +248,7 @@
 		<script src="js/vendor/aws-cognito-sdk.min.js"></script>
 		<script src="js/vendor/amazon-cognito-identity.min.js"></script>
 		<script src="js/config.js"></script>
-		<script src="js/cognito-auth.js"></script>
-		<script src="js/demo/chart-dashboard.js"></script>
-		 
+		<script src="js/cognito-auth.js"></script>		 
 
 		<script>
 		
@@ -262,45 +260,42 @@
 				input.onchange = function() {
 					var files = Array.from(this.files);
 					files.forEach(function(file) {
-						
-						var existingFiles = document.getElementById('fileList').getElementsByTagName('input');
+						var existingFiles = document.getElementById('fileList').getElementsByTagName('label');
 						for (var i = 0; i < existingFiles.length; i++) {
-							if (existingFiles[i].value === file.name) {
+							if (existingFiles[i].textContent === file.name) {
 								return; 
 							}
 						}
 						var rowDiv = document.createElement('div');
 						var div = document.createElement('div');
 						div.className = 'row justify-content-center';
-						var checkboxDiv = document.createElement('div');
-						checkboxDiv.className = 'col-1';
-						var checkbox = document.createElement('input');
-						checkbox.type = 'checkbox';
-						checkbox.className = 'form-check-input';
-						checkboxDiv.align = 'center';
-						checkbox.style.width = '70%';
-						checkbox.style.height = '70%'; 
-						checkboxDiv.appendChild(checkbox);
-						var selectDiv = document.createElement('div');
-						selectDiv.className = 'col-2';
-						var select = document.createElement('select');
-						select.className = 'form-control';
-						var options = ['tag1', 'tag2', 'tag3'];
-						options.forEach(function(option) {
-							var opt = document.createElement('option');
-							opt.value = option;
-							opt.innerHTML = option;
-							select.appendChild(opt);
-						});
-						selectDiv.appendChild(select);
-						var fileInputDiv = document.createElement('div');
-						fileInputDiv.className = 'col-7';
-						var fileInput = document.createElement('input');
-						fileInput.value = file.name;
-						fileInput.className = 'form-control';
-						fileInputDiv.appendChild(fileInput);
+						
+						var labelTagDiv = document.createElement('div');						
+						labelTagDiv.className = 'col-auto d-flex align-items-center ml-1';
+						var labelTag = document.createElement('label');
+						labelTag.className = 'form-check-label';
+						labelTagDiv.align = 'center';
+						labelTag.textContent = 'TAG Name:'; 
+						labelTagDiv.appendChild(labelTag);
+
+						var inputTagNameDiv = document.createElement('div');
+						inputTagNameDiv.className = 'col-auto d-flex align-items-center p-1';
+						var inputTagName = document.createElement('input');
+						inputTagName.className = 'form-control';
+						inputTagName.placeholder = 'Please add tag name';
+						inputTagName.style.height = '100%'; 
+						inputTagNameDiv.appendChild(inputTagName);
+						
+						var labelFilePathDiv = document.createElement('div');
+						labelFilePathDiv.className = 'col d-flex align-items-center p-1';
+						var labelFilePath = document.createElement('label');						
+						labelFilePath.className = 'form-control mb-0';
+						labelFilePath.textContent = file.name; 
+						labelFilePath.style.height = '100%'; 
+						labelFilePathDiv.appendChild(labelFilePath);
+						
 						var deleteBtnDiv = document.createElement('div');
-						deleteBtnDiv.className = 'col-2';
+						deleteBtnDiv.className = 'col-auto d-flex align-items-center p-1';
 						var deleteBtn = document.createElement('button');
 						deleteBtn.textContent = 'X';
 						deleteBtn.className = 'btn btn-danger';
@@ -311,13 +306,13 @@
 							}
 						});
 						deleteBtnDiv.appendChild(deleteBtn);
-						div.appendChild(checkboxDiv);
-						div.appendChild(selectDiv);
-						div.appendChild(fileInputDiv);
+						
+						div.appendChild(labelTagDiv);
+						div.appendChild(inputTagNameDiv);
+						div.appendChild(labelFilePathDiv);
 						div.appendChild(deleteBtnDiv);
-						var br = document.createElement('br');
 						rowDiv.appendChild(div);
-						rowDiv.appendChild(br);
+						
 						document.getElementById('fileList').appendChild(rowDiv);
 						document.getElementById('uploadResumeBtn').style.display = 'block';
 					});
