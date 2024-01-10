@@ -245,22 +245,22 @@
 		
 
 		<!-- Page level custom scripts -->
-		<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1532.0.min.js"></script>
+		<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
 		<script src="js/vendor/aws-cognito-sdk.min.js"></script>
 		<script src="js/vendor/amazon-cognito-identity.min.js"></script>
 		<script src="js/config.js"></script>
 		<script src="js/cognito-auth.js"></script>		 
 
 		<script>
-		
+			var uploadFiles = [];
 			document.getElementById('selectResumesBtn').addEventListener('click', function() {
 				var input = document.createElement('input');
 				input.type = 'file';
 				input.accept = '.pdf';
 				input.multiple = true;
 				input.onchange = function() {
-					var files = Array.from(this.files);
-					files.forEach(function(file) {
+					uploadFiles = Array.from(this.files);
+					uploadFiles.forEach(function(file) {
 						var existingFiles = document.getElementById('fileList').getElementsByTagName('label');
 						for (var i = 0; i < existingFiles.length; i++) {
 							if (existingFiles[i].textContent === file.name) {
@@ -320,65 +320,52 @@
 				};
 				input.click();
 			});
-		document.getElementById('uploadResumeBtn').addEventListener('click', function() {
-    // 配置 AWS
-    AWS.config.update({
-        region: 'ap-northeast-1', // 替換為你的 AWS 區域
-        accessKeyId: 'AKIAYDGQCEQ7SLUB35UF', // 替換為你的 AWS Access Key
-        secretAccessKey: 'XKkrqsg9DgRMe29Sai6aeax1JiV2KpQICkRwlNyR' // 替換為你的 AWS Secret Key
-    });
-
-    // 建立一個新的 S3 實例
-    var s3 = new AWS.S3();
-
-    var files = document.getElementById('fileList').getElementsByTagName('label');
-    var skippedFiles = [];
-
-    for (const file of files) {
-        var fileName = file.textContent;
-		if (fileName === "TAG Name:") {
-        continue;
-    }
-console.log("fileName: ", fileName);
-        var params = {
-            Bucket: 'testaiwebbucket', // 替換為你的 S3 Bucket 名稱
-            Key: fileName
-        };
-
-        // 檢查檔案是否已存在
-        s3.headObject(params, function(err, data) {
-            if (err && err.code === 'NotFound') {
-                // 檔案不存在，進行上傳
-                $.ajax({
-                    url: `https://testaiwebbucket.s3.amazonaws.com/${fileName}`,
-                    type: 'PUT',
-					mode: 'CORS',
-                    headers: {
-                        'Content-Type': 'application/octet-stream'
-                    },
-                    processData: false,
-                    contentType: false,
-                    data: file,
-                    success: function() {
-                        console.log("Successfully uploaded file.");
-                    },
-                    error: function(uploadError) {
-                        console.log("There was an error uploading your file: ", uploadError.message);
-                    }
-                });
-            } else if (err) {
-                // 打印出其他錯誤訊息
-                console.log("Error checking file existence: ", err.message);
-            } else {
-                // 檔案已存在，將檔案名稱存進陣列並略過上傳
-                skippedFiles.push(fileName);
-            }
-        });
-    }
-});
+			
+			
+			document.getElementById('uploadResumeBtn').addEventListener('click', function() {
+				// 配置 AWS
+				AWS.config.update({
+				  accessKeyId : 'AKIAYDGQCEQ7SLUB35UF',
+				  secretAccessKey : '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',
+				  region : 'ap-northeast-1'
+				});
 
 
+				// 建立一個新的 S3 實例
+				const s3 = new AWS.S3({
+				  apiVersion: '2006-03-01',
+				  signatureVersion: 'v4',
+				});
 
+
+				//var files = document.getElementById('fileList').getElementsByTagName('label');
+				var skippedFiles = [];
+
+				for (const file of uploadFiles) {
+				
+					
+					if (file.name === "TAG Name:") {
+						continue;
+					}
+					console.log("file: ", file);
+					console.log("fileName: ", file.name);
+					var params = {
+						Bucket: 'testaiwebbucket',
+						Key: file.name,
+						Body: file
+					};
+					
+					
+					s3.putObject(params, function(err, data) {
+						if (err) {
+						  console.log(err, err.stack);
+						} else {
+						  console.log('status 200');
+						}
+					});
+					
+				}
+			});
 
 
 		</script>
