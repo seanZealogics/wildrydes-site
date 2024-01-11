@@ -396,6 +396,11 @@
 				});
 
 				upload.send(function(err, data) {
+				
+					$('#tagNameItem').prop('disabled', true);					
+					$('#pdfSelector').prop('disabled', true);
+					$('#uploadResumeBtn').prop('disabled', true);
+				
 					if (err) {
 						console.log(err, err.stack);
 					} else {
@@ -403,6 +408,10 @@
 						// 上傳完成後，將進度條的值設置為100
 						progressCell.find('progress').val(100); 
 					}
+					
+					$('#tagNameItem').prop('disabled', false);					
+					$('#pdfSelector').prop('disabled', false);
+					$('#uploadResumeBtn').prop('disabled', false);
 				});
 			}
 
