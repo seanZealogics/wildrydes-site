@@ -30,6 +30,8 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+	
 	<style type="text/css" class="init">
 
 		#loading {
@@ -43,7 +45,12 @@
 			transform: translate(-10%, -50%);
 		}
 		
-		
+		.center {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
 		
 	</style>
 </head>
@@ -158,21 +165,29 @@
 					
 					<!-- Begin Page Content -->
 					<div class="container">
-						<br>
-							<div class="row justify-content-center">
-								<button id="selectResumesBtn" class="btn btn-primary">Select Resumes</button>
+						<div class="row justify-content-center">
+							<div class="col-12 col-md-8">
+								<input type="file" id="pdfSelector" name="files[]" multiple accept=".pdf" style="display: none;" />
+								<div class="d-flex justify-content-center">
+									<button class="btn btn-primary m-1" onclick="document.getElementById('pdfSelector').click();">Select PDFs</button>
+									<button class="btn btn-success m-1" id="uploadResumeBtn">Upload</button>
+								</div>
+								<table id="pdfTable" class="display" style="width: 100%">
+									<thead>
+										<tr>
+											<th>Tag</th>
+											<th>File Name</th>
+											<th>Remove</th>
+											<th>Progress</th>
+										</tr>
+									</thead>
+									<tbody id="pdfTableBody">
+									</tbody>
+								</table>
 							</div>
-						</br>
-						
-						<div id="fileList"></div>
-						
-						<br>
-							<div class="row justify-content-center">							
-								<button id="uploadResumeBtn" class="btn btn-success" style="display: none;">Upload Resumes</button>
-							</div>
-						</br>
+						</div>
 					</div>
-					<!-- /.container-fluid -->
+					<!-- /.container -->
 				</div>
 		<!-- <div>
 						<img id="loading" src="images/loading.gif" alt="Loading..." >										
@@ -221,28 +236,13 @@
 			</div>
 		</div>
 		
-		<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-		<!-- <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script> -->
-		<script type="text/javascript" language="javascript" src="resources/syntax/shCore.js"></script>
-		<script type="text/javascript" language="javascript" src="resources/demo.js"></script>
-
-		<!-- Bootstrap core JavaScript-->
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 		<!-- Core plugin JavaScript-->
-		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
 		<!-- Custom scripts for all pages-->
 		<script src="js/sb-admin-2.min.js"></script>
-
-		<!-- Page level plugins -->
-		<script src="https://d3js.org/d3.v7.min.js"></script>
-
-
-		<script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.pkgd.min.js"></script>
-
-		
+	
 
 		<!-- Page level custom scripts -->
 		<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
@@ -253,6 +253,70 @@
 
 		<script>
 			var uploadFiles = [];
+			$(document).ready(function() {
+				var table = $('#pdfTable').DataTable({
+					lengthChange: false,
+					searching: false,
+					paging: false,
+					info: false,
+					columnDefs: [
+						{
+							targets: 2,
+							data: null,
+							defaultContent: '<button class="btn btn-danger">Remove</button>',
+							width: "10%"
+						},
+						{
+							targets: 3,
+							data: null,
+							defaultContent: '<progress value="0" max="100"></progress>',
+							width: "10%"
+						}
+					],
+					language: {
+						emptyTable: 'The maximum number of uploaded files is 16'
+					}
+				});
+
+				$('#pdfTable tbody').on('click', 'button', function() {
+					table.row($(this).parents('tr')).remove().draw();
+				});
+			});
+			
+			
+			document.getElementById('pdfSelector').addEventListener('change', function(e) {
+				var table = $('#pdfTable').DataTable();
+				var rowCount = table.data().length;
+				var fileNames = table.column(1).data().toArray(); // 獲取所有已存在的檔案名稱
+
+				for (var i = 0; i < this.files.length; i++) {
+					var file = this.files[i];
+					var fileName = file.name;
+
+					// 檢查檔案是否已經存在
+					var isFileExists = fileNames.includes(fileName);
+					if (isFileExists) {
+						alert('File "' + fileName + '" already exists.');
+						continue;
+					}
+
+					if (rowCount >= 16) {
+						alert('You can only add up to 16 PDF files.');
+						break;
+					}
+
+					table.row.add(['<input type="text" class="form-control">', fileName, null, null]).draw();
+					rowCount++;
+					uploadFiles.push(file);
+					fileNames.push(fileName); // 將新檔案名稱添加到列表中
+				}
+
+				// 清除檔案選擇器的值
+				this.value = null;
+			});
+		
+			
+			/*
 			document.getElementById('selectResumesBtn').addEventListener('click', function() {
 				var input = document.createElement('input');
 				input.type = 'file';
@@ -320,7 +384,7 @@
 				};
 				input.click();
 			});
-			
+			*/
 			
 			document.getElementById('uploadResumeBtn').addEventListener('click', function() {
 				// 配置 AWS
