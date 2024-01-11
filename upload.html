@@ -177,6 +177,9 @@
 									<button class="btn btn-primary m-1" onclick="document.getElementById('pdfSelector').click();">Select PDFs</button>
 									<button class="btn btn-success m-1" id="uploadResumeBtn">Upload PDFs</button>
 								</div>
+								
+								<p>
+								
 								<table id="pdfTable" class="display" style="width: 100%">
 									<thead>
 										<tr>
@@ -263,25 +266,24 @@
 		<script>
 			var uploadFiles = [];
 			
+			function updateTagInDataTable(selectedTagName) {
+				var table = $('#pdfTable').DataTable();
+				table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+					var progressCell = table.cell(rowIdx, 0).nodes().to$();
+					progressCell.find('input').val(selectedTagName);
+				});
+			}
+				
+			
 			function removeTagItem(button) {
 				// Remove the corresponding row
 				var row = $(button).closest('.dropdown-item');
 				row.remove();
+				updateTagInDataTable("");
 			}
 			
 			$(document).ready(function() {
 				// Add new tag item to the dropdown
-				$('#addNewTag').on('click', function () {
-					var newTagName = prompt('Enter new tag name:');
-					if (newTagName !== null) {
-						var newItem = $('<div class="dropdown-item d-flex justify-content-between align-items-center">' +
-											'<span>' + newTagName + '</span>' +
-											'<button class="btn btn-danger btn-sm ml-2" onclick="removeTagItem(this)">X</button>' +
-										'</div>');
-						$('.dropdown-menu').prepend(newItem);
-					}
-				});
-				
 				var table = $('#pdfTable').DataTable({
 					lengthChange: false,
 					searching: false,
@@ -305,6 +307,23 @@
 						emptyTable: 'The maximum number of uploaded files is 16'
 					}
 				});
+				
+				$('#addNewTag').on('click', function () {
+					var newTagName = prompt('Enter new tag name:');
+					if (newTagName !== null) {
+						var newItem = $('<div class="dropdown-item d-flex justify-content-between align-items-center">' +
+							'<span>' + newTagName + '</span>' +
+							'<button class="btn btn-danger btn-sm ml-2 removeTagBtn" onclick="removeTagItem(this)">X</button>' +
+							'</div>');
+						$('.dropdown-menu').prepend(newItem);
+
+						// Attach a click event listener to the newly added item
+						newItem.on('click', function() {
+							var selectedTagName = $(this).find('span').text();
+							updateTagInDataTable(selectedTagName);
+						});
+					}
+				});
 
 				$('#pdfTable tbody').on('click', 'button', function() {
 					table.row($(this).parents('tr')).remove().draw();
@@ -313,8 +332,10 @@
 				function checkTableData() {
 					var rowCount = table.data().length;
 					if (rowCount > 0) {
+						$('#tagNameItem').prop('disabled', false);
 						$('#uploadResumeBtn').prop('disabled', false);
 					} else {
+						$('#tagNameItem').prop('disabled', true);
 						$('#uploadResumeBtn').prop('disabled', true);
 					}
 				}
