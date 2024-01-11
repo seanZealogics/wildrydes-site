@@ -170,7 +170,7 @@
 								<input type="file" id="pdfSelector" name="files[]" multiple accept=".pdf" style="display: none;" />
 								<div class="d-flex justify-content-center">
 									<button class="btn btn-primary m-1" onclick="document.getElementById('pdfSelector').click();">Select PDFs</button>
-									<button class="btn btn-success m-1" id="uploadResumeBtn">Upload</button>
+									<button class="btn btn-success m-1" id="uploadResumeBtn">Upload PDFs</button>
 								</div>
 								<table id="pdfTable" class="display" style="width: 100%">
 									<thead>
@@ -281,7 +281,22 @@
 				$('#pdfTable tbody').on('click', 'button', function() {
 					table.row($(this).parents('tr')).remove().draw();
 				});
+				
+				function checkTableData() {
+					var rowCount = table.data().length;
+					if (rowCount > 0) {
+						$('#uploadResumeBtn').prop('disabled', false);
+					} else {
+						$('#uploadResumeBtn').prop('disabled', true);
+					}
+				}
+				
+				checkTableData();
+				table.on('draw', checkTableData);
+				
 			});
+			
+			
 			
 			
 			document.getElementById('pdfSelector').addEventListener('change', function(e) {
