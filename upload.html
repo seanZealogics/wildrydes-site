@@ -296,9 +296,6 @@
 				
 			});
 			
-			
-			
-			
 			document.getElementById('pdfSelector').addEventListener('change', function(e) {
 				var table = $('#pdfTable').DataTable();
 				var rowCount = table.data().length;
@@ -329,123 +326,57 @@
 				// 清除檔案選擇器的值
 				this.value = null;
 			});
-		
 			
-			/*
-			document.getElementById('selectResumesBtn').addEventListener('click', function() {
-				var input = document.createElement('input');
-				input.type = 'file';
-				input.accept = '.pdf';
-				input.multiple = true;
-				input.onchange = function() {
-					uploadFiles = Array.from(this.files);
-					uploadFiles.forEach(function(file) {
-						var existingFiles = document.getElementById('fileList').getElementsByTagName('label');
-						for (var i = 0; i < existingFiles.length; i++) {
-							if (existingFiles[i].textContent === file.name) {
-								return; 
-							}
-						}
-						var rowDiv = document.createElement('div');
-						var div = document.createElement('div');
-						div.className = 'row justify-content-center';
-						
-						var labelTagDiv = document.createElement('div');						
-						labelTagDiv.className = 'col-auto d-flex align-items-center ml-1';
-						var labelTag = document.createElement('label');
-						labelTag.className = 'form-check-label';
-						labelTagDiv.align = 'center';
-						labelTag.textContent = 'TAG Name:'; 
-						labelTagDiv.appendChild(labelTag);
-
-						var inputTagNameDiv = document.createElement('div');
-						inputTagNameDiv.className = 'col-auto d-flex align-items-center p-1';
-						var inputTagName = document.createElement('input');
-						inputTagName.className = 'form-control';
-						inputTagName.placeholder = 'Please add tag name';
-						inputTagName.style.height = '100%'; 
-						inputTagNameDiv.appendChild(inputTagName);
-						
-						var labelFilePathDiv = document.createElement('div');
-						labelFilePathDiv.className = 'col d-flex align-items-center p-1';
-						var labelFilePath = document.createElement('label');						
-						labelFilePath.className = 'form-control mb-0';
-						labelFilePath.textContent = file.name; 
-						labelFilePath.style.height = '100%'; 
-						labelFilePathDiv.appendChild(labelFilePath);
-						
-						var deleteBtnDiv = document.createElement('div');
-						deleteBtnDiv.className = 'col-auto d-flex align-items-center p-1';
-						var deleteBtn = document.createElement('button');
-						deleteBtn.textContent = 'X';
-						deleteBtn.className = 'btn btn-danger';
-						deleteBtn.addEventListener('click', function() {
-							this.parentElement.parentElement.parentElement.remove();
-							if (document.getElementById('fileList').children.length === 0) {
-								document.getElementById('uploadResumeBtn').style.display = 'none';
-							}
-						});
-						deleteBtnDiv.appendChild(deleteBtn);
-						
-						div.appendChild(labelTagDiv);
-						div.appendChild(inputTagNameDiv);
-						div.appendChild(labelFilePathDiv);
-						div.appendChild(deleteBtnDiv);
-						rowDiv.appendChild(div);
-						
-						document.getElementById('fileList').appendChild(rowDiv);
-						document.getElementById('uploadResumeBtn').style.display = 'block';
-					});
+			function uploadFile(index, file, table) {
+				var params = {
+					Bucket: 'testaiwebbucket',
+					Key: file.name,
+					Body: file
 				};
-				input.click();
-			});
-			*/
-			
+
+				var upload = new AWS.S3.ManagedUpload({
+					params: params
+				});
+
+				var progressCell = table.cell(index, 3).nodes().to$();
+
+				upload.on('httpUploadProgress', function(evt) {
+					// 更新DataTable中的進度條
+					var progress = Math.round(evt.loaded * 100 / evt.total);
+					progressCell.find('progress').val(progress);
+				});
+
+				upload.send(function(err, data) {
+					if (err) {
+						console.log(err, err.stack);
+					} else {
+						console.log('status 200');
+						// 上傳完成後，將進度條的值設置為100
+						progressCell.find('progress').val(100); 
+					}
+				});
+			}
+
 			document.getElementById('uploadResumeBtn').addEventListener('click', function() {
 				// 配置 AWS
 				AWS.config.update({
-				  accessKeyId : 'AKIAYDGQCEQ7SLUB35UF',
-				  secretAccessKey : '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',
-				  region : 'ap-northeast-1'
+					accessKeyId : 'AKIAYDGQCEQ7SLUB35UF',
+					secretAccessKey : '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',
+					region : 'ap-northeast-1'
 				});
-
 
 				// 建立一個新的 S3 實例
 				const s3 = new AWS.S3({
-				  apiVersion: '2006-03-01',
-				  signatureVersion: 'v4',
+					apiVersion: '2006-03-01',
+					signatureVersion: 'v4',
 				});
 
+				var table = $('#pdfTable').DataTable();
 
-				//var files = document.getElementById('fileList').getElementsByTagName('label');
-				var skippedFiles = [];
-
-				for (const file of uploadFiles) {
-				
-					
-					if (file.name === "TAG Name:") {
-						continue;
-					}
-					console.log("file: ", file);
-					console.log("fileName: ", file.name);
-					var params = {
-						Bucket: 'testaiwebbucket',
-						Key: file.name,
-						Body: file
-					};
-					
-					
-					s3.putObject(params, function(err, data) {
-						if (err) {
-						  console.log(err, err.stack);
-						} else {
-						  console.log('status 200');
-						}
-					});
-					
+				for (const [index, file] of uploadFiles.entries()) {
+					uploadFile(index, file, table);  // Pass 'table' as a parameter
 				}
 			});
-
 
 		</script>
 
