@@ -265,12 +265,50 @@
 		<script src="js/cognito-auth.js"></script>		 
 
 		<script>
-			// 獲取dropdown menu
 			
-
-		
-
 			var uploadFiles = [];
+			
+			var dataTableSettings = {
+				lengthChange: false,
+				searching: false,
+				paging: false,
+				info: false,
+				autoWidth: false,	
+				sorting: false,	
+				columnDefs: [
+					{
+						targets: 0, // filename 欄位是第二個欄位
+						width: "20%",
+						orderable: false
+					},
+					{
+						targets: 1, // filename 欄位是第二個欄位
+						width: "45%",
+						orderable: false
+					},					
+					{
+						targets: 2,
+						data: null,
+						defaultContent: '<progress value="0" max="100" style="width: 100%;"></progress>',
+						width: "30%",
+						orderable: false
+					},
+					{
+						targets: 3,
+						data: null,
+						defaultContent: '<button class="btn btn-danger">X</button>',
+						width: "5%",
+						orderable: false
+					}
+				],
+				drawCallback: function() {
+					if (!this.api().data().any()) {
+						$('#pdfTable').hide();
+					} else {
+						$('#pdfTable').show();
+					}
+				}
+			};
 			
 			function updateTagInDataTable(selectedTagName) {
 				var table = $('#pdfTable').DataTable();
@@ -296,21 +334,18 @@
 				let dropdownMenu = $('.dropdown-menu');
 				
 				$('#removeAllResumeBtn').click(function() {
-    // 銷毀 DataTable 實例
-    var table = $('#pdfTable').DataTable();
-    table.destroy();
+					// 銷毀 DataTable 實例
+					var table = $('#pdfTable').DataTable();
+					//table.destroy();
+					table.clear().draw();
+	
+					// 清除 data table 的內容
+					$('#pdfTable').empty();
 
-    // 清除 data table 的內容
-    $('#pdfTable').empty();
 
-    // 初始化新的 DataTable 實例
-    var newTable = $('#pdfTable').DataTable({
-        // your DataTable configuration options here
-    });
-
-    // 隱藏 data table
-    $('#pdfTable').hide();
-});
+					// 隱藏 data table
+					$('#pdfTable').hide();
+				});
 
 				// 為dropdown menu的每一個item添加click事件
 				dropdownMenu.on('click', '.dropdown-item', function(event) {
@@ -326,48 +361,9 @@
 					}
 				});
 				
+				
 				// Add new tag item to the dropdown
-				var table = $('#pdfTable').DataTable({
-					lengthChange: false,
-					searching: false,
-					paging: false,
-					info: false,
-					autoWidth: false,	
-					sorting: false,	
-					columnDefs: [
-						{
-							targets: 0, // filename 欄位是第二個欄位
-							width: "20%",
-							orderable: false
-						},
-						{
-							targets: 1, // filename 欄位是第二個欄位
-							width: "45%",
-							orderable: false
-						},					
-						{
-							targets: 2,
-							data: null,
-							defaultContent: '<progress value="0" max="100" style="width: 100%;"></progress>',
-							width: "30%",
-							orderable: false
-						},
-						{
-							targets: 3,
-							data: null,
-							defaultContent: '<button class="btn btn-danger">X</button>',
-							width: "5%",
-							orderable: false
-						}
-					],
-					drawCallback: function() {
-						if (!this.api().data().any()) {
-							$('#pdfTable').hide();
-						} else {
-							$('#pdfTable').show();
-						}
-					}
-				});
+				var table = $('#pdfTable').DataTable(dataTableSettings);
 				
 				$('#addNewTag').on('click', function () {
 					var newTagName = prompt('Enter new tag name:');
@@ -420,7 +416,10 @@
 			});
 			
 			document.getElementById('pdfSelector').addEventListener('change', function(e) {
-				var table = $('#pdfTable').DataTable();
+				$('#pdfTable').DataTable().destroy();
+				
+				
+				var table = $('#pdfTable').DataTable(dataTableSettings);
 				var rowCount = table.data().length;
 				var fileNames = table.column(1).data().toArray(); // 獲取所有已存在的檔案名稱
 
