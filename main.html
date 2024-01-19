@@ -72,7 +72,14 @@
 			border-left: 5px solid #b5d6eb;
 		}
 		
-	
+		.custom-shadow {
+			box-shadow: 500px 0 10px rgba(0, 0, 0, 0.1); /* 調整這裡的數值以達到您想要的深度 */
+		}
+		
+		.sidebar-brand-text {
+			text-transform: none;
+		}
+		
     </style
 	</style>
 </head>
@@ -83,16 +90,15 @@
 		<div id="wrapper">
 
 			<!-- Sidebar -->
-			<ul class="navbar-nav sidebar accordion" id="accordionSidebar">
+			<ul class="navbar-nav sidebar custom-shadow" id="accordionSidebar">
 
 				<!-- Sidebar - Brand -->
-				<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+				<a class="sidebar-brand d-flex align-items-center justify-content-left" href="index.html">
 					<div >
-						<img src="img/zealogics_logo.png" alt="This is an image" class="img-fluid">
+						<img src="img/zealogics_logo.png" alt="This is an image" class="img-fluid"  style="max-width: 15px;">
 					</div>			
 					<div class="sidebar-brand-text text-center m-1"  style="color: navy;">
-						<div class="brand-text-small">Talent</div>
-						<div class="brand-text-small">Matrix</div>
+						<div >TalentMatrix</div>
 					</div>					
 				</a>
 				
