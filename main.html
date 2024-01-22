@@ -33,11 +33,11 @@
 	<style type="text/css" class="init">
 
 		#loading {
-			position: absolute;
+			position: fixed;
 			top: 50%;
 			left: 50%;
-			width: 30%;
-			height: 15%;
+			width: 25%;
+			height: 25%;
 			margin-left: -50px; /* half of width */
 			margin-top: -50px; /* half of height */
 			transform: translate(-10%, -50%);
@@ -56,7 +56,7 @@
 		
 		.container-fluid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr 2fr 2fr;
             grid-template-rows: repeat(4, 1fr);
             grid-gap: 1rem;
         }
@@ -79,6 +79,8 @@
 		.sidebar-brand-text {
 			text-transform: none;
 		}
+		
+
 		
     </style
 	</style>
@@ -199,22 +201,22 @@
 		
 				<!-- Earnings (Monthly) Card Example -->
 				
-				<div class="card border-left-primary shadow py-2">
+				<div class="card border-left-primary shadow py-0" style="height: 80%;" >
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;"">
-									Number Of Employees</div>
-								<div id="numbers" class="h5 mb-0 font-weight-bold text-gray-800">168</div>
-							</div>
-							<div class="col-auto">
-								<i class="fas fa-people-group fa-2x text-gray-300"></i>
-							</div>
+								<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;">
+									Number Of Employees
+								</div>
+								<div id="numbers" class="h4 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center"> <!-- 加入 d-flex justify-content-center 以將數字置中 -->
+									168
+								</div>
+							</div>						
 						</div>
 					</div>
 				</div>
 				
-				<div class="card card-span shadow mb-4">
+				<div class="card card-span shadow mb-4" style="height: 90%;">
 					<!-- Card Header - Dropdown -->
 					<div
 						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -228,7 +230,7 @@
 				</div>
 				
 				
-				<div class="card card-span shadow mb-4">
+				<div class="card card-span shadow mb-4" style="height: 90%; ">
 					<!-- Card Header - Dropdown -->
 					<div
 						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -243,8 +245,7 @@
 								<div class="dropdown-header">Select Charts:</div>
 								<a id="codingChart" class="dropdown-item" href="#">Programming Languages</a>
 								<a id="industriesChart" class="dropdown-item" href="#">Industries</a>
-								<a id="platformsChart"  class="dropdown-item" href="#">Cloud Platforms</a>                                            
-								<a id="frameworksChart" class="dropdown-item" href="#">Frameworks or Libraries</a>
+							
 								<!-- <div class="dropdown-divider"></div> -->
 							</div>
 						</div>
@@ -257,22 +258,19 @@
 					</div>
 				</div>		
 				
-				<div class="card border-left-info shadow h-100 py-2">
+				<div class="card border-left-info shadow py-0" style="height: 80%; ">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-sm my-text-info text-uppercase mb-1" style="color: navy; font-size: 14px;">
 									Number Of SPY</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">35</div>
-							</div>
-							<div class="col-auto">
-								<i class="fas fa-user-secret fa-2x text-gray-300"></i>
-							</div>
+								<div class="h4 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center">35</div>
+							</div>							
 						</div>
 					</div>
 				</div>
 				
-				<div class="card custom-border2 shadow h-100 py-2">
+				<div class="card custom-border2 shadow" style="height: 80%; ">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
@@ -280,7 +278,7 @@
 								</div>
 								<div class="row no-gutters align-items-center">
 									<div class="col-auto">
-										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+										<div class="h4 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
 									</div>
 									<div class="col">
 										<div class="progress progress-sm mr-2">
@@ -291,14 +289,12 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-auto">
-								<i class="fas fa-user-ninja fa-2x text-gray-300"></i>
-							</div>
+							
 						</div>
 					</div>
 				</div>
 				<!-- 第二個 column 有 2 個 cards，各跨越 2 個 row -->
-				<div class="card card-span shadow mb-4">
+				<div class="card card-span shadow mb-4" style="height: 90%; ">
 					<!-- Card Header - Dropdown -->
 					<div
 						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -312,23 +308,43 @@
 
 
 				<!-- 第三個 column 有 2 個 cards，各跨越 2 個 row -->
-				<div class="card card-span">
+				<div class="card card-span shadow mb-4" style="height: 90%; ">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 id="chartHeader" class="m-0 " style="color: navy; font-size: 14px;">Cloud Platforms</h6>
+						<div class="dropdown no-arrow">
+							<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+								aria-labelledby="dropdownMenuLink">
+								<div class="dropdown-header">Select Charts:</div>
+								
+								<a id="platformsChart"  class="dropdown-item" href="#">Cloud Platforms</a>                                            
+								<a id="frameworksChart" class="dropdown-item" href="#">Frameworks or Libraries</a>
+								<!-- <div class="dropdown-divider"></div> -->
+							</div>
+						</div>
+					</div>
+					<!-- Card Body -->
 					<div class="card-body">
-						<h5 class="card-title">Card 7</h5>
-						<p class="card-text">This card spans across two rows.</p>
+						<div class="chart-area">
+						   <div id="menuBarChart"></div>
+						</div>
 					</div>
 				</div>
-				<div class="card custom-border1 shadow h-100 py-2">
+				
+				<div class="card custom-border1 shadow py-0" style="height: 80%; ">
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;">
 									Bugs of Project</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+								<div class="h4 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center"">0</div>
 							</div>
-							<div class="col-auto">
-								<i class="fas fa-bug fa-2x text-gray-300"></i>
-							</div>
+							
 						</div>
 					</div>
 				</div>

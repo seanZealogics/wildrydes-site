@@ -104,22 +104,22 @@ function completeRequest(result) {
 	
 	let xTools = [];
 	let yTools = [];
-		xTools[0] = "x";
+	xTools[0] = "x";
 	yTools[0] = "Usage";
- degrees = ['x']; // 將 'x' 添加到 degrees 陣列的開頭
- percentages = ['Usage']; // 將 'Usage' 添加到 percentages 陣列的開頭
+	degrees = ['x']; // 將 'x' 添加到 degrees 陣列的開頭
+	percentages = ['Usage']; // 將 'Usage' 添加到 percentages 陣列的開頭
 
-degrees.length = 0;
-percentages.length = 0;
+	degrees.length = 0;
+	percentages.length = 0;
 
-// 將 resultdegrees 中的 key 和 value 分別存到陣列
-resultdegrees.forEach(([degree, percentage]) => {
-  xTools.push(degree);
-  yTools.push(percentage);
-});
+	// 將 resultdegrees 中的 key 和 value 分別存到陣列
+	resultdegrees.forEach(([degree, percentage]) => {
+		xTools.push(degree);
+		yTools.push(percentage);
+	});
 
-console.log("degrees: " + degrees);
-console.log("percentages: " + percentages);
+	console.log("degrees: " + degrees);
+	console.log("percentages: " + percentages);
 
 	console.log("xTools " + xTools);
 	console.log("yTools " + yTools);
@@ -132,7 +132,7 @@ console.log("percentages: " + percentages);
             ],
             type: "bar", // for ESM specify as: bar()
             colors: {  
-                Usage: function(d) { return generateRandomColor(); },			
+                Usage: "#96deff",			
             },
             names: {
                 Usage: ""  // set "Usage" lable to empty
@@ -189,12 +189,15 @@ console.log("percentages: " + percentages);
 		donut: {
 			title: "100%",
 		},
+		color: {
+        pattern: ["#96deff", "#6cb2eb", "#4285f4", "#1967d2", "#174ea6"],
+		},
 		bindto: "#seniorityChart",
 	});
 	
 	
 	showCodingChart();
-
+	showPlatformsChart();
 	//let resultIndustries = Object.entries(industries).map(([key, value]) => [key, parseFloat(value)]);
 /* 	var myBarChart = new Chart(ctxIndustries, {
 	  type: 'bar',
@@ -625,7 +628,7 @@ function showPlatformsChart()
 		],
 		type: "bar", // for ESM specify as: bar()
         colors: {  
-            Usage: function(d) { return generateRandomColor(); },			
+            Usage: "#b5d6eb",
         },
 		names: {
             Usage: ""  // set "Usage" lable to empty
@@ -653,7 +656,7 @@ function showPlatformsChart()
 	  legend: {
 		show: false
 	  },
-	  bindto: "#areaChart"
+	  bindto: "#menuBarChart"
 	});
 	document.getElementById("chartHeader").textContent = "Cloud Platforms";
 }
@@ -709,7 +712,7 @@ function showFrameworksChart()
 	  legend: {
 		show: false
 	  },
-	  bindto: "#areaChart"
+	  bindto: "#menuBarChart"
 	});
 	document.getElementById("chartHeader").textContent = "Frameworks or Libraries";
 }
@@ -734,7 +737,7 @@ function showCodingChart() {
             ],
             type: "bar", // for ESM specify as: bar()
             colors: {  
-                Usage: function(d) { return generateRandomColor(); },			
+                Usage: "#17a2b8",		
             },
             names: {
                 Usage: ""  // set "Usage" lable to empty
