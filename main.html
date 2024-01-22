@@ -33,16 +33,56 @@
 	<style type="text/css" class="init">
 
 		#loading {
-			position: absolute;
+			position: fixed;
 			top: 50%;
 			left: 50%;
-			width: 30%;
-			height: 30%;
+			width: 25%;
+			height: 25%;
 			margin-left: -50px; /* half of width */
 			margin-top: -50px; /* half of height */
 			transform: translate(-10%, -50%);
 		}
+		.brand-text-small {
+			font-size: 14px;  /* 根據需要調整字體大小 */
+		}
 		
+		.nav-item.active a.nav-link span {
+			color: blue;  /* 你可以選擇任何深藍色 */
+		}
+		
+		.nav-item a.nav-link span {
+			color: navy;  /* 你可以選擇任何深藍色 */
+		}
+		
+		.container-fluid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 2fr;
+            grid-template-rows: repeat(4, 1fr);
+            grid-gap: 1rem;
+        }
+        .card-span {
+            grid-row: span 2;
+        }
+		
+		.custom-border1 {
+			border-left: 5px solid #96deff;
+		}
+		
+		.custom-border2 {
+			border-left: 5px solid #b5d6eb;
+		}
+		
+		.custom-shadow {
+			box-shadow: 500px 0 10px rgba(0, 0, 0, 0.1); /* 調整這裡的數值以達到您想要的深度 */
+		}
+		
+		.sidebar-brand-text {
+			text-transform: none;
+		}
+		
+
+		
+    </style
 	</style>
 </head>
 
@@ -52,34 +92,37 @@
 		<div id="wrapper">
 
 			<!-- Sidebar -->
-			<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+			<ul class="navbar-nav sidebar custom-shadow" id="accordionSidebar">
 
 				<!-- Sidebar - Brand -->
-				<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+				<a class="sidebar-brand d-flex align-items-center justify-content-left" href="index.html">
 					<div >
-						<img src="img/zealogics_logo.png" alt="This is an image" class="img-fluid">
-					</div>
-					<div class="sidebar-brand-text mx-3">AI Resume</div>
+						<img src="img/zealogics_logo.png" alt="This is an image" class="img-fluid"  style="max-width: 15px;">
+					</div>			
+					<div class="sidebar-brand-text text-center m-1"  style="color: navy;">
+						<div >TalentMatrix</div>
+					</div>					
 				</a>
+				
 
 				<!-- Nav Item - Charts -->
 				<li class="nav-item active">
 					<a class="nav-link" href="main.html">
-						<i class="fas fa-fw fa-chart-area"></i>
+						<i class="fas fa-fw fa-chart-area" ></i>
 						<span>Employee Statistics</span></a>
 				</li>
 
 				
 				<li class="nav-item">
 					<a class="nav-link" href="search.html">
-						<i class="fas fa-fw fa-search"></i>
+						<i class="fas fa-fw fa-search" style="color: navy;"></i>
 						<span>Search</span></a>
 				</li>
 
 
 				<li class="nav-item">
 					<a class="nav-link" href="upload.html">
-						<i class="fas fa-fw fa-file-archive"></i>
+						<i class="fas fa-fw fa-file-archive" style="color: navy;"></i>
 						<span>Upload Resumes</span></a>
 				</li>
 
@@ -108,7 +151,7 @@
 					<!-- Topbar -->
 					<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-						<div id="topTitle" class="h5 mb-0 font-weight-bold text-gray-800"></div>
+						<div id="topTitle" class="h8 mb-0 text-navy"></div>
 
 						<!-- Topbar Navbar -->
 						<ul class="navbar-nav ml-auto">
@@ -120,7 +163,7 @@
 							<li class="nav-item dropdown no-arrow">
 								<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+									<span class="mr-2 d-none d-lg-inline text-navy small"></span>
 									<img class="img-profile rounded-circle"
 										src="img/undraw_profile.svg">
 								</a>
@@ -151,245 +194,167 @@
 
 					</nav>
 					<!-- End of Topbar -->
-
+				</div>
 					<!-- Begin Page Content -->
-					<div class="container-fluid">
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">
-                                                Number Of Employees</div>
-                                            <div id="numbers" class="h5 mb-0 font-weight-bold text-gray-800">168</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-people-group fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-sm font-weight-bold text-success text-uppercase mb-1">
-                                                Number Of SPY</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">35</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user-secret fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-sm font-weight-bold text-info text-uppercase mb-1">Number Of NINJA
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user-ninja fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">
-                                                Bugs of Project</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-bug fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-
-                    <div class="row">
-					
-					   <!-- Pie Chart -->
-                        <div class="col-xl-3 col-lg-3">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Degrees</h5>
-                                   
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                   
-									<div id="degreePieChart"></div>                             
-                                   
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="card shadow mb-4">
-								  <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 id="chartHeader" class="m-0 font-weight-bold text-primary">Programming Languages</h5>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Select Charts:</div>
-											<a id="codingChart" class="dropdown-item" href="#">Programming Languages</a>
-                                            <a id="industriesChart" class="dropdown-item" href="#">Industries</a>
-                                            <a id="platformsChart"  class="dropdown-item" href="#">Cloud Platforms</a>                                            
-                                            <a id="frameworksChart" class="dropdown-item" href="#">Frameworks or Libraries</a>
-											<!-- <div class="dropdown-divider"></div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                       <div id="areaChart"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pie Chart -->
-                        <div class="col-xl-3 col-lg-3">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Seniority</h5>
-                                   
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                  
-                                        <div id="seniorityChart"></div>
-                                   
-                                   
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-					
-					<div>
-						<img id="loading" src="images/loading.gif" alt="Loading..." >										
-					</div>
-					
-					<!-- 
-		<div class="main-container">
-			<div class="pd-ltr-20">
+			<div class="container-fluid">
+		
+		
+				<!-- Earnings (Monthly) Card Example -->
 				
-				
-				<div class="row">
-					<div class="col-xl-3 mb-30">
-						<div class="card border-left-primary shadow h-100 py-2">
-							<div class="card-body d-flex flex-wrap align-items-center">
-								<div class="row no-gutters align-items-center progress-data">
-									<div id="chart"></div>
+				<div class="card border-left-primary shadow py-0" style="height: 80%;" >
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;">
+									Number Of Employees
 								</div>
-								<div class="col-auto">
-									<div class="h5 mb-0">2020</div>
-									<div class="h6 mb-0 font-weight-bold text-primary text-uppercase text-gray-800">Contact</div>
+								<div id="numbers" class="h1 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center"> <!-- 加入 d-flex justify-content-center 以將數字置中 -->
+									168
 								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 mb-30">
-						<div class="card border-left-success shadow h-100 py-2">
-							<div class="card-body d-flex flex-wrap align-items-center">
-								<div class="row no-gutters align-items-center progress-data">
-									<div id="chart2"></div>
-								</div>
-								<div class="col-auto">
-									<div class="h5 mb-0">400</div>
-									<div class="h6 mb-0 font-weight-bold text-success text-uppercase text-gray-800">Deals</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 mb-30">
-						<div class="card border-left-warning shadow h-100 py-2">
-							<div class="card-body d-flex flex-wrap align-items-center">
-								<div class="row no-gutters align-items-center progress-data">
-									<div id="chart3"></div>
-								</div>
-								<div class="col-auto">
-									<div class="h5 mb-0">350</div>
-									<div class="h6 mb-0 font-weight-bold text-warning text-uppercase text-gray-800">Campaign</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 mb-30">
-						<div class="card border-left-secondary shadow h-100 py-2">
-							<div class="card-body d-flex flex-wrap align-items-center">
-								<div class="row no-gutters align-items-center progress-data">
-									<div id="chart4"></div>
-								</div>
-								<div class="col-auto">
-									<div class="h5 mb-0">$6060</div>
-									<div class="h6 mb-0 font-weight-bold text-secondary text-uppercase text-gray-800">Worth</div>
-								</div>
-							</div>
+							</div>						
 						</div>
 					</div>
 				</div>
-			
+				
+				<div class="card card-span shadow mb-4" style="height: 90%;">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 " style="color: navy; font-size: 14px;">Degrees</h5>
+					   
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">					   
+						<div id="degreePieChart"></div>
+					</div>
+				</div>
+				
+				
+				<div class="card card-span shadow mb-4" style="height: 90%; ">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 id="chartHeader" class="m-0 " style="color: navy; font-size: 14px;">Computer Language Distribution</h6>
+						<div class="dropdown no-arrow">
+							<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+								aria-labelledby="dropdownMenuLink">
+								<div class="dropdown-header">Select Charts:</div>
+								<a id="codingChart" class="dropdown-item" href="#">Computer Language Distribution</a>
+								<a id="industriesChart" class="dropdown-item" href="#">Industries</a>
+							
+								<!-- <div class="dropdown-divider"></div> -->
+							</div>
+						</div>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+						   <div id="areaChart"></div>
+						</div>
+					</div>
+				</div>		
+				
+				<div class="card border-left-info shadow py-0" style="height: 80%; ">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-sm my-text-info text-uppercase mb-1" style="color: navy; font-size: 14px;">
+									The most popular computer language</div>
+								<div class="h1 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center">C#</div>
+							</div>							
+						</div>
+					</div>
+				</div>
+				
+				<div class="card custom-border2 shadow" style="height: 80%; ">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;">User Usage of FAVORITE TOOL
+								</div>
+								<div class="row no-gutters align-items-center">
+									<div class="col-auto">
+										<div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">68.9%</div>
+									</div>
+									<div class="col">
+										<div class="progress progress-sm mr-2">
+											<div class="progress-bar bg-info" role="progressbar"
+												style="width: 68.9%" aria-valuenow="68.9" aria-valuemin="0"
+												aria-valuemax="100"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<!-- 第二個 column 有 2 個 cards，各跨越 2 個 row -->
+				<div class="card card-span shadow mb-4" style="height: 90%; ">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0" style="color: navy; font-size: 14px;">Seniority</h6>			   
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">			  
+						<div id="seniorityChart"></div>
+					</div>
+				</div>
+
+
+				<!-- 第三個 column 有 2 個 cards，各跨越 2 個 row -->
+				<div class="card card-span shadow mb-4" style="height: 90%; ">
+					<!-- Card Header - Dropdown -->
+					<div
+						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 id="chartHeader2" class="m-0 " style="color: navy; font-size: 14px;">Cloud Platforms</h6>
+						<div class="dropdown no-arrow">
+							<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+								aria-labelledby="dropdownMenuLink">
+								<div class="dropdown-header">Select Charts:</div>
+								
+								<a id="platformsChart"  class="dropdown-item" href="#">Cloud Platforms</a>                                            
+								<a id="frameworksChart" class="dropdown-item" href="#">Frameworks or Libraries</a>
+								<!-- <div class="dropdown-divider"></div> -->
+							</div>
+						</div>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+						   <div id="menuBarChart"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="card custom-border1 shadow py-0" style="height: 80%; ">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;">
+									Average Experience</div>
+								<div class="h1 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center"">11</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div>
+					<img id="loading" src="images/loading.gif" alt="Loading..." >										
+				</div>					
+				<p>
+			</div>
+			<!-- /.container-fluid -->
 		
-			</div>
-		</div> -->
-		<p>
-
-               
-
-                </div>
-                <!-- /.container-fluid -->
-			</div>
 		
             <!-- End of Main Content -->
 
