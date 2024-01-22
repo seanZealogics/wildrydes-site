@@ -572,7 +572,7 @@ function showIndustriesChart()
 		],
 		type: "bar", // for ESM specify as: bar()
         colors: {  
-            Usage: function(d) { return generateRandomColor(); },			
+            Usage: "#6cb2eb",			
         },
 		names: {
             Usage: ""  // set "Usage" lable to empty
@@ -684,7 +684,7 @@ function showFrameworksChart()
 		],
 		type: "bar", // for ESM specify as: bar()
         colors: {  
-            Usage: function(d) { return generateRandomColor(); },			
+            Usage: "#4285f4",			
         },
 		names: {
             Usage: ""  // set "Usage" lable to empty
