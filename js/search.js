@@ -1100,7 +1100,7 @@ let originalAllData = null;
 			newElement.innerHTML = 
 									'<div class="row">' +
 										'<div id="group'+x+'" class="dropdown1 col-auto">' +
-											'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown">' +
+											'<button id="mainAttrBtn'+x+'" class="btn btn-primary dropdown-toggle fixed-width-attrButton " width="100px" type="button" data-toggle="dropdown" style="border: none;">' +
 											'<span class="caret"></span></button>' +
 											'<ul id="mainDropMenu'+x+'" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">' +
 											'</ul>' +
