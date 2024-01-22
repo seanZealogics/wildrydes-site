@@ -658,7 +658,7 @@ function showPlatformsChart()
 	  },
 	  bindto: "#menuBarChart"
 	});
-	document.getElementById("chartHeader").textContent = "Cloud Platforms";
+	document.getElementById("chartHeader2").textContent = "Cloud Platforms";
 }
 
 
@@ -714,7 +714,7 @@ function showFrameworksChart()
 	  },
 	  bindto: "#menuBarChart"
 	});
-	document.getElementById("chartHeader").textContent = "Frameworks or Libraries";
+	document.getElementById("chartHeader2").textContent = "Frameworks or Libraries";
 }
 
 function showCodingChart() {
