@@ -704,6 +704,7 @@ function showFrameworksChart()
 		},
 		y: {
 			label: {
+				
 				text: '%',
 				position: 'outer-middle'  // y lable poistion
 			}
@@ -767,7 +768,7 @@ function showCodingChart() {
         },
         bindto: "#areaChart"
     });
-    document.getElementById("chartHeader").textContent = "Programming Languages";
+    document.getElementById("chartHeader").textContent = "Computer Language Distribution";
 }
 
 async function fetchCardSummary() {
