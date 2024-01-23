@@ -13,7 +13,8 @@ var loading = document.getElementById('loading');
 let programming_languages;
 let percentages;
 let jObjItem;
-
+let firstCodingToolName;
+let firstCodingToolValue;
 
 function number_format(number, decimals, dec_point, thousands_sep) {
   // *     example: number_format(1234.56, 2, ',', ' ');
@@ -728,6 +729,9 @@ function showCodingChart() {
         xTools.push(item.programming_language);
         yTools.push(item.percentage);
     });
+	
+	firstCodingToolName = xTools[1];
+	firstCodingToolValue = yTools[1];
 
     var chartIndustries = bb.generate({
         data: {
@@ -771,6 +775,13 @@ function showCodingChart() {
     document.getElementById("chartHeader").textContent = "Computer Language Distribution";
 }
 
+function updateCardInfo() {
+	document.getElementById("languageName").innerText = firstCodingToolName;
+	document.getElementById('usagePercentage').innerText = firstCodingToolValue+ '%';
+	document.getElementById('usageProgressBar').style.width = firstCodingToolValue + '%';
+	document.getElementById('usageProgressBar').setAttribute('aria-valuenow', firstCodingToolValue);
+}
+
 async function fetchCardSummary() {
     console.log("fetchCardSummary");
     
@@ -796,6 +807,7 @@ async function fetchCardSummary() {
 
         //console.log(data);
         handleRequest(data);
+		updateCardInfo();
         document.getElementById('loading').style.display = 'none';
     } catch (e) {
         if (e.name === 'AbortError') {
