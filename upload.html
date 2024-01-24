@@ -53,16 +53,6 @@
         }
 
 		
-		.dropdown-toggle-right::after {
-			margin-left: 1.255em;
-		}
-
-		 .dropdown-toggle::after {
-            margin-left: 0.255em;
-        }
-		
-		 .btn-info.dropdown-toggle::after {
-        margin-left: 0.255em;
     }
 	</style>
 </head>
@@ -181,13 +171,13 @@
 							<div class="col-12">
 								<input type="file" id="pdfSelector" name="files[]" multiple accept=".pdf" style="display: none;" />
 								<div class="d-flex justify-content-center">
-									<button class="btn btn-info dropdown-toggle m-1  dropdown-menu-right" type="button" id="tagNameItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"	style="width: 130px;">Select Tags</button>
+									<button class="btn btn-info dropdown-toggle m-1" type="button" id="tagNameItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px; background-color: #1967d2; border: none;">Select Tags</button>
 									<div class="dropdown-menu" aria-labelledby="tagNameItem">
 									  <div class="dropdown-divider"></div>
 									  <a class="dropdown-item" href="#" id="addNewTag">Add New Tag</a>										   
 									</div>
-									<button class="btn btn-primary m-1" onclick="document.getElementById('pdfSelector').click();">Select Files</button>
-									<button class="btn btn-success m-1" id="uploadResumeBtn">Upload Files</button>
+									<button class="btn btn-primary m-1" style="border: none;" onclick="document.getElementById('pdfSelector').click();">Select Files</button>
+									<button class="btn btn-success m-1" id="uploadResumeBtn" style="background-color: #4285f4; border: none;">Upload Files</button>
 									
 								</div>
 								
@@ -329,12 +319,12 @@
 				var data = table.rows().data().toArray();
 
 				// 遍歷每一行
-				table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+				/*table.rows().every(function(rowIdx, tableLoop, rowLoop) {
 					var progressCell = table.cell(rowIdx, 0).nodes().to$();
 					
 					console.log("TAG " +progressCell.find('input').val());
 				});
-				/*
+				
 				for (var i = 0; i < data.length; i++) {
 					// 獲取每一行的第一個欄位的輸入框的值
 					var inputValue = $(data[i][0]).val();
