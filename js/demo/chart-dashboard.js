@@ -199,6 +199,7 @@ function completeRequest(result) {
 	
 	showCodingChart();
 	showPlatformsChart();
+	updateCardInfo();
 	//let resultIndustries = Object.entries(industries).map(([key, value]) => [key, parseFloat(value)]);
 /* 	var myBarChart = new Chart(ctxIndustries, {
 	  type: 'bar',
@@ -806,8 +807,7 @@ async function fetchCardSummary() {
         const data = await resumesResponse.json();
 
         //console.log(data);
-        handleRequest(data);
-		updateCardInfo();
+        handleRequest(data);		
         document.getElementById('loading').style.display = 'none';
     } catch (e) {
         if (e.name === 'AbortError') {
