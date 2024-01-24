@@ -51,7 +51,19 @@
             flex-direction: column;
             align-items: center;
         }
+
 		
+		.dropdown-toggle-right::after {
+			margin-left: 1.255em;
+		}
+
+		 .dropdown-toggle::after {
+            margin-left: 0.255em;
+        }
+		
+		 .btn-info.dropdown-toggle::after {
+        margin-left: 0.255em;
+    }
 	</style>
 </head>
 <!-- .col ,.col-1, .col-2, .col-2, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-12, .col-auto {
@@ -169,7 +181,7 @@
 							<div class="col-12">
 								<input type="file" id="pdfSelector" name="files[]" multiple accept=".pdf" style="display: none;" />
 								<div class="d-flex justify-content-center">
-									<button class="btn btn-info dropdown-toggle m-1" type="button" id="tagNameItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"	style="width: 130px;">Select Tags</button>
+									<button class="btn btn-info dropdown-toggle m-1  dropdown-menu-right" type="button" id="tagNameItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"	style="width: 130px;">Select Tags</button>
 									<div class="dropdown-menu" aria-labelledby="tagNameItem">
 									  <div class="dropdown-divider"></div>
 									  <a class="dropdown-item" href="#" id="addNewTag">Add New Tag</a>										   
@@ -268,6 +280,7 @@
 			
 			var uploadFiles = [];
 			var pdfTableLocalSaved;
+			var curSelectedTagName;
 			
 			var dataTableSettings = {
 				lengthChange: false,
@@ -378,9 +391,17 @@
 					let itemName = $(this).text().slice(0, -1);
 					// 獲取button
 					let selectTagBtn = $('#tagNameItem');
-
+					curSelectedTagName = createNewItemName;
+	
 					// 將item的名稱設定為button的文字
-					selectTagBtn.text(createNewItemName);
+					if (createNewItemName.length < 10) {
+						// 如果长度小于 10，则直接设置文本
+						selectTagBtn.text(createNewItemName);
+					} else {
+						// 如果长度大于等于 10，则截取前 9 个字符并设置文本
+						selectTagBtn.text(createNewItemName.substring(0, 9)+ "..");
+					}
+					//selectTagBtn.text(createNewItemName);
 					if ($('.dropdown-item').length === 1) {
 						selectTagBtn.text('Select Tags');
 					}
@@ -410,8 +431,8 @@
 
 						// Attach a click event listener to the newly added item
 						newItem.on('click', function() {
-							var selectedTagName = $(this).find('span').text();
-							updateTagInDataTable(selectedTagName);
+							curSelectedTagName = $(this).find('span').text();							
+							updateTagInDataTable(curSelectedTagName);
 						});
 
 						// Show the remove button when mouse hovers over the item, and hide it when mouse leaves
@@ -487,7 +508,7 @@
 					var tagCell = table.cell(rowIdx, 0).nodes().to$();
 					var tagInput = tagCell.find('input');
 					if (tagInput.val() === '') {
-						tagInput.val($('#tagNameItem').text());
+						tagInput.val(curSelectedTagName);
 					}
 				});
 				saveTableDataToLocalStorage(table);	
