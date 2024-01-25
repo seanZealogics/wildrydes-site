@@ -73,16 +73,22 @@
 		}
 		
 		.custom-shadow {
-			box-shadow: 500px 0 10px rgba(0, 0, 0, 0.1); /* 調整這裡的數值以達到您想要的深度 */
+			box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1); /* 調整這裡的數值以達到您想要的深度 */
 		}
 		
 		.sidebar-brand-text {
 			text-transform: none;
 		}
 		
+		#content-wrapper {
+			position: relative;
+			z-index: 1;
+		}
 
-		
-    </style
+		#accordionSidebar {
+			z-index: 2;
+		}
+
 	</style>
 </head>
 
@@ -195,184 +201,186 @@
 					</nav>
 					<!-- End of Topbar -->
 				</div>
-					<!-- Begin Page Content -->
-			<div class="container-fluid">
+					
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
 		
 		
-				<!-- Earnings (Monthly) Card Example -->
-				
-				<div class="card border-left-primary shadow py-0" style="height: 80%;" >
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;">
-									Number Of Employees
-								</div>
-								<div id="numbers" class="h1 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center"> <!-- 加入 d-flex justify-content-center 以將數字置中 -->
-									
-								</div>
-							</div>						
-						</div>
-					</div>
-				</div>
-				
-				<div class="card card-span shadow mb-4" style="height: 90%;">
-					<!-- Card Header - Dropdown -->
-					<div
-						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 " style="color: navy; font-size: 14px;">Degrees</h5>
-					   
-					</div>
-					<!-- Card Body -->
-					<div class="card-body">					   
-						<div id="degreePieChart"></div>
-					</div>
-				</div>
-				
-				
-				<div class="card card-span shadow mb-4" style="height: 90%; ">
-					<!-- Card Header - Dropdown -->
-					<div
-						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 id="chartHeader" class="m-0 " style="color: navy; font-size: 14px;">Computer Language Distribution</h6>
-						<div class="dropdown no-arrow">
-							<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-							</a>
-							<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-								aria-labelledby="dropdownMenuLink">
-								<div class="dropdown-header">Select Charts:</div>
-								<a id="codingChart" class="dropdown-item" href="#">Computer Language Distribution</a>
-								<a id="industriesChart" class="dropdown-item" href="#">Industries</a>
-							
-								<!-- <div class="dropdown-divider"></div> -->
+					<!-- Earnings (Monthly) Card Example -->
+					
+					<div class="card border-left-primary shadow py-0" style="height: 80%;" >
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;">
+										Number Of Employees
+									</div>
+									<div id="numbers" class="h1 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center"> <!-- 加入 d-flex justify-content-center 以將數字置中 -->
+										
+									</div>
+								</div>						
 							</div>
 						</div>
 					</div>
-					<!-- Card Body -->
-					<div class="card-body">
-						<div class="chart-area">
-						   <div id="areaChart"></div>
+					
+					<div class="card card-span shadow mb-4" style="height: 90%;">
+						<!-- Card Header - Dropdown -->
+						<div
+							class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 class="m-0 " style="color: navy; font-size: 14px;">Degrees</h5>
+						   
+						</div>
+						<!-- Card Body -->
+						<div class="card-body">					   
+							<div id="degreePieChart"></div>
 						</div>
 					</div>
-				</div>		
-				
-				<div class="card border-left-info shadow py-0" style="height: 80%; ">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm my-text-info text-uppercase mb-1" style="color: navy; font-size: 14px;">
-									The most popular computer language</div>
-								<div id="languageName" class="h1 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center"></div>
-							</div>							
-						</div>
-					</div>
-				</div>
-				
-				<div class="card custom-border2 shadow" style="height: 80%; ">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;">User Usage of FAVORITE TOOL
+					
+					
+					<div class="card card-span shadow mb-4" style="height: 90%; ">
+						<!-- Card Header - Dropdown -->
+						<div
+							class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 id="chartHeader" class="m-0 " style="color: navy; font-size: 14px;">Computer Language Distribution</h6>
+							<div class="dropdown no-arrow">
+								<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+									aria-labelledby="dropdownMenuLink">
+									<div class="dropdown-header">Select Charts:</div>
+									<a id="codingChart" class="dropdown-item" href="#">Computer Language Distribution</a>
+									<a id="industriesChart" class="dropdown-item" href="#">Industries</a>
+								
+									<!-- <div class="dropdown-divider"></div> -->
 								</div>
-								<div class="row no-gutters align-items-center">
-									<div class="col-auto">
-										<div id="usagePercentage" class="h1 mb-0 mr-3 font-weight-bold text-gray-800"></div>
+							</div>
+						</div>
+						<!-- Card Body -->
+						<div class="card-body">
+							<div class="chart-area">
+							   <div id="areaChart"></div>
+							</div>
+						</div>
+					</div>		
+					
+					<div class="card border-left-info shadow py-0" style="height: 80%; ">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div class="text-sm my-text-info text-uppercase mb-1" style="color: navy; font-size: 14px;">
+										The most popular computer language</div>
+									<div id="languageName" class="h1 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center"></div>
+								</div>							
+							</div>
+						</div>
+					</div>
+					
+					<div class="card custom-border2 shadow" style="height: 80%; ">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;">User Usage of FAVORITE TOOL
 									</div>
-									<div class="col">
-										<div class="progress progress-sm mr-2"> 
-											<div id="usageProgressBar" class="progress-bar" role="progressbar"
-												style="width: 0%; background-color: #b5d6eb;" aria-valuenow="0" aria-valuemin="0"
-												aria-valuemax="100"></div>
+									<div class="row no-gutters align-items-center">
+										<div class="col-auto">
+											<div id="usagePercentage" class="h1 mb-0 mr-3 font-weight-bold text-gray-800"></div>
+										</div>
+										<div class="col">
+											<div class="progress progress-sm mr-2"> 
+												<div id="usageProgressBar" class="progress-bar" role="progressbar"
+													style="width: 0%; background-color: #b5d6eb;" aria-valuenow="0" aria-valuemin="0"
+													aria-valuemax="100"></div>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-				<!-- 第二個 column 有 2 個 cards，各跨越 2 個 row -->
-				<div class="card card-span shadow mb-4" style="height: 90%; ">
-					<!-- Card Header - Dropdown -->
-					<div
-						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0" style="color: navy; font-size: 14px;">Seniority</h6>			   
-					</div>
-					<!-- Card Body -->
-					<div class="card-body">			  
-						<div id="seniorityChart"></div>
-					</div>
-				</div>
-
-
-				<!-- 第三個 column 有 2 個 cards，各跨越 2 個 row -->
-				<div class="card card-span shadow mb-4" style="height: 90%; ">
-					<!-- Card Header - Dropdown -->
-					<div
-						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 id="chartHeader2" class="m-0 " style="color: navy; font-size: 14px;">Cloud Platforms</h6>
-						<div class="dropdown no-arrow">
-							<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-							</a>
-							<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-								aria-labelledby="dropdownMenuLink">
-								<div class="dropdown-header">Select Charts:</div>
 								
-								<a id="platformsChart"  class="dropdown-item" href="#">Cloud Platforms</a>                                            
-								<a id="frameworksChart" class="dropdown-item" href="#">Frameworks or Libraries</a>
-								<!-- <div class="dropdown-divider"></div> -->
 							</div>
 						</div>
 					</div>
-					<!-- Card Body -->
-					<div class="card-body">
-						<div class="chart-area">
-						   <div id="menuBarChart"></div>
+					<!-- 第二個 column 有 2 個 cards，各跨越 2 個 row -->
+					<div class="card card-span shadow mb-4" style="height: 90%; ">
+						<!-- Card Header - Dropdown -->
+						<div
+							class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 class="m-0" style="color: navy; font-size: 14px;">Seniority</h6>			   
+						</div>
+						<!-- Card Body -->
+						<div class="card-body">			  
+							<div id="seniorityChart"></div>
 						</div>
 					</div>
-				</div>
-				
-				<div class="card custom-border1 shadow py-0" style="height: 80%; ">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;">
-									Average Experience</div>
-								<div class="h1 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center"">11</div>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-				<div>
-					<img id="loading" src="images/loading.gif" alt="Loading..." >										
-				</div>					
-				<p>
-			</div>
-			<!-- /.container-fluid -->
-		
-		
-            <!-- End of Main Content -->
 
-			<!-- Footer -->
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Zealogics Co. 2023</span>
+
+					<!-- 第三個 column 有 2 個 cards，各跨越 2 個 row -->
+					<div class="card card-span shadow mb-4" style="height: 90%; ">
+						<!-- Card Header - Dropdown -->
+						<div
+							class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 id="chartHeader2" class="m-0 " style="color: navy; font-size: 14px;">Cloud Platforms</h6>
+							<div class="dropdown no-arrow">
+								<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+									aria-labelledby="dropdownMenuLink">
+									<div class="dropdown-header">Select Charts:</div>
+									
+									<a id="platformsChart"  class="dropdown-item" href="#">Cloud Platforms</a>                                            
+									<a id="frameworksChart" class="dropdown-item" href="#">Frameworks or Libraries</a>
+									<!-- <div class="dropdown-divider"></div> -->
+								</div>
+							</div>
+						</div>
+						<!-- Card Body -->
+						<div class="card-body">
+							<div class="chart-area">
+							   <div id="menuBarChart"></div>
+							</div>
+						</div>
 					</div>
+				
+					<div class="card custom-border1 shadow py-0" style="height: 80%; ">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div class="text-sm text-uppercase mb-1" style="color: navy; font-size: 14px;">
+										Average Experience</div>
+									<div class="h1 mb-0 font-weight-bold text-gray-800 d-flex justify-content-center">11</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div>
+						<img id="loading" src="images/loading.gif" alt="Loading..." >										
+					</div>					
+					<p>
+				
 				</div>
-			</footer>
-			<!-- End of Footer -->
+				<!-- /.container-fluid -->
+			
+		
+				<!-- End of Main Content -->
+
+				<!-- Footer -->
+				<footer class="sticky-footer bg-white">
+					<div class="container my-auto">
+						<div class="copyright text-center my-auto">
+							<span>Copyright &copy; Zealogics Co. 2023</span>
+						</div>
+					</div>
+				</footer>
+				<!-- End of Footer -->
+
+			</div>
+			<!-- End of Content Wrapper -->
 
 		</div>
-		<!-- End of Content Wrapper -->
-
-	</div>
-	<!-- End of Page Wrapper -->
+		<!-- End of Page Wrapper -->
 		
 		
 		<!-- Scroll to Top Button-->

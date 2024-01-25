@@ -736,7 +736,16 @@ let originalAllData = null;
                     { "data": "tags",
                         "render": function (data, type, row) {
                             if (type === 'display') {
-								return data;
+								 if (data && data.length) {
+									var tagsHTML = '';
+									// 将每个标签转换成一个 badge
+									data.forEach(function(tag) {
+										tagsHTML += '<span class="badge rounded-pill bg-primary text-white">' + tag + '</span>&nbsp;';
+									});
+									return tagsHTML;
+								} else {
+									return 'N / A';
+								}
 							} else {
 								return data && data.length ? data : 'N / A';
 							}
@@ -940,13 +949,20 @@ let originalAllData = null;
 				changedCells.clear();	
 
 				$('#queryResultTable td').each(function() {
-					if($(this).closest('table').find('th').eq($(this).index()).text() === 'Tags')
-					{
-						var inputValue = $(this).find('input[type="text"]').val().split(',').slice(0, 3).join(','); // 取得 input 的 value
-						console.log(inputValue);
-						$(this).empty().text(inputValue);
+					if ($(this).closest('table').find('th').eq($(this).index()).text() === 'Tags') {
+						var inputValue = $(this).find('input[type="text"]').val().split(',').slice(0, 3); // 获取输入值
+
+						var badgeHTML = '';
+						// 将每个标签转换成一个 badge
+						inputValue.forEach(function(tag) {
+							badgeHTML += '<span class="badge rounded-pill bg-primary text-white mr-1">' + tag.trim() + '</span>';
+						});
+
+						// 将原先的内容替换为 badgeHTML
+						$(this).empty().html(badgeHTML);
 					}
 				});
+
 			});
 			
 			tableCancelBtn.addEventListener("click", function() {				
