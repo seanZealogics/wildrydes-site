@@ -340,9 +340,42 @@
 					data[i][0] = inputValue;
 					console.log("TAG " +inputValue);
 				}*/
-				console.log(JSON.stringify(data));
+				console.log("saveTableDataToLocalStorage " + data);
+				
 				// 在清空或者銷毀table之前，先保存數據到localStorage
-				localStorage.setItem('pdfTableSaveData', JSON.stringify(data));
+				localStorage.setItem('pdfTableSaveData', data);
+			}
+			
+			function restoreTableDataToLocalStorage(table) {
+				
+				var data  = localStorage.getItem('pdfTableSaveData');
+				console.log("restoreTableDataToLocalStorage data",data );
+				var dataString = JSON.stringify(data);
+console.log("restoreTableDataToLocalStorage dataString",dataString );
+				 if (!dataString  || Object.keys(dataString ).length === 0) {
+        // 如果数据为空，则执行相应的操作
+					console.log("数据为空");
+				} else {
+					// 如果数据不为空，则执行其他操作
+					console.log("restoreTableDataToLocalStorage",dataString );
+					if (typeof dataString  === 'string') {
+					console.log('dataString  is a string');
+				} else {
+					console.log('dataString  is not a string');
+				}
+					let regex = /([^,]+\.pdf)/g;
+					let match;
+					
+
+					while ((match = regex.exec(dataString)) !== null) {
+						console.log("match[1] ",match[1]);
+						table.row.add(['<input type="text" class="form-control">', match[1], null, null]).draw();
+					}
+
+
+
+					
+				}
 			}
 			
 			function updateTagInDataTable(selectedTagName) {
@@ -465,7 +498,8 @@
 				
 				checkTableData();
 				table.on('draw', checkTableData);
-				saveTableDataToLocalStorage(table);
+				//saveTableDataToLocalStorage(table);
+				restoreTableDataToLocalStorage(table);
 				/*
 				window.onbeforeunload = function() {
 					localStorage.setItem('pdfTableSaveData', JSON.stringify(pdfTableLocalSaved));
