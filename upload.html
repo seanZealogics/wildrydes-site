@@ -325,6 +325,13 @@
 			function saveTableDataToLocalStorage(table) {
 				
 				var data = table.rows().data().toArray();
+				
+				table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+					var tagCell = table.cell(rowIdx, 0).nodes().to$();
+					var tagInput = tagCell.find('input');
+					console.log("TAG "+tagInput.val());
+					 data[rowIdx][0] = tagInput.val();
+				});
 
 				// 遍歷每一行
 				/*table.rows().every(function(rowIdx, tableLoop, rowLoop) {
@@ -349,32 +356,20 @@
 			function restoreTableDataToLocalStorage(table) {
 				
 				var data  = localStorage.getItem('pdfTableSaveData');
-				console.log("restoreTableDataToLocalStorage data",data );
-				var dataString = JSON.stringify(data);
-console.log("restoreTableDataToLocalStorage dataString",dataString );
-				 if (!dataString  || Object.keys(dataString ).length === 0) {
-        // 如果数据为空，则执行相应的操作
-					console.log("数据为空");
-				} else {
-					// 如果数据不为空，则执行其他操作
-					console.log("restoreTableDataToLocalStorage",dataString );
-					if (typeof dataString  === 'string') {
-					console.log('dataString  is a string');
-				} else {
-					console.log('dataString  is not a string');
-				}
-					let regex = /([^,]+\.pdf)/g;
-					let match;
-					
+			console.log("restoreTableDataToLocalStorage data ",data );
+				//var dataString = JSON.stringify(data);
 
-					while ((match = regex.exec(dataString)) !== null) {
-						console.log("match[1] ",match[1]);
-						table.row.add(['<input type="text" class="form-control">', match[1], null, null]).draw();
+				if ( data.length === 0 ) {
+					console.log("restoreTableDataToLocalStorage empty");
+				} else {
+
+					var elements = data.split(',');
+					for (var i = 0; i < elements.length; i += 3) {
+						// 如果元素不是空字串，將其存入新陣列中
+						if (elements[i].trim() !== "") {
+							table.row.add(['<input type="text" class="form-control" value="' + elements[i] + '">', elements[i + 1],  elements[i + 2], null]).draw();							
+						}
 					}
-
-
-
-					
 				}
 			}
 			
