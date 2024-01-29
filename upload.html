@@ -330,7 +330,12 @@
 					var tagCell = table.cell(rowIdx, 0).nodes().to$();
 					var tagInput = tagCell.find('input');
 					console.log("TAG "+tagInput.val());
-					 data[rowIdx][0] = tagInput.val();
+					data[rowIdx][0] = tagInput.val();
+					
+					var progressCell = table.cell(rowIdx, 2).nodes().to$();
+					var progressValue = progressCell.find('progress');
+					console.log("progressValue  "+progressValue.val());
+					data[rowIdx][2] = progressValue.val();
 				});
 
 				// 遍歷每一行
