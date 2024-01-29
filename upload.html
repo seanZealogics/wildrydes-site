@@ -348,15 +348,26 @@
 					console.log("TAG " +inputValue);
 				}*/
 				console.log("saveTableDataToLocalStorage " + data);
-				
+				var newData = data.map(function(item) {
+					if (Array.isArray(item)) {
+						return item;
+					} else {
+						var values = Object.values(item);
+						while (values.length < 4) {
+							values.push(null);
+						}
+						return values;
+					}
+				});
+				console.log("newData " +  newData);
 				// 在清空或者銷毀table之前，先保存數據到localStorage
-				localStorage.setItem('pdfTableSaveData', data);
+				localStorage.setItem('pdfTableSaveData', newData);
 			}
 			
 			function restoreTableDataToLocalStorage(table) {
 				
 				var data  = localStorage.getItem('pdfTableSaveData');
-			console.log("restoreTableDataToLocalStorage data ",data );
+				console.log("restoreTableDataToLocalStorage data ",data );
 				//var dataString = JSON.stringify(data);
 
 				if ( data.length === 0 ) {
@@ -364,9 +375,11 @@
 				} else {
 
 					var elements = data.split(',');
-					for (var i = 0; i < elements.length; i += 3) {
-						// 如果元素不是空字串，將其存入新陣列中
-						if (elements[i].trim() !== "") {
+					for (var i = 0; i < elements.length; i += 4) {
+						
+						if (elements[i].trim() !== "") 
+						{
+						console.log("elements[i] " + elements[i] + " elements[i+1] " +elements[i+1] +" elements[i+2] " +elements[i+2] );
 							table.row.add(['<input type="text" class="form-control" value="' + elements[i] + '">', elements[i + 1],  elements[i + 2], null]).draw();							
 						}
 					}
@@ -526,18 +539,19 @@
 						break;
 					}
 
-					table.row.add(['<input type="text" class="form-control">', fileName, null, null]).draw();
+					table.row.add(['<input type="text" class="form-control" value="' + curSelectedTagName + '">', fileName, null, null]).draw();
 					rowCount++;
 					uploadFiles.push(file);
 					fileNames.push(fileName); // 將新檔案名稱添加到列表中
 				}
+				/*
 				table.rows().every(function(rowIdx, tableLoop, rowLoop) {
 					var tagCell = table.cell(rowIdx, 0).nodes().to$();
 					var tagInput = tagCell.find('input');
 					if (tagInput.val() === '') {
 						tagInput.val(curSelectedTagName);
 					}
-				});
+				});*/
 				saveTableDataToLocalStorage(table);	
 				// 清除檔案選擇器的值
 				this.value = null;

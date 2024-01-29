@@ -49,7 +49,10 @@ var WildRydes = window.WildRydes || {};
 							for (i = 0; i < attributes.length; i++) {
 								if (attributes[i].getName() === 'email') {
 									var userDropdown = document.getElementById('userDropdown');
-									userDropdown.querySelector('.mr-2.d-none.d-lg-inline.text-navy.small').textContent =  attributes[i].getValue();
+									var testElement = userDropdown.querySelector('.mr-2.d-none.d-lg-inline.text-navy.small');
+									if (testElement !== null) {
+										testElement.textContent = attributes[i].getValue();
+									}
 									
 									var name = attributes[i].getValue().split('@')[0];
 									var topTitle = document.getElementById('topTitle');
