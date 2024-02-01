@@ -45,6 +45,11 @@
 			transform: translate(-10%, -50%);
 		}
 		
+		#loading img {
+		  width: 100%;
+		  height: 100%;
+		}		
+		
 		.center {
             display: flex;
             justify-content: center;
@@ -119,7 +124,9 @@
 
 				</ul>
 				<!-- End of Sidebar -->
-
+				<div>
+					<img id="loading" src="images/loading.gif" alt="Loading..." >										
+				</div>
 				<!-- Content Wrapper -->
 			<div id="content-wrapper" class="d-flex flex-column">
 
@@ -279,6 +286,9 @@
 			var uploadFiles = [];
 			var pdfTableLocalSaved;
 			var curSelectedTagName;
+			var loading = document.getElementById('loading');
+			var createNewItemName = null;
+			var newItem ;
 			
 			var dataTableSettings = {
 				lengthChange: false,
@@ -321,6 +331,14 @@
 					}
 				}
 			};
+			
+			function showLoading() {
+			  loading.style.display = 'block';
+			}
+
+			function hideLoading() {
+			  loading.style.display = 'none';
+			}
 			
 			function saveTableDataToLocalStorage(table) {
 				
@@ -394,9 +412,9 @@
 			function updateTagInDataTable(selectedTagName) {
 				var table = $('#pdfTable').DataTable();
 				table.rows().every(function(rowIdx, tableLoop, rowLoop) {
-					var progressCell = table.cell(rowIdx, 0).nodes().to$();
-					if (progressCell.find('input').val() === '') {
-						progressCell.find('input').val(selectedTagName);
+					var tagCell = table.cell(rowIdx, 0).nodes().to$();
+					if (tagCell.find('input').val() === '') {
+						tagCell.find('input').val(selectedTagName);
 					}
 				});
 			}
@@ -410,9 +428,65 @@
 				$('#tagNameItem').text("Select Tags");
 			}
 			
+			
+			async function fetchTags()
+			{
+				showLoading();
+				console.log("fetchTags!!"); 
+				const response = await fetch( _config.api.fetchTagsUrl, {
+					method: 'GET',
+					mode: 'cors'
+					
+				});
+				
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				
+				const jsonResponse = await response.json();
+				
+				console.log(JSON.stringify(jsonResponse)); 
+				var values = Object.values(jsonResponse.body);
+				values.forEach(function(newTagName) {
+					console.log(newTagName);
+				  
+					newItem = $('<div class="dropdown-item d-flex justify-content-between align-items-center">' +
+								'<span>' + newTagName + '</span>' +
+								'<button class="btn btn-danger btn-sm ml-2 removeTagBtn" onclick="removeTagItem(this)" style="display: none;">X</button>' +
+								'</div>');
+					$('.dropdown-menu').prepend(newItem);
+					createNewItemName = newTagName;
+
+					// Attach a click event listener to the newly added item
+					newItem.on('click', function() {
+					
+						curSelectedTagName = $(this).find('span').text();			
+console.log("newItem click!! " + curSelectedTagName); 						
+						
+					});
+
+					// Show the remove button when mouse hovers over the item, and hide it when mouse leaves
+					newItem.hover(
+						function() { // Mouse enter
+							$(this).find('.removeTagBtn').show();
+						}, 
+						function() { // Mouse leave
+							$(this).find('.removeTagBtn').hide();
+						}
+					);
+				});
+				
+				
+				
+				hideLoading();
+				
+			}
+			
 			$(document).ready(function() {
-				let createNewItemName = null;
+				
 				let dropdownMenu = $('.dropdown-menu');
+				
+				fetchTags();
 				
 				$('#removeAllResumeBtn').click(function() {
 					// 銷毀 DataTable 實例
@@ -435,15 +509,24 @@
 					let itemName = $(this).text().slice(0, -1);
 					// 獲取button
 					let selectTagBtn = $('#tagNameItem');
-					curSelectedTagName = createNewItemName;
+					if(curSelectedTagName !== null)
+					{
+						console.log("curSelectedTagName!! " + curSelectedTagName); 
+					}else
+					{
+						console.log("createNewItemName!! " + createNewItemName); 
+						curSelectedTagName = createNewItemName;
+					}
+					
+					
 	
 					// 將item的名稱設定為button的文字
-					if (createNewItemName.length < 10) {
+					if (curSelectedTagName.length < 10) {
 						// 如果长度小于 10，则直接设置文本
-						selectTagBtn.text(createNewItemName);
+						selectTagBtn.text(curSelectedTagName);
 					} else {
 						// 如果长度大于等于 10，则截取前 9 个字符并设置文本
-						selectTagBtn.text(createNewItemName.substring(0, 9)+ "..");
+						selectTagBtn.text(curSelectedTagName.substring(0, 9)+ "..");
 					}
 					//selectTagBtn.text(createNewItemName);
 					if ($('.dropdown-item').length === 1) {
