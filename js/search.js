@@ -910,14 +910,14 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
 					label.style.boxShadow = "none";
 					
 					$('#queryResultTable td').each(function() {
-						var cellText = $(this).text();
-						
+						var cellText = $(this).text().replace(/\s+/g, ',');
 						
 						//console.log($(this).closest('table').find('th').eq($(this).index()).text());
 						if($(this).closest('table').find('th').eq($(this).index()).text() === 'Tags')
 						{
 							let changedRow = this;
 							let rowData = resultTable.row(this.parentNode).data();
+							console.log('cellText ' +cellText);
 							$(this).empty().append($('<input>', {
 								type: 'text',
 								value: cellText
