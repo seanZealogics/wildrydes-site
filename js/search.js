@@ -182,6 +182,10 @@ let originalAllData = null;
 
     });
 	
+	function escapeRegExp(string) {
+	  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& 表示整个被匹配的字符串
+	}
+	
 
 	
 	function format(d) {
@@ -193,29 +197,31 @@ let originalAllData = null;
 		personal_urls = d.profile.personal_urls;
 		
 		let data =  d.educations;
-		for (let i = 0; i < data.length; i ++) {
-			const date = data[i].date;
-			const degree = data[i].degree;
-			const description = data[i].description;
-			const school = data[i].school;
+		if (typeof d.educations !== 'undefined') {
+			for (let i = 0; i < data.length; i ++) {
+				const date = data[i].date;
+				const degree = data[i].degree;
+				const description = data[i].description;
+				const school = data[i].school;
 
-			
-			/* console.log(`Date: ${date}`);
-			console.log(`Company: ${company}`);
-			console.log(`Position: ${position}`);
-			console.log(`Responsibility: ${responsibility}`); */
-		}	                       
-								
-		educations = d.educations.map(function (m_educations) {
-			let date = m_educations.date || '';
-			let degree = m_educations.degree || '';
-			let major = m_educations.major || '';
-			let school = m_educations.school || '';
-			let detail = m_educations.detail || '';
+				
+				/* console.log(`Date: ${date}`);
+				console.log(`Company: ${company}`);
+				console.log(`Position: ${position}`);
+				console.log(`Responsibility: ${responsibility}`); */
+			}	                       
+									
+			var educations = d.educations.map(function (m_educations) {
+				let date = m_educations.date || '';
+				let degree = m_educations.degree || '';
+				let major = m_educations.major || '';
+				let school = m_educations.school || '';
+				let detail = m_educations.detail || '';
 
-			return '<p>' + date + '<br>' + degree + '<br>' + major + '<br>' + school + (detail ? '<br>' + detail : '') + '</p>';
-					
-		});
+				return '<p>' + date + '<br>' + degree + '<br>' + major + '<br>' + school + (detail ? '<br>' + detail : '') + '</p>';
+						
+			});
+		}else{ educations = ""; }
 		//console.log("educations !!! = "+ Array.isArray( educations));
 		//////////////////////////////////////////////////
 		computer_skills =  d.computer_skills;
@@ -233,7 +239,8 @@ let originalAllData = null;
 		//console.log("computer_skills !!! = "+  Array.isArray( computer_skills));
 
 		//////////////////////////////////////////////////
-		data =  d.certificates;
+		//data =  d.certificates;
+		
 	/* 	for (let i = 0; i < data.length; i ++) {
 			
 			const date = data[i].date;
@@ -243,81 +250,91 @@ let originalAllData = null;
 			
 	
 		}	 */      
-		let certificates = d.certificates.map(function (m_certificates) {
-			let date = m_certificates.date || '';
-			let title = m_certificates.title || '';
-			let certifying_authority = m_certificates.certifying_authority || '';			
-			
-			return '<p>' + date + '<br>' + title + '<br>' + certifying_authority + '</p>';
+		if (typeof d.certificates !== 'undefined') {
+			var certificates = d.certificates.map(function (m_certificates) {
+				let date = m_certificates.date || '';
+				let title = m_certificates.title || '';
+				let certifying_authority = m_certificates.certifying_authority || '';			
 				
-			
-		});	
+				return '<p>' + date + '<br>' + title + '<br>' + certifying_authority + '</p>';
+					
+				
+			});	
+		}else{ certificates = ""; }
 		//////////////////////////////////////////////////
 		data =  d.publications;
-		for (let i = 0; i < data.length; i ++) {
-			
-			const date = data[i].date;
-			const title = data[i].title;
+		if (typeof data !== 'undefined') {
+			for (let i = 0; i < data.length; i ++) {
+				
+				const date = data[i].date;
+				const title = data[i].title;
 
-			
-			/* console.log(`Date: ${date}`);
-			console.log(`Company: ${company}`);
-			console.log(`Position: ${position}`);
-			console.log(`Responsibility: ${responsibility}`); */
-		}	      
-		let publications = d.publications.map(function (m_publications) {									
-			let date = m_publications.date || '';
-			let title = m_publications.title || '';
+				
+				/* console.log(`Date: ${date}`);
+				console.log(`Company: ${company}`);
+				console.log(`Position: ${position}`);
+				console.log(`Responsibility: ${responsibility}`); */
+			}	      
+			var publications = d.publications.map(function (m_publications) {									
+				let date = m_publications.date || '';
+				let title = m_publications.title || '';
 
-			return '<p>' + date + (title ? '<br>' + title : '') + '</p>';
-		});	
+				return '<p>' + date + (title ? '<br>' + title : '') + '</p>';
+			});	
+		}else{ publications = ""; }
 		//////////////////////////////////////////////////
-		data =  d.patents;
-		for (let i = 0; i < data.length; i ++) {
-			
-			const date = data[i].date;
-			const title = data[i].title;
+		data = d.patents;
+		if (typeof data !== 'undefined') {
+			for (let i = 0; i < data.length; i ++) {
+				
+				const date = data[i].date;
+				const title = data[i].title;
 
-			
-			/* console.log(`Date: ${date}`);
-			console.log(`Company: ${company}`);
-			console.log(`Position: ${position}`);
-			console.log(`Responsibility: ${responsibility}`); */
-		}	      
-		let patents = d.patents.map(function (m_patents) {									
-			let date = m_patents.date || '';
-			let title = m_patents.title || '';
+				
+				/* console.log(`Date: ${date}`);
+				console.log(`Company: ${company}`);
+				console.log(`Position: ${position}`);
+				console.log(`Responsibility: ${responsibility}`); */
+			}	      
+			var patents = d.patents.map(function (m_patents) {									
+				let date = m_patents.date || '';
+				let title = m_patents.title || '';
 
-			return '<p>' + date + (title ? '<br>' + title : '') + '</p>';
-		});	
+				return '<p>' + date + (title ? '<br>' + title : '') + '</p>';
+			});	
+		}else{ patents = ""; }
+		//////////////////////////////////////////////////
+		data = d.experiences;	
+		console.log("experiences " +data);
+		if (typeof data !== 'undefined') {
+			console.log("experiences111 " +data);
+			for (let i = 0; i < data.length; i ++) {
+				
+				const date = data[i].date;
+				const company = data[i].company;
+				const position = data[i].position;
+				const responsibility = data[i].responsibility;
+
+				
+				/* console.log(`Date: ${date}`);
+				console.log(`Company: ${company}`);
+				console.log(`Position: ${position}`);
+				console.log(`Responsibility: ${responsibility}`); */
+			}	                       
+									
+			var experiences = d.experiences.map(function (m_experiences) {		
 		
-		//////////////////////////////////////////////////
-		data =  d.experiences;	
-		for (let i = 0; i < data.length; i ++) {
-			
-			const date = data[i].date;
-			const company = data[i].company;
-			const position = data[i].position;
-			const responsibility = data[i].responsibility;
-
-			
-			/* console.log(`Date: ${date}`);
-			console.log(`Company: ${company}`);
-			console.log(`Position: ${position}`);
-			console.log(`Responsibility: ${responsibility}`); */
-		}	                       
-								
-		let experiences = d.experiences.map(function (m_experiences) {									
-			let date = m_experiences.date || '';
-			let industry = m_experiences.industry || '';
-			let company = m_experiences.company || '';
-			let position = m_experiences.position || '';
-			let responsibility = m_experiences.responsibility || '';
-
-			return '<p>' + date + (industry ? '<br>' + industry : '') + (company ? '<br>' + company : '') + (position ? '<br>' + position : '') + (responsibility ? '<br>' + responsibility : '') + '</p>';
-		});
+				let date = m_experiences.date || '';
+				let industry = m_experiences.industry || '';
+				let company = m_experiences.company || '';
+				let position = m_experiences.position || '';
+				let responsibility = m_experiences.responsibility || '';
+console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : '') + (company ? '<br>' + company : '') + (position ? '<br>' + position : '') + (responsibility ? '<br>' + responsibility : '') + '</p>');	
+				return '<p>' + date + (industry ? '<br>' + industry : '') + (company ? '<br>' + company : '') + (position ? '<br>' + position : '') + (responsibility ? '<br>' + responsibility : '') + '</p>';
+			});
+		}else{ experiences = "1111"; }
 		//experiences.join('<br>');
-		
+		console.log("experiences333 " +experiences);
 		
 		//modalTable.personal_urls = d.personal_urls;
 		modalTable.educations = educations;
@@ -355,7 +372,9 @@ let originalAllData = null;
 						var colorValueForDynamicKey = conditions[prevKey] ? conditions[prevKey].color : conditions.default.color;
 						//console.log("colorValueForDynamicKey " + colorValueForDynamicKey);
 						//console.log("previousButton.textContent.toLowerCase() " + previousButton.textContent.toLowerCase());
-						regex = new RegExp(inputLinks[i].value, 'gi');  // 'g'表示全局匹配，'i'表示忽略大小寫
+						let regexString = escapeRegExp(inputLinks[i].value);
+						regex = new RegExp(regexString, 'gi'); // 'g'表示全局匹配，'i'表示忽略大小寫
+						
 						
 						
 						for (let key in modalTable[prevKey]) {
