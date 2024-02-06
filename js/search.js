@@ -910,17 +910,37 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
 					label.style.boxShadow = "none";
 					
 					$('#queryResultTable td').each(function() {
-						var cellText = $(this).text().replace(/\s+/g, ',');
 						
 						//console.log($(this).closest('table').find('th').eq($(this).index()).text());
 						if($(this).closest('table').find('th').eq($(this).index()).text() === 'Tags')
 						{
+							console.log('whole cellText ' +$(this).html());
+							
+							var tempDiv = document.createElement('div');
+							// 将HTML字符串作为div的innerHTML
+							tempDiv.innerHTML = $(this).html();
+
+							// 获取所有的span元素
+							var spanElements = tempDiv.querySelectorAll('span');
+
+							// 遍历所有的span元素，获取其文本内容
+							var contentArray = [];
+							spanElements.forEach(function(span) {
+								// 获取每个span元素的文本内容并去除首尾空格
+								var content = span.textContent.trim();
+								// 将文本内容添加到数组中
+								contentArray.push(content);
+							});
+
+							// 输出提取到的内容
+							console.log("contentArray " +contentArray);												
+												
 							let changedRow = this;
 							let rowData = resultTable.row(this.parentNode).data();
-							console.log('cellText ' +cellText);
+							
 							$(this).empty().append($('<input>', {
 								type: 'text',
-								value: cellText
+								value: contentArray
 							}));
 
 							// add all cells event listener
@@ -969,8 +989,7 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
 
 				$('#queryResultTable td').each(function() {
 					if ($(this).closest('table').find('th').eq($(this).index()).text() === 'Tags') {
-						var inputValue = $(this).find('input[type="text"]').val().split(',').slice(0, 3); // 获取输入值
-
+						var inputValue = $(this).find('input[type="text"]').val().split(',').slice(0, 3);
 						var badgeHTML = '';
 						// 将每个标签转换成一个 badge
 						inputValue.forEach(function(tag) {
