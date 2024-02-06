@@ -176,10 +176,15 @@ let originalAllData = null;
 		fetchAttr();
 
 		$('#queryResultTable').on( 'init.dt', function () { 
-		console.log("queryResultTable init!!" );
+			console.log("queryResultTable init!!" );
 		});
 
-
+		var main_codingTool = localStorage.getItem('main_codingTool');
+		if (main_codingTool !== undefined && main_codingTool !== null && main_codingTool !== "") {
+			console.log("main_codingTool " +main_codingTool );
+			showLoading();
+			fetchAttrData(main_codingTool);
+		}
     });
 	
 	function escapeRegExp(string) {
@@ -332,9 +337,8 @@ let originalAllData = null;
 console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : '') + (company ? '<br>' + company : '') + (position ? '<br>' + position : '') + (responsibility ? '<br>' + responsibility : '') + '</p>');	
 				return '<p>' + date + (industry ? '<br>' + industry : '') + (company ? '<br>' + company : '') + (position ? '<br>' + position : '') + (responsibility ? '<br>' + responsibility : '') + '</p>';
 			});
-		}else{ experiences = "1111"; }
+		}else{ experiences = ""; }
 		//experiences.join('<br>');
-		console.log("experiences333 " +experiences);
 		
 		//modalTable.personal_urls = d.personal_urls;
 		modalTable.educations = educations;
@@ -349,11 +353,11 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
 		/* educations = educations.replace(regex, '<span style="background-color: yellow;">$&</span>');						 */
 	
 		let regex;
-		 
+		
 		var inputLinks = document.getElementsByTagName('input');
-		//console.log("inputLinks !!!!!　" +　inputLinks.length);
+		console.log("inputLinks !!!!!　" +　inputLinks.length);
 		for(var i = 0; i < inputLinks.length; i++) {
-			//console.log("inputLinks !!!!!　" + i + " "+　inputLinks[i].id);
+			console.log("inputLinks !!!!!　" + i + " "+　inputLinks[i].id);
 			if(inputLinks[i].id.indexOf("searchInput") !== -1){
 				//console.log("inputLinks !!!!!　" +　inputLinks[i].id + " " +inputLinks[i].value);
 				if (inputLinks[i].value.length > 0) {
@@ -367,7 +371,7 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
 					}
 
 					if (previousButton && previousButton.id.indexOf("mainAttrBtn") !== -1) {						
-						//console.log("previousButton.textContent !!!!!　" +　previousButton.textContent + " prevKey " + prevKey);
+						console.log("previousButton.textContent !!!!!　" +　previousButton.textContent + " prevKey " + prevKey);
 						var prevKey = previousButton.textContent.toLowerCase().replace(/ /g, "_");
 						var colorValueForDynamicKey = conditions[prevKey] ? conditions[prevKey].color : conditions.default.color;
 						//console.log("colorValueForDynamicKey " + colorValueForDynamicKey);
@@ -490,7 +494,7 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
 		
 	}
 	
-	async function fetchAttrData() {
+	async function fetchAttrData(main_codingTool) {
 		try {
 			
 			let queryData ={"united" : true};
@@ -504,94 +508,105 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
 
 			
 		 	var inputLinks = document.getElementsByTagName('input');
-			//console.log("inputLinks !!!!!　" +　inputLinks.length);
-			for(var i = 0; i < inputLinks.length; i++) {
-				//console.log("inputLinks !!!!!　" + i + " "+　inputLinks[i].id);
-				if(inputLinks[i].id.indexOf("searchInput") !== -1){
-					//console.log("inputLinks !!!!!　" +　inputLinks[i].id + " " +inputLinks[i].value);
-					if (inputLinks[i].value.length > 0) {
-					   // 尋找最近的前一個 button
-						var previousButton = inputLinks[i].previousElementSibling;
-						if (previousButton && previousButton.tagName === 'button') {
-							previousButtonName = previousButton.name;
-						}
-						// 尋找最近的下一個 button
-						var nextButton = inputLinks[i].nextElementSibling;
-						if (nextButton && nextButton.tagName === 'button') {
-							nextButtonName = nextButton.name;
-						}
-						/* console.log(previousButton.innerText);
-						console.log(inputLinks[i].value);
-						console.log(nextButton.innerText);
-						 */
-							
- 
-						var key = conditions[previousButton.innerText.toLowerCase().replace(/ /g, "_")].value;
-						var condition = inputLinks[i].value;
-
-						var type = prevCondition === "WITHOUT" ? "excluded_conditions" : "included_conditions";
-							  
-						if (!mainQueryData[key]) {
-							queryData[key] = {
-								"united": nextButton.innerText === "AND" ? false : true,
-								"included_conditions": [],
-								"excluded_conditions": []
-							};
-							//console.log("prevkey " + prevKey + " key " + key + "!!!!!!!!!!!!!!!!    " +　JSON.stringify(mainQueryData));
-							if(prevKey !== key)
-							{
-								//console.log("prevKey !== key prevCondition "+ prevCondition );
-								if(prevCondition.includes("AND") || prevCondition.includes("OR")){
-									mainQueryData["united"]  = prevCondition.includes("AND")  ? false : true;
-									//console.log("mainQueryData['united'] = " + mainQueryData["united"]  + " mainQueryData   " +　JSON.stringify(mainQueryData));
-								}
+			if (main_codingTool === undefined || main_codingTool === null || main_codingTool === "") 
+			{
+				//console.log("inputLinks !!!!!　" +　inputLinks.length);
+				for(var i = 0; i < inputLinks.length; i++) {
+					//console.log("inputLinks !!!!!　" + i + " "+　inputLinks[i].id);
+					if(inputLinks[i].id.indexOf("searchInput") !== -1){
+						//console.log("inputLinks !!!!!　" +　inputLinks[i].id + " " +inputLinks[i].value);
+						if (inputLinks[i].value.length > 0) {
+						   // 尋找最近的前一個 button
+							var previousButton = inputLinks[i].previousElementSibling;
+							if (previousButton && previousButton.tagName === 'button') {
+								previousButtonName = previousButton.name;
 							}
-							//console.log(" queryData[key][type] " +queryData[key][type] + " " +  key + " "  +type+ "　"+condition );
-							queryData[key][type].push(condition);
-							//console.log("queryData " +　JSON.stringify(queryData));
-							Object.assign(mainQueryData, queryData);
-							queryData = {};
-						}else{
-							//console.log("mainQueryData[key] key " + key + " " + JSON.stringify(mainQueryData));
-							mainQueryData[key]["united"] = prevCondition.includes("AND")  ? false : true;
-							mainQueryData[key][type].push(condition);
-						}
-						  
-						  
-						
+							// 尋找最近的下一個 button
+							var nextButton = inputLinks[i].nextElementSibling;
+							if (nextButton && nextButton.tagName === 'button') {
+								nextButtonName = nextButton.name;
+							}
+							/* console.log(previousButton.innerText);
+							console.log(inputLinks[i].value);
+							console.log(nextButton.innerText);
+							 */
+								
+	 
+							var key = conditions[previousButton.innerText.toLowerCase().replace(/ /g, "_")].value;
+							var condition = inputLinks[i].value;
 
-						//console.log("mainQueryData " +　JSON.stringify(mainQueryData));
+							var type = prevCondition === "WITHOUT" ? "excluded_conditions" : "included_conditions";
+								  
+							if (!mainQueryData[key]) {
+								queryData[key] = {
+									"united": nextButton.innerText === "AND" ? false : true,
+									"included_conditions": [],
+									"excluded_conditions": []
+								};
+								//console.log("prevkey " + prevKey + " key " + key + "!!!!!!!!!!!!!!!!    " +　JSON.stringify(mainQueryData));
+								if(prevKey !== key)
+								{
+									//console.log("prevKey !== key prevCondition "+ prevCondition );
+									if(prevCondition.includes("AND") || prevCondition.includes("OR")){
+										mainQueryData["united"]  = prevCondition.includes("AND")  ? false : true;
+										//console.log("mainQueryData['united'] = " + mainQueryData["united"]  + " mainQueryData   " +　JSON.stringify(mainQueryData));
+									}
+								}
+								//console.log(" queryData[key][type] " +queryData[key][type] + " " +  key + " "  +type+ "　"+condition );
+								queryData[key][type].push(condition);
+								//console.log("queryData " +　JSON.stringify(queryData));
+								Object.assign(mainQueryData, queryData);
+								queryData = {};
+							}else{
+								//console.log("mainQueryData[key] key " + key + " " + JSON.stringify(mainQueryData));
+								mainQueryData[key]["united"] = prevCondition.includes("AND")  ? false : true;
+								mainQueryData[key][type].push(condition);
+							}
+							  
+							  
+							
+
+							//console.log("mainQueryData " +　JSON.stringify(mainQueryData));
 
 
-						if(nextButton){
-							prevCondition = nextButton.innerText;
-							prevKey = key;
-						}
+							if(nextButton){
+								prevCondition = nextButton.innerText;
+								prevKey = key;
+							}
+						} 
 					} 
-				} 
-			}
-			//console.log("pre-clean JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
-			let elementsQueryData = 0;
-			for (var key in mainQueryData) {
-				elementsQueryData++;			
-				if(key !== "united"){
-					//console.log("mainQueryData[key]['included_conditions'].length" + mainQueryData[key]["included_conditions"].length);
-					if (mainQueryData[key]["included_conditions"].length === 0) {
-						delete mainQueryData[key]["included_conditions"];
-					}else if (mainQueryData[key]["included_conditions"].length === 1) {
-						delete mainQueryData[key]["united"];
-					}
-					
-					if (mainQueryData[key]["excluded_conditions"].length === 0) {
-						delete mainQueryData[key]["excluded_conditions"];
-					}else if (mainQueryData[key]["excluded_conditions"].length === 1) {
-						delete mainQueryData[key]["united"];
+				}
+				//console.log("pre-clean JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
+				let elementsQueryData = 0;
+				for (var key in mainQueryData) {
+					elementsQueryData++;			
+					if(key !== "united"){
+						//console.log("mainQueryData[key]['included_conditions'].length" + mainQueryData[key]["included_conditions"].length);
+						if (mainQueryData[key]["included_conditions"].length === 0) {
+							delete mainQueryData[key]["included_conditions"];
+						}else if (mainQueryData[key]["included_conditions"].length === 1) {
+							delete mainQueryData[key]["united"];
+						}
+						
+						if (mainQueryData[key]["excluded_conditions"].length === 0) {
+							delete mainQueryData[key]["excluded_conditions"];
+						}else if (mainQueryData[key]["excluded_conditions"].length === 1) {
+							delete mainQueryData[key]["united"];
+						}
 					}
 				}
+				if(elementsQueryData === 2){
+					delete mainQueryData["united"];
+				}
+			}else{
+				console.log("main_codingTool " +main_codingTool );
+				mainQueryData = {
+					"computer_skill": {
+						"included_conditions": [main_codingTool]
+					}
+				};
+				localStorage.setItem('main_codingTool', "");
 			}
-		 	if(elementsQueryData === 2){
-				delete mainQueryData["united"];
-			} 
 			//console.log("mainQueryData elementsQueryData legnth " + elementsQueryData);
 			console.log("JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
 			

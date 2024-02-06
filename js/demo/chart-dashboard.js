@@ -777,7 +777,16 @@ function showCodingChart() {
 }
 
 function updateCardInfo() {
-	document.getElementById("languageName").innerText = firstCodingToolName;
+	var languageNameContainer = document.getElementById("languageName");
+	var linkElement = document.createElement('a');
+	linkElement.textContent = firstCodingToolName;
+	linkElement.href = 'search.html';
+	languageNameContainer.appendChild(linkElement);
+	localStorage.setItem('main_codingTool', firstCodingToolName);
+
+    // 执行页面跳转
+	window.location.href = this.getAttribute('href');
+	//document.getElementById("languageName").innerText = firstCodingToolName;
 	document.getElementById('usagePercentage').innerText = firstCodingToolValue+ '%';
 	document.getElementById('usageProgressBar').style.width = firstCodingToolValue + '%';
 	document.getElementById('usageProgressBar').setAttribute('aria-valuenow', firstCodingToolValue);
