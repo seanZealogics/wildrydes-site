@@ -193,7 +193,7 @@ let originalAllData = null;
 	
 
 	
-	function format(d) {
+	function format(d, main_codingTool ) {
 	// `d` is the original data object for the row
 		//console.log("d=" + JSON.stringify(d));
 		//console.log("personal_urls=" + d.profile.personal_urls);
@@ -354,52 +354,76 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
 	
 		let regex;
 		
-		var inputLinks = document.getElementsByTagName('input');
-		console.log("inputLinks !!!!!　" +　inputLinks.length);
-		for(var i = 0; i < inputLinks.length; i++) {
-			console.log("inputLinks !!!!!　" + i + " "+　inputLinks[i].id);
-			if(inputLinks[i].id.indexOf("searchInput") !== -1){
-				//console.log("inputLinks !!!!!　" +　inputLinks[i].id + " " +inputLinks[i].value);
-				if (inputLinks[i].value.length > 0) {
-				   // 尋找最近的前一個 button
-					var previousButton = inputLinks[i].previousElementSibling;
-					//console.log("previousButton.tagName !!!!!　" +　previousButton.tagName);
-					if (previousButton && previousButton.tagName === 'DIV') {
-						// Find the button within the div
-						previousButton = previousButton.querySelector('button');
-						previousButtonName = previousButton.name;
-					}
-
-					if (previousButton && previousButton.id.indexOf("mainAttrBtn") !== -1) {						
-						console.log("previousButton.textContent !!!!!　" +　previousButton.textContent + " prevKey " + prevKey);
-						var prevKey = previousButton.textContent.toLowerCase().replace(/ /g, "_");
-						var colorValueForDynamicKey = conditions[prevKey] ? conditions[prevKey].color : conditions.default.color;
-						//console.log("colorValueForDynamicKey " + colorValueForDynamicKey);
-						//console.log("previousButton.textContent.toLowerCase() " + previousButton.textContent.toLowerCase());
-						let regexString = escapeRegExp(inputLinks[i].value);
-						regex = new RegExp(regexString, 'gi'); // 'g'表示全局匹配，'i'表示忽略大小寫
-						
-						
-						
-						for (let key in modalTable[prevKey]) {
+		if (main_codingTool !== undefined && main_codingTool !== null && main_codingTool !== "") 
+		{
+			let prevKey = "computer_skills";
+			let colorValueForDynamicKey = "blue" ;
+			let regexString = escapeRegExp(main_codingTool);
+			regex = new RegExp(regexString, 'gi'); // 'g'表示全局匹配，'i'表示忽略大小寫
+			
+			for (let key in modalTable[prevKey]) {
 							
-						  if (typeof modalTable[prevKey] === 'object') {
-							//console.log("object !!!!!　" +　modalTable[previousButton.textContent.toLowerCase()][key]);
-							modalTable[prevKey][key] = modalTable[prevKey][key].replace(regex, function(match) {
-								return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
-							});
-						  }else if (typeof modalTable[prevKey] === 'string') {
-							 //console.log("string !!!!!　" +　modalTable[previousButton.textContent.toLowerCase()]);
-							 modalTable[prevKey] = modalTable[prevKey].replace(regex, function(match) {
-								return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
-							});
-						  }
+			  if (typeof modalTable[prevKey] === 'object') {
+				//console.log("object !!!!!　" +　modalTable[previousButton.textContent.toLowerCase()][key]);
+				modalTable[prevKey][key] = modalTable[prevKey][key].replace(regex, function(match) {
+					return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
+				});
+			  }else if (typeof modalTable[prevKey] === 'string') {
+				 //console.log("string !!!!!　" +　modalTable[previousButton.textContent.toLowerCase()]);
+				 modalTable[prevKey] = modalTable[prevKey].replace(regex, function(match) {
+					return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
+				});
+			  }
+			}
+		}else{
+			
+			var inputLinks = document.getElementsByTagName('input');
+			console.log("inputLinks !!!!!　" +　inputLinks.length);
+			for(var i = 0; i < inputLinks.length; i++) {
+				console.log("inputLinks !!!!!　" + i + " "+　inputLinks[i].id);
+				if(inputLinks[i].id.indexOf("searchInput") !== -1){
+					//console.log("inputLinks !!!!!　" +　inputLinks[i].id + " " +inputLinks[i].value);
+					if (inputLinks[i].value.length > 0) {
+					   // 尋找最近的前一個 button
+						var previousButton = inputLinks[i].previousElementSibling;
+						//console.log("previousButton.tagName !!!!!　" +　previousButton.tagName);
+						if (previousButton && previousButton.tagName === 'DIV') {
+							// Find the button within the div
+							previousButton = previousButton.querySelector('button');
+							previousButtonName = previousButton.name;
 						}
-						
+
+						if (previousButton && previousButton.id.indexOf("mainAttrBtn") !== -1) {						
+							console.log("previousButton.textContent !!!!!　" +　previousButton.textContent + " prevKey " + prevKey);
+							var prevKey = previousButton.textContent.toLowerCase().replace(/ /g, "_");
+							var colorValueForDynamicKey = conditions[prevKey] ? conditions[prevKey].color : conditions.default.color;
+							console.log("colorValueForDynamicKey " + colorValueForDynamicKey);
+							//console.log("previousButton.textContent.toLowerCase() " + previousButton.textContent.toLowerCase());
+							let regexString = escapeRegExp(inputLinks[i].value);
+							regex = new RegExp(regexString, 'gi'); // 'g'表示全局匹配，'i'表示忽略大小寫
+							
+							
+							console.log("prevKey " + prevKey);
+							for (let key in modalTable[prevKey]) {
+								
+							  if (typeof modalTable[prevKey] === 'object') {
+								//console.log("object !!!!!　" +　modalTable[previousButton.textContent.toLowerCase()][key]);
+								modalTable[prevKey][key] = modalTable[prevKey][key].replace(regex, function(match) {
+									return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
+								});
+							  }else if (typeof modalTable[prevKey] === 'string') {
+								 //console.log("string !!!!!　" +　modalTable[previousButton.textContent.toLowerCase()]);
+								 modalTable[prevKey] = modalTable[prevKey].replace(regex, function(match) {
+									return `<span style='background-color: ${colorValueForDynamicKey}; color: yellow;'>${match}</span>`; 
+								});
+							  }
+							}
+							
+						}
 					}
 				}
-			}
-		} 
+			} 
+		}
 		
 		
 						
@@ -1089,7 +1113,7 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
 				}
 				else {
 					// Open this row
-					var childData = format(row.data());
+					var childData = format(row.data(), main_codingTool );
 					$('#modalBody').html(childData); // Add the child table to the modal body										
 					$('#expandModal').modal('show'); // Show the modal
 					$('#resumeModalLabel').text(row.data().profile.name);
