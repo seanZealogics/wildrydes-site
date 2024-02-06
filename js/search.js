@@ -702,6 +702,7 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
                 "data": allData,
                 "scrollCollapse": true,
 				"autoWidth": false,
+				"pageLength": 50, 
 				"columnDefs": [
 					{
 						"targets": "_all",
