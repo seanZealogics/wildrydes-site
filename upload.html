@@ -63,7 +63,7 @@
 		
 
 		
-    }
+    
 	</style>
 </head>
 <!-- .col ,.col-1, .col-2, .col-2, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-12, .col-auto {
@@ -128,7 +128,7 @@
 					<img id="loading" src="images/loading.gif" alt="Loading..." >										
 				</div>
 				<!-- Content Wrapper -->
-			<div id="content-wrapper" class="d-flex flex-column">
+				<div id="content-wrapper" class="d-flex flex-column">
 
 				<!-- Main Content -->
 				<div id="content">
@@ -185,16 +185,29 @@
 						<div class="row justify-content-center">
 							<div class="col-12">
 								<input type="file" id="pdfSelector" name="files[]" multiple accept=".pdf" style="display: none;" />
+								
 								<div class="d-flex justify-content-center">
-									<button class="btn btn-info dropdown-toggle m-1" type="button" id="tagNameItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px; background-color: #1967d2; border: none;">Select Tags</button>
+								
+								  <div class="btn-group">
+									<button class="btn btn-info btn-sm m-0" type="button" id="tagNameItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 110px; height: 38px; background-color: #1967d2; border: none; font-size: 16px;" onfocus="this.blur();">Select Tags</button>
+									
+									<button class="btn btn-info btn-sm dropdown-toggle m-0" type="button" id="dropdownToggle"  aria-haspopup="true" aria-expanded="false" style="height: 38px; background-color: #1967d2; border: none;" onfocus="this.blur();">
+									  <span class="caret"></span> <!-- dropdown icon -->
+									</button>
+									
 									<div class="dropdown-menu" aria-labelledby="tagNameItem">
 									  <div class="dropdown-divider"></div>
 									  <a class="dropdown-item" href="#" id="addNewTag">Add New Tag</a>										   
 									</div>
-									<button class="btn btn-primary m-1" style="border: none;" onclick="document.getElementById('pdfSelector').click();">Select Files</button>
-									<button class="btn btn-success m-1" id="uploadResumeBtn" style="background-color: #4285f4; border: none;">Upload Files</button>
 									
+								  </div>
+								  
+								  <button class="btn btn-primary m-0 ml-4" style="height: 38px; border: none; " onclick="document.getElementById('pdfSelector').click();">Select Files</button>
+								  
+								  <button class="btn btn-success m-0 ml-4" id="uploadResumeBtn" style="height: 38px; background-color: #4285f4; border: none;">Upload Files</button>
+								  
 								</div>
+
 								
 								<p>
 								
@@ -402,8 +415,14 @@
 						
 						if (elements[i].trim() !== "") 
 						{
-						console.log("elements[i] " + elements[i] + " elements[i+1] " +elements[i+1] +" elements[i+2] " +elements[i+2] );
-							table.row.add(['<input type="text" class="form-control" value="' + elements[i] + '">', elements[i + 1],  elements[i + 2], null]).draw();							
+							console.log("elements[i] " + elements[i] + " elements[i+1] " +elements[i+1] +" elements[i+2] " +elements[i+2] );
+							//table.row.add(['<input type="text" class="form-control" value="' + elements[i] + '">', elements[i + 1],  elements[i + 2], null]).draw();
+							table.row.add([
+								'<span class="badge bg-primary">' + elements[i] + '</span>', // 添加 badge 样式类
+								elements[i + 1],
+								elements[i + 2],
+								null
+							]).draw();					
 						}
 					}
 				}
@@ -618,7 +637,14 @@ console.log("newItem click!! " + curSelectedTagName);
 						break;
 					}
 
-					table.row.add(['<input type="text" class="form-control" value="' + curSelectedTagName + '">', fileName, null, null]).draw();
+					//table.row.add(['<input type="text" class="form-control" value="' + curSelectedTagName + '">', fileName, null, null]).draw();
+					table.row.add([
+						'<span class="badge bg-primary text-white"  style="font-size: 1.0rem;">' + curSelectedTagName + '</span>',
+						fileName,
+						null,
+						null
+					]).draw();
+					
 					rowCount++;
 					uploadFiles.push(file);
 					fileNames.push(fileName); // 將新檔案名稱添加到列表中
