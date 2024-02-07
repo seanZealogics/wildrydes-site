@@ -782,14 +782,14 @@ function updateCardInfo() {
 	linkElement.textContent = firstCodingToolName;
 	linkElement.href = 'search.html';
 	languageNameContainer.appendChild(linkElement);
-	localStorage.setItem('main_codingTool', firstCodingToolName);
+	
 
-    // 执行页面跳转
-	window.location.href = this.getAttribute('href');
+   
 	//document.getElementById("languageName").innerText = firstCodingToolName;
 	document.getElementById('usagePercentage').innerText = firstCodingToolValue+ '%';
 	document.getElementById('usageProgressBar').style.width = firstCodingToolValue + '%';
 	document.getElementById('usageProgressBar').setAttribute('aria-valuenow', firstCodingToolValue);
+	
 }
 
 async function fetchCardSummary() {
@@ -857,4 +857,13 @@ $(function onDocReady() {
         console.log("frameworksChart init!!" );
 		showCodingChart();
     });
+	
+	document.getElementById('languageName').addEventListener('click', function(event) {
+		// 阻止默认的链接跳转行为
+		event.preventDefault();
+		// 使用 localStorage 存储需要传递的文字内容
+		localStorage.setItem('main_codingTool', firstCodingToolName);
+		// 执行页面跳转
+		window.location.href = 'search.html';
+	});
 });
