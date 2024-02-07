@@ -793,11 +793,11 @@ function updateCardInfo() {
 }
 
 async function fetchCardSummary() {
-    console.log("fetchCardSummary");
     
     let mainQueryData = {"tag": {"included_conditions": ["employee"]}};
     let controller = new AbortController();
     let signal = controller.signal;
+	console.log("fetchCardSummary " + JSON.stringify(mainQueryData));
 
     setTimeout(() => controller.abort(), 5000); // 5000 milliseconds = 5 seconds
 
@@ -805,8 +805,7 @@ async function fetchCardSummary() {
         const resumesResponse = await fetch(_config.api.queryUrl, {
             method: 'POST',
             mode: 'cors',
-            body: JSON.stringify(mainQueryData),
-            signal
+            body: JSON.stringify(mainQueryData)
         });
 
         if (!resumesResponse.ok) {
@@ -815,7 +814,7 @@ async function fetchCardSummary() {
 
         const data = await resumesResponse.json();
 
-        //console.log(data);
+        console.log("fetchCardSummary " +	JSON.stringify(data));
         handleRequest(data);		
         document.getElementById('loading').style.display = 'none';
     } catch (e) {
