@@ -182,6 +182,7 @@ let originalAllData = null;
 		var main_codingTool = localStorage.getItem('main_codingTool');
 		if (main_codingTool !== undefined && main_codingTool !== null && main_codingTool !== "") {
 			console.log("main_codingTool " +main_codingTool );
+			searchInput.value = main_codingTool;
 			showLoading();
 			fetchAttrData(main_codingTool);
 		}
