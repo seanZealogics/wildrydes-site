@@ -195,7 +195,7 @@
 									  <span class="caret"></span> <!-- dropdown icon -->
 									</button>
 									
-									<div class="dropdown-menu" aria-labelledby="tagNameItem">
+									<div id="tagMenuItem" class="dropdown-menu" aria-labelledby="tagNameItem">
 									  <div class="dropdown-divider"></div>
 									  <a class="dropdown-item" href="#" id="addNewTag">Add New Tag</a>										   
 									</div>
@@ -473,7 +473,7 @@
 								'<span>' + newTagName + '</span>' +
 								'<button class="btn btn-danger btn-sm ml-2 removeTagBtn" onclick="removeTagItem(this)" style="display: none;">X</button>' +
 								'</div>');
-					$('.dropdown-menu').prepend(newItem);
+					$('#tagMenuItem').prepend(newItem);
 					createNewItemName = newTagName;
 
 					// Attach a click event listener to the newly added item
@@ -494,7 +494,7 @@ console.log("newItem click!! " + curSelectedTagName);
 			
 			$(document).ready(function() {
 				
-				let dropdownMenu = $('.dropdown-menu');
+				let dropdownMenu = $('#tagMenuItem');
 				
 				fetchTags();
 				
@@ -563,7 +563,7 @@ console.log("newItem click!! " + curSelectedTagName);
 							'<span>' + newTagName + '</span>' +
 							'<button class="btn btn-danger btn-sm ml-2 removeTagBtn" onclick="removeTagItem(this)" style="display: none;">X</button>' +
 							'</div>');
-						$('.dropdown-menu').prepend(newItem);
+						$('#tagMenuItem').prepend(newItem);
 						createNewItemName = newTagName;
 
 						// Attach a click event listener to the newly added item
