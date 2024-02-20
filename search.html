@@ -275,6 +275,7 @@
     #main {
 	  margin-top: 70px;
       margin-left: 15%; /* Changed to default open */
+	  width: 85%;
       padding: 20px;
       transition: margin-left .5s;
 
@@ -327,165 +328,166 @@
 				</nav>
 
 
-					<!-- Begin Search Group Content -->
-					<div  id="main" class="container-fluid">
-						<div id="mySidenav" class="sidenav">
-							<br>
-								<!-- Nav Item - Charts -->
+				<!-- Begin Search Group Content -->
+				<div  id="main" class="container-fluid">
+					<div id="mySidenav" class="sidenav">
+						<br>
+							<!-- Nav Item - Charts -->
+							
+							<ul class="navbar-nav  custom-shadow" id="accordionSidebar" >
+
+							<!-- Nav Item - Charts -->
+								<p>
+								<li class="nav-item ">
+									<a class="nav-link" href="main.html" style="font-size: 14px;">
+										<i class="fas fa-fw fa-chart-area" style="font-size: 16px;"></i>
+										<span class="font-weight-weight">Employee Statistics</span></a>
+								</li>
+
+								<p>
+								<li class="nav-item ">
+									<a class="nav-link" href="search.html" style="font-size: 14px;color: blue;">
+										<i class="fas fa-fw fa-search" style="color: navy;font-size: 16px;"></i>
+										<span> Search</span></a>
+								</li>
 								
-								<ul class="navbar-nav  custom-shadow" id="accordionSidebar" >
+								<p>
+								<li class="nav-item">
+									<a class="nav-link" href="upload.html" style="font-size: 14px;">
+										<i class="fas fa-fw fa-file-archive" style="color: navy;font-size: 16px;"></i>
+										<span>Upload Resumes</span></a>
+								</li>
+								<p>
+							</ul>
+							
+						</br>					
+					</div>
 
-								<!-- Nav Item - Charts -->
-									<p>
-									<li class="nav-item active">
-										<a class="nav-link" href="main.html" style="font-size: 14px;">
-											<i class="fas fa-fw fa-chart-area" style="font-size: 16px;"></i>
-											<span class="font-weight-weight">Employee Statistics</span></a>
-									</li>
-
-									<p>
-									<li class="nav-item">
-										<a class="nav-link" href="search.html" style="font-size: 14px;">
-											<i class="fas fa-fw fa-search" style="color: navy;font-size: 16px;"></i>
-											<span> Search</span></a>
-									</li>
-									
-									<p>
-									<li class="nav-item">
-										<a class="nav-link" href="upload.html" style="font-size: 14px;">
-											<i class="fas fa-fw fa-file-archive" style="color: navy;font-size: 16px;"></i>
-											<span>Upload Resumes</span></a>
-									</li>
-									<p>
-								</ul>
-								
-							</br>					
-						</div>
-
-						<!--Search -->
+					<!--Search -->
+					
+					<form id="newbelow" class="shadow d-sm-inline-block form-inline mr-auto my-md-0 w-100">
 						
-						<form id="newbelow" class="shadow d-sm-inline-block form-inline mr-auto my-md-0 w-100">
-							
-							<div class="card-header py-3 col-12">
-								<h5 class="m-0 font-weight-bold text-primary">Search</h5>
-							</div>
-							<p>
-							
-							<div id="controlContainer0" class="container-fluid">
-								<div class="row">
-									<div id="first-group" class="dropdown1 col-auto">
-										
-									  <button id="mainAttrBtn1" class="btn btn-primary dropdown-toggle fixed-width-attrButton" type="button" data-toggle="dropdown" style="border: none;">
-									  <span class="caret"></span></button>
-									  <ul id="mainDropMenu0" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
+						<div class="card-header py-3 col-12">
+							<h5 class="m-0 font-weight-bold text-primary">Search</h5>
+						</div>
+						<p>
+						
+						<div id="controlContainer0" class="container-fluid">
+							<div class="row">
+								<div id="first-group" class="dropdown1 col-auto">
 									
-									  </ul>
-									</div>
+								  <button id="mainAttrBtn1" class="btn btn-primary dropdown-toggle fixed-width-attrButton" type="button" data-toggle="dropdown" style="border: none;">
+								  <span class="caret"></span></button>
+								  <ul id="mainDropMenu0" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
 								
-								
-									<input id="searchInput1" type="text" class="form-control bg-light border-primary  col-auto w-60" placeholder="" aria-label="Search" aria-describedby="basic-addon2" onkeydown="handleKeyDown(event)">
-										
-									
-									<div class="dropdown2 col-auto">
-									  <button id="operatorBtn1" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown" style="display: none;">OR
-									  <span class="caret"></span></button>
-									  <ul id="operatorMenu1" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
-										<li><a href="#" onclick="changeButtonColor('AND', this)">AND</a></li>
-										<li><a href="#" onclick="changeButtonColor('OR', this)">OR</a></li>
-										<li><a href="#" onclick="changeButtonColor('WITHOUT', this)">WITHOUT</a></li>
-									  </ul>
-									</div>
-									
-									<div class="dropdown2 col-auto">
-									
-									  <button id="addSearchGroup1" class="btn btn-primary" width="100px" type="button" onclick="addQueryBtnGrp(this)" >+
-									  </button>	
-									  <button id="delSearchGroup1" class="btn btn-danger" width="100px" type="button" onclick="delQueryBtnGrp(this)" style="display: none;">-
-									  </button>	
-									</div>
-									
+								  </ul>
 								</div>
-							</div>
-							<p>
-
-						</form>                            
-						
-						<div class="input-group-append ">
-							<button id="searchBtn" class="btn btn-primary mx-2" type="button" style="display: inline-block;">
-								<i class="fas fa-search fa-lg"></i>
-							</button>
-						</div><br><br><br><br>
-									
-					</div><!-- Begin Search Group Content -->
-					
-					<div>
-						<img id="loading" src="images/loading.gif" alt="Loading..." >										
-					</div>
-									
-					<!-- Begin Page Content -->
-					<div class="container-fluid">
-					
-						<!-- DataTables Example -->	
-						<div class="card shadow mb-4 ">
 							
-							<div id="tableCard" class="card-header py-3">
 							
-								<h5 class="m-0 font-weight-bold text-primary">Resumes</h5>
+								<input id="searchInput1" type="text" class="form-control bg-light border-primary  col-auto w-60" placeholder="" aria-label="Search" aria-describedby="basic-addon2" onkeydown="handleKeyDown(event)">
+									
+								
+								<div class="dropdown2 col-auto">
+								  <button id="operatorBtn1" class="btn btn-primary dropdown-toggle fixed-width-operButton" width="100px" type="button" data-toggle="dropdown" style="display: none;">OR
+								  <span class="caret"></span></button>
+								  <ul id="operatorMenu1" class="dropdown-menu dropdown-menu-right shadow animated--grow-in animated--fade-in">
+									<li><a href="#" onclick="changeButtonColor('AND', this)">AND</a></li>
+									<li><a href="#" onclick="changeButtonColor('OR', this)">OR</a></li>
+									<li><a href="#" onclick="changeButtonColor('WITHOUT', this)">WITHOUT</a></li>
+								  </ul>
+								</div>
+								
+								<div class="dropdown2 col-auto">
+								
+								  <button id="addSearchGroup1" class="btn btn-primary" width="100px" type="button" onclick="addQueryBtnGrp(this)" >+
+								  </button>	
+								  <button id="delSearchGroup1" class="btn btn-danger" width="100px" type="button" onclick="delQueryBtnGrp(this)" style="display: none;">-
+								  </button>	
+								</div>
 								
 							</div>
-							
-							<section id="tableContent">							
-							
-							</section>
-													
+						</div>
+						<p>
+
+					</form>                            
+					
+					<div class="input-group-append ">
+						<button id="searchBtn" class="btn btn-primary mx-2" type="button" style="display: inline-block;">
+							<i class="fas fa-search fa-lg"></i>
+						</button>
+					</div><br><br><br><br>
+					<!-- DataTables Example -->	
+					<div class="card shadow mb-4 ">
+						
+						<div id="tableCard" class="card-header py-3">
+						
+							<h5 class="m-0 font-weight-bold text-primary">Resumes</h5>
 							
 						</div>
-
+						
+						<section id="tableContent">							
+						
+						</section>
+												
+						
 					</div>
-					<!-- /.container-fluid -->
 								
+				</div><!-- Begin Search Group Content -->
+				
+				<div>
+					<img id="loading" src="images/loading.gif" alt="Loading..." >										
+				</div>
+								
+				<!-- Begin Page Content -->
+		
+				
+				
+
+			
+			<!-- /.container-fluid -->
+							
 
 						
-					<!-- /.container-fluid -->
-					<td class="details-control" data-toggle="modal" data-target="#expandModal"></td>
+			<!-- /.container-fluid -->
+			<td class="details-control" data-toggle="modal" data-target="#expandModal"></td>
 
-					<!-- Modal -->
-					<div class="modal fade right" id="expandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog" role="document">
-						  <div class="modal-content">
-							<div class="modal-header">
-							  <h5 class="modal-title" id="resumeModalLabel"></h5>
-							  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">×</span>
-							  </button>
-							</div>
-							<div id="modalBody" class="modal-body">
-							  
-							</div>
-							<div class="modal-footer">
-							 <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							  <button type="button" class="btn btn-primary">Save changes</button> -->
-							</div>
-						  </div>
-						</div>
+			<!-- Modal -->
+			<div class="modal fade right" id="expandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h5 class="modal-title" id="resumeModalLabel"></h5>
+					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					  </button>
 					</div>
-				<!-- End of Main Content -->
-
-				<!-- Footer -->
-				<footer class="sticky-footer bg-white">
-					<div class="container my-auto">
-						<div class="copyright text-center my-auto">
-							<span>Copyright &copy; Zealogics Co. 2023</span>
-						</div>
+					<div id="modalBody" class="modal-body">
+					  
 					</div>
-				</footer>
-				<!-- End of Footer -->
-
+					<div class="modal-footer">
+					 <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					  <button type="button" class="btn btn-primary">Save changes</button> -->
+					</div>
+				  </div>
+				</div>
 			</div>
-			<!-- End of Content Wrapper -->
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright &copy; Zealogics Co. 2023</span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
 
 		</div>
-		<!-- End of Page Wrapper -->
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
 
 		<!-- Scroll to Top Button-->
 		<a class="scroll-to-top rounded" href="#page-top">
