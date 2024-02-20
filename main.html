@@ -32,79 +32,79 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css">
 	<style type="text/css" class="init">
 
-		#loading {
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			width: 25%;
-			height: 25%;
-			margin-left: -50px; /* half of width */
-			margin-top: -50px; /* half of height */
-			transform: translate(-10%, -50%);
-		}
-		.brand-text-small {
-			font-size: 14px;  /* 根據需要調整字體大小 */
-		}
-		
-		.nav-item.active a.nav-link span {
-			color: blue;  /* 你可以選擇任何深藍色 */
-		}
-		
-		.nav-item a.nav-link span {
-			color: navy;  /* 你可以選擇任何深藍色 */
-		}
-		
+	#loading {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		width: 25%;
+		height: 25%;
+		margin-left: -50px; /* half of width */
+		margin-top: -50px; /* half of height */
+		transform: translate(-10%, -50%);
+	}
+	.brand-text-small {
+		font-size: 14px;  /* 根據需要調整字體大小 */
+	}
+	
+	.nav-item.active a.nav-link span {
+		color: blue;  /* 你可以選擇任何深藍色 */
+	}
+	
+	.nav-item a.nav-link span {
+		color: navy;  /* 你可以選擇任何深藍色 */
+	}
+	
+	.container-fluid {
+		display: grid;
+		grid-gap: 1rem;
+	}
+
+	/* 默认情况下，使用较小的列宽 */
+	.container-fluid {
+		grid-template-columns: 1fr; /* 100%宽度 */
+	}
+
+	/* 当屏幕宽度达到一定尺寸时，使用较大的列宽 */
+	@media screen and (min-width: 1200px) {
 		.container-fluid {
-			display: grid;
-			grid-gap: 1rem;
+			grid-template-columns: 200px 400px 400px;
 		}
+	}
 
-		/* 默认情况下，使用较小的列宽 */
+	/* 在更大的屏幕尺寸下，可以进一步调整列宽或布局 */
+	@media screen and (min-width: 1400px) {
 		.container-fluid {
-			grid-template-columns: 1fr; /* 100%宽度 */
+			grid-template-columns: 300px 500px 500px;
 		}
+	}
+	.card-span {
+		grid-row: span 2;
+	}
+	
+	.custom-border1 {
+		border-left: 5px solid #96deff;
+	}
+	
+	.custom-border2 {
+		border-left: 5px solid #b5d6eb;
+	}
+	
+	.custom-shadow {
+		box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1); /* 調整這裡的數值以達到您想要的深度 */
+	}
+	
+	.sidebar-brand-text {
+		text-transform: none;
+	}
+	
+	#content-wrapper {
+		position: relative;
+		z-index: 1;
+	}
 
-		/* 当屏幕宽度达到一定尺寸时，使用较大的列宽 */
-		@media screen and (min-width: 1200px) {
-			.container-fluid {
-				grid-template-columns: 200px 400px 400px;
-			}
-		}
-
-		/* 在更大的屏幕尺寸下，可以进一步调整列宽或布局 */
-		@media screen and (min-width: 1400px) {
-			.container-fluid {
-				grid-template-columns: 300px 500px 500px;
-			}
-		}
-        .card-span {
-            grid-row: span 2;
-        }
-		
-		.custom-border1 {
-			border-left: 5px solid #96deff;
-		}
-		
-		.custom-border2 {
-			border-left: 5px solid #b5d6eb;
-		}
-		
-		.custom-shadow {
-			box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1); /* 調整這裡的數值以達到您想要的深度 */
-		}
-		
-		.sidebar-brand-text {
-			text-transform: none;
-		}
-		
-		#content-wrapper {
-			position: relative;
-			z-index: 1;
-		}
-
-		#accordionSidebar {
-			z-index: 2;
-		}
+	#accordionSidebar {
+		z-index: 2;
+	}
 		
 		
     .sidenav {
@@ -170,11 +170,9 @@
     }
 
     #main {
-
+	  margin-top: 70px;
       margin-left: 15%; /* Changed to default open */
-
       padding: 20px;
-
       transition: margin-left .5s;
 
     }
