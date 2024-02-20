@@ -155,6 +155,131 @@
 		}
 		
 		
+    .navbar {
+
+      position: fixed;
+
+      width: 100%;
+
+      overflow: hidden;
+
+      background-color: #ffffff; /* Changed to white */
+
+      z-index: 2; /* Changed to be on top */
+
+      box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75); /* Added shadow */
+
+    }
+
+    .navbar a {
+
+      float: left;
+
+      display: block;
+
+      color: #000000; /* Changed to black */
+
+      text-align: center;
+
+      padding: 14px 16px;
+
+      text-decoration: none;
+
+      font-size: 17px;
+
+    }
+
+    .navbar a:hover {
+
+      background: #ddd;
+
+      color: black;
+
+    }
+	
+	.navbar-nav {
+        display: flex;
+    }
+	
+    .navbar-nav .nav-item.news {
+        margin-left: auto;
+    }
+	
+	
+    .sidenav {
+
+      height: 100%;
+
+      width: 15%; /* Changed to default open */
+
+      position: fixed;
+
+      z-index: 1;
+
+      top: 0;
+
+      left: 0;
+
+      background-color: #ffffff; /* Changed to white */
+
+      overflow-x: hidden;
+
+      transition: 0.5s;
+
+      padding-top: 60px;
+
+      box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75); /* Added shadow */
+
+    }
+
+    .sidenav a {
+
+      padding: 8px 8px 8px 32px;
+
+      text-decoration: none;
+
+      font-size: 25px;
+
+      color: #000000; /* Changed to black */
+
+      display: block;
+
+      transition: 0.3s;
+
+    }
+
+    .sidenav a:hover {
+
+      color: #f1f1f1;
+
+    }
+	
+	.sidebar-brand-text {
+		text-transform: none;
+	}
+
+    .sidenav .closebtn {
+
+      position: absolute;
+
+      top: 0;
+
+      right: 25px;
+
+      font-size: 36px;
+
+      margin-left: 50px;
+
+    }
+
+    #main {
+	  margin-top: 70px;
+      margin-left: 15%; /* Changed to default open */
+      padding: 20px;
+      transition: margin-left .5s;
+
+    }
+		
 	</style>
 	<!-- .col ,.col-1, .col-2, .col-2, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-12, .col-auto {
 		  border: 1px solid black;
@@ -169,113 +294,73 @@
 		<!-- Page Wrapper -->
 		<div id="wrapper">
 
-			<!-- Sidebar -->
-			<ul class="navbar-nav sidebar custom-shadow" id="accordionSidebar">
-
-				<!-- Sidebar - Brand -->
-				<a class="sidebar-brand d-flex align-items-center justify-content-left" href="index.html">
-					<div >
-						<img src="img/zealogics_logo.png" alt="This is an image" class="img-fluid"  style="max-width: 15px;">
-					</div>			
-					<div class="sidebar-brand-text text-center m-1"  style="color: navy;">
-						<div >TalentMatrix</div>
-					</div>					
-				</a>
-				
-
-				<!-- Nav Item - Charts -->
-				<li class="nav-item">
-					<a class="nav-link" href="main.html">
-						<i class="fas fa-fw fa-chart-area" ></i>
-						<span>Employee Statistics</span></a>
-				</li>
-
-				
-				<li class="nav-item active">
-					<a class="nav-link" href="search.html">
-						<i class="fas fa-fw fa-search" style="color: navy;"></i>
-						<span>Search</span></a>
-				</li>
-
-
-				<li class="nav-item">
-					<a class="nav-link" href="upload.html">
-						<i class="fas fa-fw fa-file-archive" style="color: navy;"></i>
-						<span>Upload Resumes</span></a>
-				</li>
-
-
-				<!-- Divider -->
-				<hr class="sidebar-divider">
-
-
-
-				<!-- Sidebar Toggler (Sidebar) -->
-				<div class="text-center d-none d-md-inline">
-					<button class="rounded-circle border-0" id="sidebarToggle"></button>
-				</div>
-
-
-
-			</ul>
-			<!-- End of Sidebar -->
-
 			<!-- Content Wrapper -->
 			<div id="content-wrapper" class="d-flex flex-column">
-
-				<!-- Main Content -->
-				<div id="content">
-
-					<!-- Topbar -->
-					<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-						<div id="topTitle" class="h5 mb-0 font-weight-bold text-gray-800"></div>
-					 
-						
-
-						<!-- Topbar Navbar -->
-						<ul class="navbar-nav ml-auto">
-
-							
-							<div class="topbar-divider d-none d-sm-block"></div>
-
-							<!-- Nav Item - User Information -->
-							<li class="nav-item dropdown no-arrow">
-								<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
-									<img class="img-profile rounded-circle"
-										src="img/undraw_profile.svg">
-								</a>
-								<!-- Dropdown - User Information -->
-								<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-									aria-labelledby="userDropdown">
-									<!-- <a class="dropdown-item" href="#">
-										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-										Profile
+				<nav class="navbar navbar-expand-sm bg-light navbar-light">
+					<div class="container-fluid">
+						<button class="navbar-toggler" type="button" onclick="openNav()">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarNav">
+							<ul class="navbar-nav">
+								<li class="nav-item">
+									<a class="nav-link" href="#" class="sidebar-brand-text" style="color: navy;">
+										<img src="img/zealogics_logo.png" class="img-fluid" style="max-width: 15px;"> 
+										<strong> TalentMatrix </strong>
 									</a>
-									<a class="dropdown-item" href="#">
-										<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-										Settings
+								</li>
+								<li class="nav-item">
+									<a>
+										<span style="font-size:20px;cursor:pointer" onclick="toggleNav()">☰</span>
 									</a>
-									<a class="dropdown-item" href="#">
-										<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-										Activity Log
+								</li>
+							</ul>
+							<ul class="navbar-nav ml-auto">
+								<li class="nav-item">
+									 <a class="nav-link" href="#">
+										<img class="img-profile rounded-circle" src="img/undraw_profile.svg" style="max-width: 30px; height: 30px;">
 									</a>
-									<div class="dropdown-divider"></div> -->
-									<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-										<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-										Logout
-									</a>
-								</div>
-							</li>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
 
-						</ul>
-
-					</nav>
-					<!-- End of Topbar -->
 
 					<!-- Begin Search Group Content -->
-					<div class="container-fluid">
+					<div  id="main" class="container-fluid">
+						<div id="mySidenav" class="sidenav">
+							<br>
+								<!-- Nav Item - Charts -->
+								
+								<ul class="navbar-nav  custom-shadow" id="accordionSidebar" >
+
+								<!-- Nav Item - Charts -->
+									<p>
+									<li class="nav-item active">
+										<a class="nav-link" href="main.html" style="font-size: 14px;">
+											<i class="fas fa-fw fa-chart-area" style="font-size: 16px;"></i>
+											<span class="font-weight-weight">Employee Statistics</span></a>
+									</li>
+
+									<p>
+									<li class="nav-item">
+										<a class="nav-link" href="search.html" style="font-size: 14px;">
+											<i class="fas fa-fw fa-search" style="color: navy;font-size: 16px;"></i>
+											<span> Search</span></a>
+									</li>
+									
+									<p>
+									<li class="nav-item">
+										<a class="nav-link" href="upload.html" style="font-size: 14px;">
+											<i class="fas fa-fw fa-file-archive" style="color: navy;font-size: 16px;"></i>
+											<span>Upload Resumes</span></a>
+									</li>
+									<p>
+								</ul>
+								
+							</br>					
+						</div>
 
 						<!--Search -->
 						
@@ -455,5 +540,30 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
 
 
+		<script>
+			var isNavOpen = true; // Global variable to track the sidebar status
+
+			function closeNav() {
+			  document.getElementById("mySidenav").style.width = "0";
+			  document.getElementById("main").style.marginLeft= "0";
+			  isNavOpen = false;
+			}
+
+			function openNav() {
+			  document.getElementById("mySidenav").style.width = "15%";
+			  document.getElementById("main").style.marginLeft = "15%";
+			  isNavOpen = true;
+			}
+
+			function toggleNav() {
+			  if (isNavOpen) {
+				closeNav();
+			  } else {
+				openNav();
+			  }
+			}
+		
+
+		</script>
 	</body>
 </html>
