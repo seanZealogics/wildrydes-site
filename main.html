@@ -17,6 +17,8 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+
 
     <!-- Custom styles for this template-->
     <link rel="stylesheet" type="text/css" href="css/sb-admin-2.min.css" >
@@ -52,6 +54,11 @@
 	
 	.nav-item a.nav-link span {
 		color: navy;  /* 你可以選擇任何深藍色 */
+	}
+	
+	.nav-link {
+		font-family: 'Roboto', sans-serif;
+		font-size: 14px;
 	}
 	
 	.container-fluid {
@@ -102,11 +109,6 @@
 		z-index: 1;
 	}
 
-	#accordionSidebar {
-		z-index: 2;
-	}
-		
-		
     .sidenav {
 
       height: 100%;
@@ -218,14 +220,11 @@
       color: black;
 
     }
-
-	.sidebar-brand-text {
-		text-transform: none;
-	}
 	
 	.navbar-nav {
         display: flex;
     }
+	
     .navbar-nav .nav-item.news {
         margin-left: auto;
     }
@@ -261,7 +260,9 @@
 						</ul>
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item">
-								<a class="nav-link" href="#">News</a>
+								 <a class="nav-link" href="#">
+									<img class="img-profile rounded-circle" src="img/undraw_profile.svg" style="max-width: 30px; height: 30px;">
+								</a>
 							</li>
 						</ul>
 					</div>
@@ -272,10 +273,34 @@
 			<div id="main"  class="container-fluid">
 				<div id="mySidenav" class="sidenav">
 					<br>
-						<a href="#"><h4>About</h4></a>
-						<a href="#"><h4>Services</h4></a>
-						<a href="#"><h4>Clients</h4></a>
-						<a href="#"><h4>Contact</h4></a>
+						<!-- Nav Item - Charts -->
+						
+						<ul class="navbar-nav  custom-shadow" id="accordionSidebar" >
+
+						<!-- Nav Item - Charts -->
+							<p>
+							<li class="nav-item active">
+								<a class="nav-link" href="main.html" style="font-size: 14px;">
+									<i class="fas fa-fw fa-chart-area" style="font-size: 16px;"></i>
+									<span class="font-weight-weight">Employee Statistics</span></a>
+							</li>
+
+							<p>
+							<li class="nav-item">
+								<a class="nav-link" href="search.html" style="font-size: 14px;">
+									<i class="fas fa-fw fa-search" style="color: navy;font-size: 16px;"></i>
+									<span> Search</span></a>
+							</li>
+							
+							<p>
+							<li class="nav-item">
+								<a class="nav-link" href="upload.html" style="font-size: 14px;">
+									<i class="fas fa-fw fa-file-archive" style="color: navy;font-size: 16px;"></i>
+									<span>Upload Resumes</span></a>
+							</li>
+							<p>
+						</ul>
+						
 					</br>					
 				</div>
 		
