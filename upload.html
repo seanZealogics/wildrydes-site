@@ -687,7 +687,10 @@ console.log("newItem click!! " + curSelectedTagName);
 
 
 				$('#pdfTable tbody').on('click', 'button', function() {
-					table.row($(this).parents('tr')).remove().draw();
+					console.log("remove row!! ");
+					var row = $(this).closest('tr'); // get current row
+					var table = $('#pdfTable').DataTable();
+					table.row(row).remove().draw(); // remove current row
 					saveTableDataToLocalStorage(table);
 				});
 				
