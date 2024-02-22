@@ -34,6 +34,7 @@ let originalAllData = null;
         'experiences': { text: 'Experiences', value: 'experience', color: 'rgb(66,185,224)' },
 		'certificates': { text: 'Certificates', value: 'certificate', color: 'rgb(170,189,255)' },
 		'computer_skills': { text: 'Computer Skills', value: 'computer_skill', color: 'blue' },
+		'tags': { text: 'Tags', value: 'tag', color: 'blue' },
         'default': { text: 'Select',value: '', color: 'green' }
     };
 	
@@ -73,7 +74,7 @@ let originalAllData = null;
 		  });
 
 		  const data = await response.json();
-		  //console.log(data);
+		  console.log("fetchUrl " + JSON.stringify(data));
 		  completeRequest(data);
 		};
 
@@ -150,7 +151,7 @@ let originalAllData = null;
 		arrSubAttr.length = 0;
 
 		for (const attribute in properties) {	
-			//console.log(attribute);
+			console.log(attribute);
 			//if (attribute === 'experiences' || attribute === 'educations' || attribute === 'certificates' || attribute === 'computer_skills') {				
 			  mapMainAttr.set(attribute, i);	
 				/* if (!Array.isArray(properties[attribute].items.properties)) {
