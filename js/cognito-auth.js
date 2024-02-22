@@ -141,6 +141,7 @@ var WildRydes = window.WildRydes || {};
 	
 		
 	function handleSignOutClick(event) {
+		console.log("userPool" + userPool)
 		userPool.getCurrentUser().signOut();
 	}
 
