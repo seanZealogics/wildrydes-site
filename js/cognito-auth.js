@@ -142,7 +142,10 @@ var WildRydes = window.WildRydes || {};
 		
 	function handleSignOutClick(event) {
 		console.log("userPool" + userPool)
-		userPool.getCurrentUser().signOut();
+		if (currentUser && currentUser.signOut) {
+			userPool.getCurrentUser().signOut();
+		}
+		window.location.href = 'index.html';
 	}
 
     function handleSignin(event) {
