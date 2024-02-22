@@ -142,6 +142,7 @@ var WildRydes = window.WildRydes || {};
 		
 	function handleSignOutClick(event) {
 		console.log("userPool" + userPool)
+		var currentUser = userPool.getCurrentUser();
 		if (currentUser && currentUser.signOut) {
 			userPool.getCurrentUser().signOut();
 		}
