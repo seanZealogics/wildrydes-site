@@ -34,7 +34,7 @@ let originalAllData = null;
         'experiences': { text: 'Experiences', value: 'experience', color: 'rgb(66,185,224)' },
 		'certificates': { text: 'Certificates', value: 'certificate', color: 'rgb(170,189,255)' },
 		'computer_skills': { text: 'Computer Skills', value: 'computer_skill', color: 'blue' },
-		'tags': { text: 'Tags', value: 'tag', color: 'blue' },
+		'tags': { text: 'Tags', value: 'tag', color: 'rgb(169,200,209)' },
         'default': { text: 'Select',value: '', color: 'green' }
     };
 	
