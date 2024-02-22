@@ -56,8 +56,10 @@ var WildRydes = window.WildRydes || {};
 									
 									var name = attributes[i].getValue().split('@')[0];
 									var topTitle = document.getElementById('topTitle');
-									topTitle.textContent = "Good Day! " + name;
-									topTitle.style.color = "navy";
+									if(topTitle !== null){
+										topTitle.textContent = "Good Day! " + name;
+										topTitle.style.color = "navy";
+									}
 								}
 							}
 						}
