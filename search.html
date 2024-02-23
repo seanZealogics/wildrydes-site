@@ -325,7 +325,7 @@
 									<!-- Dropdown - User Information -->
 									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+										<a id="signOut" class="dropdown-item" href="index.html" >
 											<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 											Logout
 										</a>
@@ -502,26 +502,6 @@
 		<a class="scroll-to-top rounded" href="#page-top">
 			<i class="fas fa-angle-up"></i>
 		</a>
-
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="index.html">Logout</a>
-					</div>
-				</div>
-			</div>
-		</div>
 		
 		<!-- Bootstrap core JavaScript-->
 		<script src="vendor/jquery/jquery.min.js"></script>
@@ -553,7 +533,62 @@
 
 		<script>
 			var isNavOpen = true; // Global variable to track the sidebar status
+			var WildRydes = window.WildRydes || {};
+			var poolData = {
+				UserPoolId: _config.cognito.userPoolId,
+				ClientId: _config.cognito.userPoolClientId
+			};
+			var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+			
+			WildRydes.map = WildRydes.map || {};
+			$('#signOut').on('click', function(event) {
+					console.log("signOut");
+					event.preventDefault(); // 阻止默认行为，即禁止跳转到 #logoutModal
+					WildRydes.signOut(); // 调用 WildRydes.signOut 函数
+				});
+			
 
+			(function rideScopeWrapper($) {
+				var authToken;
+				WildRydes.authToken.then(function setAuthToken(token) {
+					if (token) {
+						authToken = token;
+					} else {
+						window.location.href = 'index.html';
+					}
+				}).catch(function handleTokenError(error) {
+					alert(error);
+					window.location.href = 'index.html';
+				});
+				
+				WildRydes.signOut = function signOut() {
+					var currentUser = userPool.getCurrentUser();
+					if (currentUser && currentUser.signOut) {
+						userPool.getCurrentUser().signOut();
+					}
+					
+					window.location.href = 'index.html';
+				};
+
+
+			   
+				// Register click handler for #request button
+				$(function onDocReady() {
+
+					WildRydes.authToken.then(function updateAuthMessage(token) {
+						if (token) {
+							//displayUpdate('You are authenticated. Click to see your <a href="#authTokenModal" data-toggle="modal">auth token</a>.');
+							$('.authToken').text(token);
+						}
+					});
+
+					if (!_config.api.invokeUrl) {
+						$('#noApiMessage').show();
+					}
+				});
+
+			}(jQuery));
+			
 			function closeNav() {
 			  document.getElementById("mySidenav").style.width = "0";
 			  document.getElementById("main").style.marginLeft= "0";

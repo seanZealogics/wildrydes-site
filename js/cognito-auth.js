@@ -56,8 +56,10 @@ var WildRydes = window.WildRydes || {};
 									
 									var name = attributes[i].getValue().split('@')[0];
 									var topTitle = document.getElementById('topTitle');
-									topTitle.textContent = "Good Day! " + name;
-									topTitle.style.color = "navy";
+									if(topTitle !== null){
+										topTitle.textContent = "Good Day! " + name;
+										topTitle.style.color = "navy";
+									}
 								}
 							}
 						}
@@ -139,7 +141,12 @@ var WildRydes = window.WildRydes || {};
 	
 		
 	function handleSignOutClick(event) {
-		userPool.getCurrentUser().signOut();
+		console.log("userPool" + userPool)
+		var currentUser = userPool.getCurrentUser();
+		if (currentUser && currentUser.signOut) {
+			userPool.getCurrentUser().signOut();
+		}
+		window.location.href = 'index.html';
 	}
 
     function handleSignin(event) {
