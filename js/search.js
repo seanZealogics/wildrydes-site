@@ -532,7 +532,7 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
 			var prevCondition = "OR";
 			var prevKey = null;
 
-			
+			var isExactSearch = document.getElementById("isExactSearchBox");
 		 	var inputLinks = document.getElementsByTagName('input');
 			if (main_codingTool === undefined || main_codingTool === null || main_codingTool === "") 
 			{
@@ -633,6 +633,7 @@ console.log("experiences222 " +'<p>' + date + (industry ? '<br>' + industry : ''
 				};
 				localStorage.setItem('main_codingTool', "");
 			}
+			mainQueryData["exact"] = isExactSearch.checked;
 			//console.log("mainQueryData elementsQueryData legnth " + elementsQueryData);
 			console.log("JSON.stringify(mainQueryData) " + JSON.stringify(mainQueryData));
 			

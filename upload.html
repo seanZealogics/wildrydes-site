@@ -731,6 +731,13 @@ console.log("newItem click!! " + curSelectedTagName);
 					uploadFiles.push(file);
 					fileNames.push(fileName); // 將新檔案名稱添加到列表中
 				}
+				
+				var rowCount = table.data().length;
+				if (rowCount > 0) {						
+					$('#uploadResumeBtn').prop('disabled', false);
+				} else {					
+					$('#uploadResumeBtn').prop('disabled', true);
+				}
 				/*
 				table.rows().every(function(rowIdx, tableLoop, rowLoop) {
 					var tagCell = table.cell(rowIdx, 0).nodes().to$();
