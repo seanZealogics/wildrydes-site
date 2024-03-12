@@ -35,6 +35,7 @@ let originalAllData = null;
 		'certificates': { text: 'Certificates', value: 'certificate', color: 'rgb(170,189,255)' },
 		'computer_skills': { text: 'Computer Skills', value: 'computer_skill', color: 'blue' },
 		'tags': { text: 'Tags', value: 'tag', color: 'rgb(169,200,209)' },
+		'name': { text: 'Name', value: 'name', color: 'rgb(106,90,205)' },
         'default': { text: 'Select',value: '', color: 'green' }
     };
 	
